@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PROXOMO.h"
+#import "PROXOMO_API.h"
+#import "PROXOMO_AppData.h"
 
 @interface ViewController : UIViewController<PROXOMODelegate> {
-    PROXOMO_AppData * ad;
+    PROXOMO_AppData *ad;
 }
 @end

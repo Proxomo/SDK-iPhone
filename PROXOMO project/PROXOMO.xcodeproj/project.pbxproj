@@ -22,7 +22,6 @@
 
 /* Begin PBXBuildFile section */
 		1A0D5CE11444EF2400F45DA6 /* PROXOMO.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A0D5CDF1444EF2400F45DA6 /* PROXOMO.h */; };
-		1A6A50E81444D95100BA41EB /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A6A50BD1444CB9900BA41EB /* CoreFoundation.framework */; };
 		1A6A50EE1444D95200BA41EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A6A50EC1444D95200BA41EB /* InfoPlist.strings */; };
 		1A6A50F41444D96100BA41EB /* PROXOMOAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A6A508D1444C67100BA41EB /* PROXOMOAppDelegate.h */; };
 		1A6A50F51444D96400BA41EB /* PROXOMOAppDelegate_iPhone.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A6A50911444C67100BA41EB /* PROXOMOAppDelegate_iPhone.h */; };
@@ -156,7 +155,6 @@
 		1A6A50B31444C7D600BA41EB /* PROXOMO_Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PROXOMO_Notifications.m; sourceTree = "<group>"; };
 		1A6A50B51444C7EA00BA41EB /* PROXOMO_Persons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PROXOMO_Persons.h; sourceTree = "<group>"; };
 		1A6A50B61444C7EA00BA41EB /* PROXOMO_Persons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PROXOMO_Persons.m; sourceTree = "<group>"; };
-		1A6A50BD1444CB9900BA41EB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		1A6A50EB1444D95200BA41EB /* PROXOMO-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PROXOMO-Info.plist"; sourceTree = "<group>"; };
 		1A6A50ED1444D95200BA41EB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1A6A50EF1444D95200BA41EB /* PROXOMO-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PROXOMO-Prefix.pch"; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A6A50E81444D95100BA41EB /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +264,6 @@
 				1A6A507E1444C67000BA41EB /* UIKit.framework */,
 				1A6A50801444C67100BA41EB /* Foundation.framework */,
 				1A6A50821444C67100BA41EB /* CoreGraphics.framework */,
-				1A6A50BD1444CB9900BA41EB /* CoreFoundation.framework */,
 				61B506E61458CBE00052E6F3 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;

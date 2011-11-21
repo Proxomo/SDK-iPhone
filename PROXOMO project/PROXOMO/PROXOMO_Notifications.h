@@ -2,16 +2,16 @@
 //  PROXOMO_Notifications.h
 //  PROXOMO
 //
-//  Created by Ray Venenoso.
-//  Copyright 2011 MSU-IIT. All rights reserved.
+//  Created by Charisse Dirain on 10/26/11.
+//  Copyright (c) 2011 CreativeGurus. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "PROXOMO_API.h"
 
-
-@interface PROXOMO_Notifications : NSObject {
+@interface PROXOMO_Notifications : PROXOMO_API {
     
 }
--(void) Notification_Send;
+-(void) Notification_Send:(NSObject*)object;
 
 @end

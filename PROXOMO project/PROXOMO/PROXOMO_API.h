@@ -26,6 +26,7 @@
     __weak id <PROXOMODelegate> delegate;
     NSMutableURLRequest * request;
     NSMutableData *responseData;
+    BOOL isExpired;
 }
 
 - (void)makeRequest:(NSString*)path parameters:(NSString*)parameters method:(NSString*)method;

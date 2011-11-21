@@ -18,14 +18,22 @@
 -(id)init {
     self = [super init];
     if (self) {
-        accessToken = nil;
+        accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
+        expires = [[NSUserDefaults standardUserDefaults] objectForKey:@"expires"];
     }
     return self;
 }
 
 - (void)makeRequest:(NSString*)path parameters:(NSString*)parameters method:(NSString*)method {
     
-    if (accessToken == nil) {
+    //check expiration date of accesstoken first
+    if([expires doubleValue]<=[[NSDate date] timeIntervalSince1970]){
+        isExpired = YES;
+    }else{
+        isExpired = NO;
+    }
+    
+    if (accessToken == nil || isExpired) {
         NSString *urlstring=@"https://service.proxomo.com/v09/json/security/accesstoken/get?applicationid=%@&proxomoAPIKey=%@";
         NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] init];
 
@@ -43,7 +51,12 @@
         accessToken = [dict objectForKey:@"AccessToken"];
         NSLog(@"accesstoken string %@",accessToken);
         expires = [dict objectForKey:@"Expires"];
-        NSLog(@"expires %@",expires);
+        NSLog(@"expires %@",[NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]);
+        
+        [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"accessToken"];
+        [[NSUserDefaults standardUserDefaults] setObject:expires forKey:@"expires"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
     }    
     NSURL *myURL;
     if ([method isEqualToString:@"GET"] && parameters != nil && [parameters length] > 0) {

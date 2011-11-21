@@ -7,8 +7,8 @@
 //
 
 #import "ViewController.h"
-
-#import "PROXOMO.h"
+#import "PROXOMO_API.h"
+#import "SBJson.h"
 
 @implementation ViewController
 
@@ -28,8 +28,9 @@
     ad.apikey =@"xEEF1e56ghNixRIaixe2USHoQTnZVm7tqzzfMGemoX8=";
     ad.applicationid=@"ihjNViYPiCGMdnjR";
     ad.delegate = self;
-    NSDictionary * appDataTest = [NSDictionary dictionaryWithObjectsAndKeys:@"Name",@"Key",@"Cha",@"Value",@"First Name",@"ObjectType", nil];
+    NSDictionary * appDataTest = [NSDictionary dictionaryWithObjectsAndKeys:@"Name",@"Key",@"Char",@"Value",@"First Name",@"ObjectType", nil];
     [ad AppData_Add:appDataTest];
+    
 }
 -(void)ProxomoGeoCodeByIPAddressEventHandler:(NSDictionary*)result {
     
@@ -38,19 +39,27 @@
     [ad AppData_Get:response];
 }
 -(void) AppData_DeleteEventHandler:(NSString*)response {
-    
+    [ad AppData_Get:response];
+   
 }
 -(void) AppData_GetEventHandler:(NSString*)response {
+    NSLog(@"updating appdata");
+    NSString *dict = [[response JSONValue] objectForKey:@"ID"];
+    NSLog(@"response id %@", dict);
+    //NSString *responseid=dict;
     
+    //NSDictionary * appDataTest1 = [NSDictionary dictionaryWithObjectsAndKeys:@"ID",responseid,@"Name",@"Key",@"Charisse",@"Value",@"First Name",@"ObjectType", nil];
+    //[ad AppData_Update:appDataTest1];
 }
 -(void) AppData_GetAllEventHandler:(NSString*)response {
-    
+    //[ad AppData_Get:response];
 }
 -(void) AppData_UpdateEventHandler:(NSString*)response {
-    
+    //[ad AppData_Get:response];
+   
 }
 -(void) AppData_SearchEventHandler:(NSString*)response {
-    
+    //[ad AppData_Get:response];
 }
 
 

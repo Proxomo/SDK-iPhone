@@ -2,28 +2,28 @@
 //  PROXOMO_Locations.h
 //  PROXOMO
 //
-//  Created by Ray Venenoso.
-//  Copyright 2011 MSU-IIT. All rights reserved.
+//  Created by Charisse Dirain on 10/26/11.
+//  Copyright (c) 2011 CreativeGurus. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "PROXOMO_API.h"
 
-
-@interface PROXOMO_Locations : NSObject {
+@interface PROXOMO_Locations : PROXOMO_API {
     
 }
--(void) Location_Add;
--(void) Location_Delete;
--(void) Location_Get;
--(void) Location_Update;
--(void) Location_CategoriesGet;
--(void) Locations_Search_byAddress;
--(void) Locations_Search_byGPS;
--(void) Locations_Search_byIPAddress;
--(void) Location_AppData_Add;
--(void) Location_AppData_Delete;
--(void) Location_AppData_Update;
--(void) Location_AppData_Get;
--(void) Location_AppData_GetAll;
+-(void) Location_Add:(NSObject*)object;
+-(void) Location_Delete:(NSObject*)object;
+-(void) Location_Get:(NSObject*)object;
+-(void) Location_Update:(NSObject*)object;
+-(void) Location_CategoriesGet:(NSObject*)object;
+-(void) Locations_Search_byAddress:(NSObject*)object;
+-(void) Locations_Search_byGPS:(NSObject*)latitude:(NSObject*)longitude;
+-(void) Locations_Search_byIPAddress:(NSString*)ipAddress;
+-(void) Location_AppData_Add:(NSObject*)object;
+-(void) Location_AppData_Delete:(NSObject*)object  : (NSObject*) appDataID;
+-(void) Location_AppData_Update:(NSObject*)object;
+-(void) Location_AppData_Get:(NSObject*)object  : (NSObject*) appDataID;
+-(void) Location_AppData_GetAll:(NSObject*)object ;
 
 @end
