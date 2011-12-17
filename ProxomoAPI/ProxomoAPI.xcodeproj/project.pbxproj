@@ -1,0 +1,530 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3700E4801491C103000A88C2 /* ProxomoApi+Proxomo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3700E47E1491C100000A88C2 /* ProxomoApi+Proxomo.h */; };
+		3700E4811491C103000A88C2 /* ProxomoApi+Proxomo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3700E47F1491C101000A88C2 /* ProxomoApi+Proxomo.m */; };
+		3700E48514930A01000A88C2 /* Category.h in Headers */ = {isa = PBXBuildFile; fileRef = 3700E483149309FE000A88C2 /* Category.h */; };
+		3700E48614930A01000A88C2 /* Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3700E48414930A00000A88C2 /* Category.m */; };
+		3700E48B14956675000A88C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48A14956675000A88C2 /* UIKit.framework */; };
+		3700E48D14956706000A88C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48C14956706000A88C2 /* CoreGraphics.framework */; };
+		370330111485CACB006FFEF6 /* ProxomoList.h in Headers */ = {isa = PBXBuildFile; fileRef = 3703300F1485CACB006FFEF6 /* ProxomoList.h */; };
+		370330121485CACB006FFEF6 /* ProxomoList.m in Sources */ = {isa = PBXBuildFile; fileRef = 370330101485CACB006FFEF6 /* ProxomoList.m */; };
+		3769CFBE148C417000E6B629 /* Proxomo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3769CFBD148C416F00E6B629 /* Proxomo.h */; };
+		37AC64BB147E069B00F0CDD3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC64BA147E069B00F0CDD3 /* Foundation.framework */; };
+		37AC64C9147E069C00F0CDD3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC64C8147E069C00F0CDD3 /* SenTestingKit.framework */; };
+		37AC64CC147E069C00F0CDD3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC64BA147E069B00F0CDD3 /* Foundation.framework */; };
+		37AC64CF147E069C00F0CDD3 /* libProxomoAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC64B7147E069B00F0CDD3 /* libProxomoAPI.a */; };
+		37AC64D5147E069C00F0CDD3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37AC64D3147E069C00F0CDD3 /* InfoPlist.strings */; };
+		37AC64D8147E069C00F0CDD3 /* ProxomoAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64D7147E069C00F0CDD3 /* ProxomoAPITests.m */; };
+		37AC64F0147E093200F0CDD3 /* AppData.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC64E2147E093200F0CDD3 /* AppData.h */; };
+		37AC64F1147E093200F0CDD3 /* AppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64E3147E093200F0CDD3 /* AppData.m */; };
+		37AC64F2147E093200F0CDD3 /* Event.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC64E4147E093200F0CDD3 /* Event.h */; };
+		37AC64F3147E093200F0CDD3 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64E5147E093200F0CDD3 /* Event.m */; };
+		37AC64F4147E093200F0CDD3 /* Friend.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC64E6147E093200F0CDD3 /* Friend.h */; };
+		37AC64F5147E093200F0CDD3 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64E7147E093200F0CDD3 /* Friend.m */; };
+		37AC64F6147E093200F0CDD3 /* GeoCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC64E8147E093200F0CDD3 /* GeoCode.h */; };
+		37AC64F7147E093200F0CDD3 /* GeoCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64E9147E093200F0CDD3 /* GeoCode.m */; };
+		37AC64F8147E093200F0CDD3 /* Location.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC64EA147E093200F0CDD3 /* Location.h */; };
+		37AC64F9147E093200F0CDD3 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64EB147E093200F0CDD3 /* Location.m */; };
+		37AC64FA147E093200F0CDD3 /* Notification.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC64EC147E093200F0CDD3 /* Notification.h */; };
+		37AC64FB147E093200F0CDD3 /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64ED147E093200F0CDD3 /* Notification.m */; };
+		37AC64FC147E093200F0CDD3 /* Person.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC64EE147E093200F0CDD3 /* Person.h */; };
+		37AC64FD147E093200F0CDD3 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64EF147E093200F0CDD3 /* Person.m */; };
+		37AC6500147E0B8D00F0CDD3 /* ProxomoApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC64FE147E0B8D00F0CDD3 /* ProxomoApi.h */; };
+		37AC6501147E0B8D00F0CDD3 /* ProxomoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64FF147E0B8D00F0CDD3 /* ProxomoApi.m */; };
+		37AC650F1482B5CB00F0CDD3 /* ProxomoObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */; };
+		37AC65101482B5CB00F0CDD3 /* ProxomoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */; };
+		37B4AA4A148739E6002FF82E /* ProxomoObject+Proxomo.h in Headers */ = {isa = PBXBuildFile; fileRef = 37B4AA48148739E6002FF82E /* ProxomoObject+Proxomo.h */; };
+		37B4AA4B148739E6002FF82E /* ProxomoObject+Proxomo.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B4AA49148739E6002FF82E /* ProxomoObject+Proxomo.m */; };
+		37B4AA4E14873FC7002FF82E /* ProxomoList+Proxomo.h in Headers */ = {isa = PBXBuildFile; fileRef = 37B4AA4C14873FC7002FF82E /* ProxomoList+Proxomo.h */; };
+		37B4AA4F14873FC7002FF82E /* ProxomoList+Proxomo.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B4AA4D14873FC7002FF82E /* ProxomoList+Proxomo.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		37AC64CD147E069C00F0CDD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37AC64AE147E069B00F0CDD3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37AC64B6147E069B00F0CDD3;
+			remoteInfo = ProxomoAPI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3700E47E1491C100000A88C2 /* ProxomoApi+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProxomoApi+Proxomo.h"; sourceTree = "<group>"; };
+		3700E47F1491C101000A88C2 /* ProxomoApi+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ProxomoApi+Proxomo.m"; sourceTree = "<group>"; };
+		3700E483149309FE000A88C2 /* Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Category.h; sourceTree = "<group>"; };
+		3700E48414930A00000A88C2 /* Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Category.m; sourceTree = "<group>"; };
+		3700E48A14956675000A88C2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3700E48C14956706000A88C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3703300F1485CACB006FFEF6 /* ProxomoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxomoList.h; sourceTree = "<group>"; };
+		370330101485CACB006FFEF6 /* ProxomoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxomoList.m; sourceTree = "<group>"; };
+		3769CFBD148C416F00E6B629 /* Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Proxomo.h; sourceTree = "<group>"; };
+		37AC64B7147E069B00F0CDD3 /* libProxomoAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libProxomoAPI.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		37AC64BA147E069B00F0CDD3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		37AC64BE147E069C00F0CDD3 /* ProxomoAPI-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProxomoAPI-Prefix.pch"; sourceTree = "<group>"; };
+		37AC64C7147E069C00F0CDD3 /* ProxomoAPITests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProxomoAPITests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		37AC64C8147E069C00F0CDD3 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		37AC64D2147E069C00F0CDD3 /* ProxomoAPITests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProxomoAPITests-Info.plist"; sourceTree = "<group>"; };
+		37AC64D4147E069C00F0CDD3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		37AC64D6147E069C00F0CDD3 /* ProxomoAPITests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProxomoAPITests.h; sourceTree = "<group>"; };
+		37AC64D7147E069C00F0CDD3 /* ProxomoAPITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoAPITests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		37AC64E2147E093200F0CDD3 /* AppData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppData.h; sourceTree = "<group>"; };
+		37AC64E3147E093200F0CDD3 /* AppData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppData.m; sourceTree = "<group>"; };
+		37AC64E4147E093200F0CDD3 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Event.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		37AC64E5147E093200F0CDD3 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		37AC64E6147E093200F0CDD3 /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		37AC64E7147E093200F0CDD3 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
+		37AC64E8147E093200F0CDD3 /* GeoCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoCode.h; sourceTree = "<group>"; };
+		37AC64E9147E093200F0CDD3 /* GeoCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoCode.m; sourceTree = "<group>"; };
+		37AC64EA147E093200F0CDD3 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Location.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		37AC64EB147E093200F0CDD3 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		37AC64EC147E093200F0CDD3 /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notification.h; sourceTree = "<group>"; };
+		37AC64ED147E093200F0CDD3 /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notification.m; sourceTree = "<group>"; };
+		37AC64EE147E093200F0CDD3 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		37AC64EF147E093200F0CDD3 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		37AC64FE147E0B8D00F0CDD3 /* ProxomoApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoApi.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		37AC64FF147E0B8D00F0CDD3 /* ProxomoApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoApi.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxomoObject.h; sourceTree = "<group>"; };
+		37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxomoObject.m; sourceTree = "<group>"; };
+		37B4AA48148739E6002FF82E /* ProxomoObject+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProxomoObject+Proxomo.h"; sourceTree = "<group>"; };
+		37B4AA49148739E6002FF82E /* ProxomoObject+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ProxomoObject+Proxomo.m"; sourceTree = "<group>"; };
+		37B4AA4C14873FC7002FF82E /* ProxomoList+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProxomoList+Proxomo.h"; sourceTree = "<group>"; };
+		37B4AA4D14873FC7002FF82E /* ProxomoList+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ProxomoList+Proxomo.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		37AC64B4147E069B00F0CDD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37AC64BB147E069B00F0CDD3 /* Foundation.framework in Frameworks */,
+				3700E48B14956675000A88C2 /* UIKit.framework in Frameworks */,
+				3700E48D14956706000A88C2 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37AC64C3147E069C00F0CDD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37AC64C9147E069C00F0CDD3 /* SenTestingKit.framework in Frameworks */,
+				37AC64CC147E069C00F0CDD3 /* Foundation.framework in Frameworks */,
+				37AC64CF147E069C00F0CDD3 /* libProxomoAPI.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		37AC64AC147E069B00F0CDD3 = {
+			isa = PBXGroup;
+			children = (
+				37AC64BC147E069C00F0CDD3 /* ProxomoAPI */,
+				37AC64D0147E069C00F0CDD3 /* ProxomoAPITests */,
+				37AC64B9147E069B00F0CDD3 /* Frameworks */,
+				37AC64B8147E069B00F0CDD3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		37AC64B8147E069B00F0CDD3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37AC64B7147E069B00F0CDD3 /* libProxomoAPI.a */,
+				37AC64C7147E069C00F0CDD3 /* ProxomoAPITests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		37AC64B9147E069B00F0CDD3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3700E48C14956706000A88C2 /* CoreGraphics.framework */,
+				3700E48A14956675000A88C2 /* UIKit.framework */,
+				37AC64BA147E069B00F0CDD3 /* Foundation.framework */,
+				37AC64C8147E069C00F0CDD3 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		37AC64BC147E069C00F0CDD3 /* ProxomoAPI */ = {
+			isa = PBXGroup;
+			children = (
+				3700E47E1491C100000A88C2 /* ProxomoApi+Proxomo.h */,
+				3700E47F1491C101000A88C2 /* ProxomoApi+Proxomo.m */,
+				37AC64FE147E0B8D00F0CDD3 /* ProxomoApi.h */,
+				37AC64FF147E0B8D00F0CDD3 /* ProxomoApi.m */,
+				3769CFBD148C416F00E6B629 /* Proxomo.h */,
+				37AC64E1147E08F800F0CDD3 /* Definitions */,
+				37AC64BD147E069C00F0CDD3 /* Supporting Files */,
+			);
+			path = ProxomoAPI;
+			sourceTree = "<group>";
+		};
+		37AC64BD147E069C00F0CDD3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				37AC64BE147E069C00F0CDD3 /* ProxomoAPI-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		37AC64D0147E069C00F0CDD3 /* ProxomoAPITests */ = {
+			isa = PBXGroup;
+			children = (
+				37AC64D6147E069C00F0CDD3 /* ProxomoAPITests.h */,
+				37AC64D7147E069C00F0CDD3 /* ProxomoAPITests.m */,
+				37AC64D1147E069C00F0CDD3 /* Supporting Files */,
+			);
+			path = ProxomoAPITests;
+			sourceTree = "<group>";
+		};
+		37AC64D1147E069C00F0CDD3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				37AC64D2147E069C00F0CDD3 /* ProxomoAPITests-Info.plist */,
+				37AC64D3147E069C00F0CDD3 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		37AC64E1147E08F800F0CDD3 /* Definitions */ = {
+			isa = PBXGroup;
+			children = (
+				37B4AA48148739E6002FF82E /* ProxomoObject+Proxomo.h */,
+				37B4AA49148739E6002FF82E /* ProxomoObject+Proxomo.m */,
+				37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */,
+				37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */,
+				37B4AA4C14873FC7002FF82E /* ProxomoList+Proxomo.h */,
+				37B4AA4D14873FC7002FF82E /* ProxomoList+Proxomo.m */,
+				3703300F1485CACB006FFEF6 /* ProxomoList.h */,
+				370330101485CACB006FFEF6 /* ProxomoList.m */,
+				37AC64E2147E093200F0CDD3 /* AppData.h */,
+				37AC64E3147E093200F0CDD3 /* AppData.m */,
+				37AC64E4147E093200F0CDD3 /* Event.h */,
+				37AC64E5147E093200F0CDD3 /* Event.m */,
+				37AC64E6147E093200F0CDD3 /* Friend.h */,
+				37AC64E7147E093200F0CDD3 /* Friend.m */,
+				37AC64E8147E093200F0CDD3 /* GeoCode.h */,
+				37AC64E9147E093200F0CDD3 /* GeoCode.m */,
+				37AC64EA147E093200F0CDD3 /* Location.h */,
+				37AC64EB147E093200F0CDD3 /* Location.m */,
+				37AC64EC147E093200F0CDD3 /* Notification.h */,
+				37AC64ED147E093200F0CDD3 /* Notification.m */,
+				37AC64EE147E093200F0CDD3 /* Person.h */,
+				37AC64EF147E093200F0CDD3 /* Person.m */,
+				3700E483149309FE000A88C2 /* Category.h */,
+				3700E48414930A00000A88C2 /* Category.m */,
+			);
+			name = Definitions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		37AC64B5147E069B00F0CDD3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37AC64F0147E093200F0CDD3 /* AppData.h in Headers */,
+				37AC64F2147E093200F0CDD3 /* Event.h in Headers */,
+				37AC64F4147E093200F0CDD3 /* Friend.h in Headers */,
+				37AC64F6147E093200F0CDD3 /* GeoCode.h in Headers */,
+				37AC64F8147E093200F0CDD3 /* Location.h in Headers */,
+				37AC64FA147E093200F0CDD3 /* Notification.h in Headers */,
+				37AC64FC147E093200F0CDD3 /* Person.h in Headers */,
+				37AC6500147E0B8D00F0CDD3 /* ProxomoApi.h in Headers */,
+				37AC650F1482B5CB00F0CDD3 /* ProxomoObject.h in Headers */,
+				370330111485CACB006FFEF6 /* ProxomoList.h in Headers */,
+				37B4AA4A148739E6002FF82E /* ProxomoObject+Proxomo.h in Headers */,
+				37B4AA4E14873FC7002FF82E /* ProxomoList+Proxomo.h in Headers */,
+				3769CFBE148C417000E6B629 /* Proxomo.h in Headers */,
+				3700E4801491C103000A88C2 /* ProxomoApi+Proxomo.h in Headers */,
+				3700E48514930A01000A88C2 /* Category.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		37AC64B6147E069B00F0CDD3 /* ProxomoAPI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37AC64DB147E069C00F0CDD3 /* Build configuration list for PBXNativeTarget "ProxomoAPI" */;
+			buildPhases = (
+				37AC64B3147E069B00F0CDD3 /* Sources */,
+				37AC64B4147E069B00F0CDD3 /* Frameworks */,
+				37AC64B5147E069B00F0CDD3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ProxomoAPI;
+			productName = ProxomoAPI;
+			productReference = 37AC64B7147E069B00F0CDD3 /* libProxomoAPI.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		37AC64C6147E069C00F0CDD3 /* ProxomoAPITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37AC64DE147E069C00F0CDD3 /* Build configuration list for PBXNativeTarget "ProxomoAPITests" */;
+			buildPhases = (
+				37AC64C2147E069C00F0CDD3 /* Sources */,
+				37AC64C3147E069C00F0CDD3 /* Frameworks */,
+				37AC64C4147E069C00F0CDD3 /* Resources */,
+				37AC64C5147E069C00F0CDD3 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37AC64CE147E069C00F0CDD3 /* PBXTargetDependency */,
+			);
+			name = ProxomoAPITests;
+			productName = ProxomoAPITests;
+			productReference = 37AC64C7147E069C00F0CDD3 /* ProxomoAPITests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		37AC64AE147E069B00F0CDD3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 37AC64B1147E069B00F0CDD3 /* Build configuration list for PBXProject "ProxomoAPI" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 37AC64AC147E069B00F0CDD3;
+			productRefGroup = 37AC64B8147E069B00F0CDD3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				37AC64B6147E069B00F0CDD3 /* ProxomoAPI */,
+				37AC64C6147E069C00F0CDD3 /* ProxomoAPITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		37AC64C4147E069C00F0CDD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37AC64D5147E069C00F0CDD3 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		37AC64C5147E069C00F0CDD3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		37AC64B3147E069B00F0CDD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37AC64F1147E093200F0CDD3 /* AppData.m in Sources */,
+				37AC64F3147E093200F0CDD3 /* Event.m in Sources */,
+				37AC64F5147E093200F0CDD3 /* Friend.m in Sources */,
+				37AC64F7147E093200F0CDD3 /* GeoCode.m in Sources */,
+				37AC64F9147E093200F0CDD3 /* Location.m in Sources */,
+				37AC64FB147E093200F0CDD3 /* Notification.m in Sources */,
+				37AC64FD147E093200F0CDD3 /* Person.m in Sources */,
+				37AC6501147E0B8D00F0CDD3 /* ProxomoApi.m in Sources */,
+				37AC65101482B5CB00F0CDD3 /* ProxomoObject.m in Sources */,
+				370330121485CACB006FFEF6 /* ProxomoList.m in Sources */,
+				37B4AA4B148739E6002FF82E /* ProxomoObject+Proxomo.m in Sources */,
+				37B4AA4F14873FC7002FF82E /* ProxomoList+Proxomo.m in Sources */,
+				3700E4811491C103000A88C2 /* ProxomoApi+Proxomo.m in Sources */,
+				3700E48614930A01000A88C2 /* Category.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37AC64C2147E069C00F0CDD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37AC64D8147E069C00F0CDD3 /* ProxomoAPITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		37AC64CE147E069C00F0CDD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37AC64B6147E069B00F0CDD3 /* ProxomoAPI */;
+			targetProxy = 37AC64CD147E069C00F0CDD3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		37AC64D3147E069C00F0CDD3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				37AC64D4147E069C00F0CDD3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		37AC64D9147E069C00F0CDD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		37AC64DA147E069C00F0CDD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		37AC64DC147E069C00F0CDD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ProxomoAPI.dst;
+				DYLIB_CURRENT_VERSION = 09;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ProxomoAPI/ProxomoAPI-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		37AC64DD147E069C00F0CDD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ProxomoAPI.dst;
+				DYLIB_CURRENT_VERSION = 09;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ProxomoAPI/ProxomoAPI-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		37AC64DF147E069C00F0CDD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ProxomoAPI/ProxomoAPI-Prefix.pch";
+				INFOPLIST_FILE = "ProxomoAPITests/ProxomoAPITests-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		37AC64E0147E069C00F0CDD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ProxomoAPI/ProxomoAPI-Prefix.pch";
+				INFOPLIST_FILE = "ProxomoAPITests/ProxomoAPITests-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		37AC64B1147E069B00F0CDD3 /* Build configuration list for PBXProject "ProxomoAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37AC64D9147E069C00F0CDD3 /* Debug */,
+				37AC64DA147E069C00F0CDD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37AC64DB147E069C00F0CDD3 /* Build configuration list for PBXNativeTarget "ProxomoAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37AC64DC147E069C00F0CDD3 /* Debug */,
+				37AC64DD147E069C00F0CDD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37AC64DE147E069C00F0CDD3 /* Build configuration list for PBXNativeTarget "ProxomoAPITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37AC64DF147E069C00F0CDD3 /* Debug */,
+				37AC64E0147E069C00F0CDD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 37AC64AE147E069B00F0CDD3 /* Project object */;
+}
