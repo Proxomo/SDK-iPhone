@@ -22,7 +22,7 @@
     NSLog(@"Async response received for %@", proxomoObject);
 }
 
--(void)Proxomo:(id)button {
+-(void)ProxomoAuthorize:(id)button {
     userContext = [[Person alloc] initWithContext:apiContext];
     [userContext loginToSocialNetwork:FACEBOOK];
 }
@@ -53,7 +53,7 @@
     [super viewDidAppear:animated];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button addTarget:self 
-               action:@selector(Proxomo:)
+               action:@selector(ProxomoAuthorize:)
      forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:@"Proxomo" forState:UIControlStateNormal];
     button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
