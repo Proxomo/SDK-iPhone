@@ -3,7 +3,7 @@
 //  ProxomoAPI
 //
 //  Created by Fred Crable on 12/8/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 Proxomo. All rights reserved.
 //
 
 #import "ProxomoApi+Proxomo.h"
@@ -18,6 +18,7 @@
 
 #define JSON_URL @"/v09/json/"
 #define HTTP405_NOTALLOWED 405
+#define kBaseURL @"https://service.proxomo.com/"
 
 @implementation ProxomoApi (Proxomo)
 

@@ -3,7 +3,7 @@
 //  ProxomoAPI
 //
 //  Created by Fred Crable on 12/4/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 Proxomo. All rights reserved.
 //
 
 #ifndef ProxomoAPI_Proxomo_h

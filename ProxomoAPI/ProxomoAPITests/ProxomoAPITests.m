@@ -3,7 +3,7 @@
 //  ProxomoAPITests
 //
 //  Created by Fred Crable on 11/23/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 Proxomo. All rights reserved.
 //
 
 #import "ProxomoAPITests.h"
@@ -405,9 +405,9 @@
     //[self unitEvent_Synchronous];
 }
 
--(void) testPerson {
+-(void) ntestPerson {
     Person *person = [[Person alloc] init];
-    [person login];
+    [person loginToSocialNetwork:FACEBOOK];
     
 }
 

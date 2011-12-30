@@ -15,6 +15,9 @@
 #define __TRACE_API
 //#define __TRACE_DATA
 
+#define kBaseURL @"https://service.proxomo.com/v09/"
+#define kBaseJSON @"json"
+
 @implementation ProxomoApi
 
 @synthesize apiStatus;
@@ -96,8 +99,10 @@
 
 - (BOOL)loginApi:(id <ProxomoApiDelegate>) requestDelegate {
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] init];
-    NSString *urlstring=@"https://service.proxomo.com/v09/json/security/accesstoken/get?applicationid=%@&proxomoAPIKey=%@";
-    
+    NSString *urlstring= [kBaseURL stringByAppendingString:@"%@/security/accesstoken/get?applicationid=%@&proxomoAPIKey=%@"];
+    // @"https://service.proxomo.com/v09/json/security/accesstoken/get?applicationid=%@&proxomoAPIKey=%@";
+ 
+     
     if(apiKey == nil || applicationId == nil){
         NSLog(@"application ID is not set!");
         if(requestDelegate){
@@ -106,7 +111,7 @@
         return NO;
     }
     
-    NSString *f_urlstring= [NSString stringWithFormat:urlstring,[applicationId stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],[apiKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *f_urlstring= [NSString stringWithFormat:urlstring, kBaseJSON, [applicationId stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],[apiKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [urlRequest setURL:[NSURL URLWithString:f_urlstring]];
     [urlRequest setHTTPMethod:@"GET"]; 
     NSURLResponse *response; 

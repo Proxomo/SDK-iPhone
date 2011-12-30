@@ -20,21 +20,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		37F0DBCE149FEB1100E7A46D /* libProxomoAPI.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libProxomoAPI.a; path = "../ProxomoAPI/build/Release-iphoneos/libProxomoAPI.a"; sourceTree = "<group>"; };
+		37F0DBCE149FEB1100E7A46D /* libProxomoAPI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libProxomoAPI.a; path = "../ProxomoAPI/build/Release-iphoneos/libProxomoAPI.a"; sourceTree = "<group>"; };
 		37FE16E0149FB177009E45D1 /* ProxomoSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProxomoSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37FE16E4149FB177009E45D1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		37FE16E6149FB177009E45D1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		37FE16E8149FB177009E45D1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		37FE16EC149FB177009E45D1 /* ProxomoSample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProxomoSample-Info.plist"; sourceTree = "<group>"; };
 		37FE16EE149FB177009E45D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		37FE16F0149FB177009E45D1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		37FE16F0149FB177009E45D1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37FE16F2149FB177009E45D1 /* ProxomoSample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProxomoSample-Prefix.pch"; sourceTree = "<group>"; };
-		37FE16F3149FB177009E45D1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		37FE16F4149FB177009E45D1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		37FE16F3149FB177009E45D1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		37FE16F4149FB177009E45D1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37FE16F7149FB178009E45D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		37FE16FA149FB178009E45D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		37FE16FC149FB178009E45D1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		37FE16FD149FB178009E45D1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		37FE16FC149FB178009E45D1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		37FE16FD149FB178009E45D1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,10 +258,7 @@
 				GCC_PREFIX_HEADER = "ProxomoSample/ProxomoSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = ../ProxomoAPI/ProxomoAPI/;
 				INFOPLIST_FILE = "ProxomoSample/ProxomoSample-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../fredcrable/Library/Developer/Xcode/DerivedData/SDK-iPhone-byovgyufzlbwmeerkgdeejfbjilb/Build/Products/Debug-iphoneos\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -274,10 +271,7 @@
 				GCC_PREFIX_HEADER = "ProxomoSample/ProxomoSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = ../ProxomoAPI/ProxomoAPI/;
 				INFOPLIST_FILE = "ProxomoSample/ProxomoSample-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../../fredcrable/Library/Developer/Xcode/DerivedData/SDK-iPhone-byovgyufzlbwmeerkgdeejfbjilb/Build/Products/Debug-iphoneos\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

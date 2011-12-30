@@ -15,6 +15,10 @@
 		3700E48D14956706000A88C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48C14956706000A88C2 /* CoreGraphics.framework */; };
 		370330111485CACB006FFEF6 /* ProxomoList.h in Headers */ = {isa = PBXBuildFile; fileRef = 3703300F1485CACB006FFEF6 /* ProxomoList.h */; };
 		370330121485CACB006FFEF6 /* ProxomoList.m in Sources */ = {isa = PBXBuildFile; fileRef = 370330101485CACB006FFEF6 /* ProxomoList.m */; };
+		3737F40214AE2E20004C63AF /* AuthorizeDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 3737F40014AE2E20004C63AF /* AuthorizeDialog.h */; };
+		3737F40314AE2E20004C63AF /* AuthorizeDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 3737F40114AE2E20004C63AF /* AuthorizeDialog.m */; };
+		3737F40414AE305D004C63AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48A14956675000A88C2 /* UIKit.framework */; };
+		3737F40514AE3152004C63AF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48C14956706000A88C2 /* CoreGraphics.framework */; };
 		3769CFBE148C417000E6B629 /* Proxomo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3769CFBD148C416F00E6B629 /* Proxomo.h */; };
 		37AC64BB147E069B00F0CDD3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC64BA147E069B00F0CDD3 /* Foundation.framework */; };
 		37AC64C9147E069C00F0CDD3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC64C8147E069C00F0CDD3 /* SenTestingKit.framework */; };
@@ -57,15 +61,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3700E47E1491C100000A88C2 /* ProxomoApi+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProxomoApi+Proxomo.h"; sourceTree = "<group>"; };
-		3700E47F1491C101000A88C2 /* ProxomoApi+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ProxomoApi+Proxomo.m"; sourceTree = "<group>"; };
-		3700E483149309FE000A88C2 /* Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Category.h; sourceTree = "<group>"; };
-		3700E48414930A00000A88C2 /* Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Category.m; sourceTree = "<group>"; };
+		3700E47E1491C100000A88C2 /* ProxomoApi+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "ProxomoApi+Proxomo.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3700E47F1491C101000A88C2 /* ProxomoApi+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "ProxomoApi+Proxomo.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3700E483149309FE000A88C2 /* Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Category.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3700E48414930A00000A88C2 /* Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Category.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3700E48A14956675000A88C2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3700E48C14956706000A88C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		3703300F1485CACB006FFEF6 /* ProxomoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxomoList.h; sourceTree = "<group>"; };
-		370330101485CACB006FFEF6 /* ProxomoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxomoList.m; sourceTree = "<group>"; };
-		3769CFBD148C416F00E6B629 /* Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Proxomo.h; sourceTree = "<group>"; };
+		3703300F1485CACB006FFEF6 /* ProxomoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoList.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		370330101485CACB006FFEF6 /* ProxomoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoList.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3737F40014AE2E20004C63AF /* AuthorizeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizeDialog.h; sourceTree = "<group>"; };
+		3737F40114AE2E20004C63AF /* AuthorizeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizeDialog.m; sourceTree = "<group>"; };
+		3769CFBD148C416F00E6B629 /* Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Proxomo.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		37AC64B7147E069B00F0CDD3 /* libProxomoAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libProxomoAPI.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		37AC64BA147E069B00F0CDD3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		37AC64BE147E069C00F0CDD3 /* ProxomoAPI-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProxomoAPI-Prefix.pch"; sourceTree = "<group>"; };
@@ -73,7 +79,7 @@
 		37AC64C8147E069C00F0CDD3 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		37AC64D2147E069C00F0CDD3 /* ProxomoAPITests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProxomoAPITests-Info.plist"; sourceTree = "<group>"; };
 		37AC64D4147E069C00F0CDD3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
-		37AC64D6147E069C00F0CDD3 /* ProxomoAPITests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProxomoAPITests.h; sourceTree = "<group>"; };
+		37AC64D6147E069C00F0CDD3 /* ProxomoAPITests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoAPITests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		37AC64D7147E069C00F0CDD3 /* ProxomoAPITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoAPITests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37AC64E2147E093200F0CDD3 /* AppData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppData.h; sourceTree = "<group>"; };
 		37AC64E3147E093200F0CDD3 /* AppData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppData.m; sourceTree = "<group>"; };
@@ -87,16 +93,16 @@
 		37AC64EB147E093200F0CDD3 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		37AC64EC147E093200F0CDD3 /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notification.h; sourceTree = "<group>"; };
 		37AC64ED147E093200F0CDD3 /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notification.m; sourceTree = "<group>"; };
-		37AC64EE147E093200F0CDD3 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		37AC64EF147E093200F0CDD3 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		37AC64EE147E093200F0CDD3 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Person.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		37AC64EF147E093200F0CDD3 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Person.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37AC64FE147E0B8D00F0CDD3 /* ProxomoApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoApi.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		37AC64FF147E0B8D00F0CDD3 /* ProxomoApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoApi.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxomoObject.h; sourceTree = "<group>"; };
-		37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxomoObject.m; sourceTree = "<group>"; };
-		37B4AA48148739E6002FF82E /* ProxomoObject+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProxomoObject+Proxomo.h"; sourceTree = "<group>"; };
-		37B4AA49148739E6002FF82E /* ProxomoObject+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ProxomoObject+Proxomo.m"; sourceTree = "<group>"; };
+		37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		37B4AA48148739E6002FF82E /* ProxomoObject+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "ProxomoObject+Proxomo.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		37B4AA49148739E6002FF82E /* ProxomoObject+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "ProxomoObject+Proxomo.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37B4AA4C14873FC7002FF82E /* ProxomoList+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProxomoList+Proxomo.h"; sourceTree = "<group>"; };
-		37B4AA4D14873FC7002FF82E /* ProxomoList+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ProxomoList+Proxomo.m"; sourceTree = "<group>"; };
+		37B4AA4D14873FC7002FF82E /* ProxomoList+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "ProxomoList+Proxomo.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3737F40514AE3152004C63AF /* CoreGraphics.framework in Frameworks */,
+				3737F40414AE305D004C63AF /* UIKit.framework in Frameworks */,
 				37AC64C9147E069C00F0CDD3 /* SenTestingKit.framework in Frameworks */,
 				37AC64CC147E069C00F0CDD3 /* Foundation.framework in Frameworks */,
 				37AC64CF147E069C00F0CDD3 /* libProxomoAPI.a in Frameworks */,
@@ -123,6 +131,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3737F3FF14AE2DE7004C63AF /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				3737F40014AE2E20004C63AF /* AuthorizeDialog.h */,
+				3737F40114AE2E20004C63AF /* AuthorizeDialog.m */,
+			);
+			name = UserInterface;
+			sourceTree = "<group>";
+		};
 		37AC64AC147E069B00F0CDD3 = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +173,7 @@
 		37AC64BC147E069C00F0CDD3 /* ProxomoAPI */ = {
 			isa = PBXGroup;
 			children = (
+				3737F3FF14AE2DE7004C63AF /* UserInterface */,
 				3700E47E1491C100000A88C2 /* ProxomoApi+Proxomo.h */,
 				3700E47F1491C101000A88C2 /* ProxomoApi+Proxomo.m */,
 				37AC64FE147E0B8D00F0CDD3 /* ProxomoApi.h */,
@@ -247,6 +265,7 @@
 				3769CFBE148C417000E6B629 /* Proxomo.h in Headers */,
 				3700E4801491C103000A88C2 /* ProxomoApi+Proxomo.h in Headers */,
 				3700E48514930A01000A88C2 /* Category.h in Headers */,
+				3737F40214AE2E20004C63AF /* AuthorizeDialog.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +380,7 @@
 				37B4AA4F14873FC7002FF82E /* ProxomoList+Proxomo.m in Sources */,
 				3700E4811491C103000A88C2 /* ProxomoApi+Proxomo.m in Sources */,
 				3700E48614930A01000A88C2 /* Category.m in Sources */,
+				3737F40314AE2E20004C63AF /* AuthorizeDialog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

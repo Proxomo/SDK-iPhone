@@ -3,7 +3,7 @@
 //  ProxomoSample
 //
 //  Created by Fred Crable on 12/19/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 Proxomo. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -22,7 +22,7 @@
     NSLog(@"Async response received for %@", proxomoObject);
 }
 
--(void)authorize:(id)button {
+-(void)Proxomo:(id)button {
     userContext = [[Person alloc] initWithContext:apiContext];
     [userContext loginToSocialNetwork:FACEBOOK];
 }
@@ -53,9 +53,9 @@
     [super viewDidAppear:animated];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button addTarget:self 
-               action:@selector(authorize:)
+               action:@selector(Proxomo:)
      forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"Authorize" forState:UIControlStateNormal];
+    [button setTitle:@"Proxomo" forState:UIControlStateNormal];
     button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
     [self.view addSubview:button];
 }

@@ -11,6 +11,8 @@
 #import <UIKit/UIDevice.h>
 #import <UIKit/UIApplication.h>
 
+#define kBaseURL @"https://service.proxomo.com/"
+
 @implementation Person
 @synthesize loginDialogView;
 
@@ -26,7 +28,8 @@
                                    [proxomoContext applicationId] , @"application_id",
                                    [proxomoContext accessToken], @"auth_token",
                                    nil];
-    NSString *loginURL = @"https://service.proxomo.com/login.aspx";
+    NSString *loginURL = [kBaseURL stringByAppendingString:@"login.aspx"];
+    // @"https://service.proxomo.com/login.aspx";
     NSString *openURL = nil;
     
     NSLog(@"%@/%@", loginURL, params);
