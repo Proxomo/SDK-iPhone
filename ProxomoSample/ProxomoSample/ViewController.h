@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Proxomo.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController {
+
+    ProxomoApi *apiContext;
+    Person *userContext;
+}
 
 @end

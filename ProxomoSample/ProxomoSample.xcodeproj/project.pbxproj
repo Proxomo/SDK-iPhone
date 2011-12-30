@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37F0DBCF149FEB1100E7A46D /* libProxomoAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F0DBCE149FEB1100E7A46D /* libProxomoAPI.a */; };
 		37FE16E5149FB177009E45D1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37FE16E4149FB177009E45D1 /* UIKit.framework */; };
 		37FE16E7149FB177009E45D1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37FE16E6149FB177009E45D1 /* Foundation.framework */; };
 		37FE16E9149FB177009E45D1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37FE16E8149FB177009E45D1 /* CoreGraphics.framework */; };
@@ -19,19 +20,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37F0DBCE149FEB1100E7A46D /* libProxomoAPI.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libProxomoAPI.a; path = "../ProxomoAPI/build/Release-iphoneos/libProxomoAPI.a"; sourceTree = "<group>"; };
 		37FE16E0149FB177009E45D1 /* ProxomoSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProxomoSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37FE16E4149FB177009E45D1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		37FE16E6149FB177009E45D1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		37FE16E8149FB177009E45D1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		37FE16EC149FB177009E45D1 /* ProxomoSample-Info.plist */ = {isa = PBXFileReference; path = "ProxomoSample-Info.plist"; sourceTree = "<group>"; };
+		37FE16EC149FB177009E45D1 /* ProxomoSample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProxomoSample-Info.plist"; sourceTree = "<group>"; };
 		37FE16EE149FB177009E45D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		37FE16F0149FB177009E45D1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		37FE16F2149FB177009E45D1 /* ProxomoSample-Prefix.pch */ = {isa = PBXFileReference; path = "ProxomoSample-Prefix.pch"; sourceTree = "<group>"; };
-		37FE16F3149FB177009E45D1 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		37FE16F2149FB177009E45D1 /* ProxomoSample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProxomoSample-Prefix.pch"; sourceTree = "<group>"; };
+		37FE16F3149FB177009E45D1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		37FE16F4149FB177009E45D1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		37FE16F7149FB178009E45D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		37FE16FA149FB178009E45D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		37FE16FC149FB178009E45D1 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		37FE16FC149FB178009E45D1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		37FE16FD149FB178009E45D1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -40,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37F0DBCF149FEB1100E7A46D /* libProxomoAPI.a in Frameworks */,
 				37FE16E5149FB177009E45D1 /* UIKit.framework in Frameworks */,
 				37FE16E7149FB177009E45D1 /* Foundation.framework in Frameworks */,
 				37FE16E9149FB177009E45D1 /* CoreGraphics.framework in Frameworks */,
@@ -52,6 +55,7 @@
 		37FE16D5149FB177009E45D1 = {
 			isa = PBXGroup;
 			children = (
+				37F0DBCE149FEB1100E7A46D /* libProxomoAPI.a */,
 				37FE16EA149FB177009E45D1 /* ProxomoSample */,
 				37FE16E3149FB177009E45D1 /* Frameworks */,
 				37FE16E1149FB177009E45D1 /* Products */,
@@ -252,7 +256,12 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ProxomoSample/ProxomoSample-Prefix.pch";
+				HEADER_SEARCH_PATHS = ../ProxomoAPI/ProxomoAPI/;
 				INFOPLIST_FILE = "ProxomoSample/ProxomoSample-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../../fredcrable/Library/Developer/Xcode/DerivedData/SDK-iPhone-byovgyufzlbwmeerkgdeejfbjilb/Build/Products/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -263,7 +272,12 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ProxomoSample/ProxomoSample-Prefix.pch";
+				HEADER_SEARCH_PATHS = ../ProxomoAPI/ProxomoAPI/;
 				INFOPLIST_FILE = "ProxomoSample/ProxomoSample-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../../fredcrable/Library/Developer/Xcode/DerivedData/SDK-iPhone-byovgyufzlbwmeerkgdeejfbjilb/Build/Products/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -288,6 +302,7 @@
 				37FE1703149FB178009E45D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

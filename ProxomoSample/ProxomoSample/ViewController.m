@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Proxomo.h"
 
 @implementation ViewController
 
@@ -15,6 +16,16 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
+#pragma mark API Delegate
+
+-(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject{
+    NSLog(@"Async response received for %@", proxomoObject);
+}
+
+-(void)authorize:(id)button {
+    userContext = [[Person alloc] initWithContext:apiContext];
+    [userContext loginToSocialNetwork:FACEBOOK];
+}
 
 #pragma mark - View lifecycle
 
@@ -22,6 +33,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    apiContext = [[ProxomoApi alloc] initWithKey:@"xEEF1e56ghNixRIaixe2USHoQTnZVm7tqzzfMGemoX8=" appID:@"ihjNViYPiCGMdnjR" andDelegate:self];
 }
 
 - (void)viewDidUnload
@@ -39,6 +51,13 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button addTarget:self 
+               action:@selector(authorize:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"Authorize" forState:UIControlStateNormal];
+    button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
+    [self.view addSubview:button];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
