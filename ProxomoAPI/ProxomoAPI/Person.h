@@ -7,17 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "ProxomoObject.h"
+#import "AuthorizeDialog.h"
 
 typedef enum {
     FACEBOOK = 0
 } enumSocialNetwork;
 
-@interface Person : ProxomoObject {
-    
+@interface Person : ProxomoObject <ProxomoAuthDelegate> {
+    AuthorizeDialog *loginDialogView;
 }
 
--(void) login;
+-(void)loginToSocialNetwork:(enumSocialNetwork)network;
 
 /*
 -(void) Person_Get:(NSObject*)object;
@@ -30,5 +32,6 @@ typedef enum {
 -(void) Person_Locations_Get:(NSObject*)object;
 -(void) Person_SocialNetworkInfo_Get:(NSObject*)object;
 */
+@property (nonatomic, strong) AuthorizeDialog *loginDialogView;
 
 @end

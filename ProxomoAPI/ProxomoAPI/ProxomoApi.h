@@ -75,7 +75,19 @@ typedef enum {
  * API Initialization Function
  */
 -(id) initWithKey:(NSString*)appKey appID:(NSString*)appID;
--(BOOL) isAsyncPending;
+-(id) initWithKey:(NSString *)appKey appID:(NSString *)appID andDelegate:(id)delegate;
 
+/*
+ * Login Handler
+ */
+/**
+ @returns true when login is complete for application context
+ @returns false when login fails
+ */
+-(BOOL) checkLogin:(id) delegate;
+- (BOOL)loginApi:(id) requestDelegate;
+
+-(BOOL) isAsyncPending;
++ (NSString*)serializeURL:(NSString *)baseUrl withParams:(NSDictionary *)params;
 
 @end

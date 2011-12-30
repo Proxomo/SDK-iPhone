@@ -7,10 +7,14 @@
 //
 
 #import "ProxomoApi.h"
+#import "ProxomoObject+Proxomo.h"
 #import "ProxomoList+Proxomo.h"
 #import "Proxomo.h"
 
-#import "ProxomoObject+Proxomo.h"
+//#define __TRACE_REST
+#define __TRACE_API
+//#define __TRACE_DATA
+
 @implementation ProxomoApi
 
 @synthesize apiStatus;
@@ -70,211 +74,120 @@
 - (id) initWithKey:(NSString *)appKey appID:(NSString *)appID {
     self = [super init];
     if(self){
-        appKey = appKey;
+        apiKey = appKey;
         applicationId = appID;
         [self initData];
+        [self checkLogin:nil];
     }
     return self;
+}
+
+- (id) initWithKey:(NSString *)appKey appID:(NSString *)appID andDelegate:(id)delegate{
+    self = [super init];
+    if(self){
+        apiKey = appKey;
+        applicationId = appID;
+        appDelegate = delegate;
+        [self initData];
+        [self checkLogin:delegate];
+    }
+    return self;
+}
+
+- (BOOL)loginApi:(id <ProxomoApiDelegate>) requestDelegate {
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] init];
+    NSString *urlstring=@"https://service.proxomo.com/v09/json/security/accesstoken/get?applicationid=%@&proxomoAPIKey=%@";
+    
+    if(apiKey == nil || applicationId == nil){
+        NSLog(@"application ID is not set!");
+        if(requestDelegate){
+            [requestDelegate handleError:nil requestType:GET responseCode:410 responseStatus:@"Invalid Application"];
+        }
+        return NO;
+    }
+    
+    NSString *f_urlstring= [NSString stringWithFormat:urlstring,[applicationId stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],[apiKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [urlRequest setURL:[NSURL URLWithString:f_urlstring]];
+    [urlRequest setHTTPMethod:@"GET"]; 
+    NSURLResponse *response; 
+    NSError *error;
+    NSData * urlData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    NSInteger responseCode = [httpResponse statusCode];
+    
+    if(urlData == nil || responseCode != 200){
+#ifdef __TRACE_REST
+        NSLog(@"%@ %d %@",[response URL],[httpResponse statusCode],[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
+#endif
+        if(requestDelegate){
+            [requestDelegate handleError:urlData requestType:GET responseCode:[httpResponse statusCode] responseStatus:[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]];
+        }
+        return NO;
+    }
+#ifdef __TRACE_API
+    NSString *urlString = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
+    NSLog(@"login response %@",urlString);
+#endif
+    
+    // parse and save the access token
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:urlData options:NSJSONReadingMutableContainers error:&error];    
+    accessToken = [dict objectForKey:@"AccessToken"];
+    expires = [dict objectForKey:@"Expires"];
+#ifdef __TRACE_API
+    NSLog(@"accesstoken string %@",accessToken);
+    NSLog(@"expires %@",[NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]);
+#endif
+    
+    // save our access token and expiry time
+    [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"accessToken"];
+    [[NSUserDefaults standardUserDefaults] setObject:expires forKey:@"expires"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    return YES;
+}
+
+- (BOOL) checkLogin:(id <ProxomoApiDelegate>) delegate {
+    bool isExpired = YES;
+    // check expiration date of accesstoken first
+    // do implicit login
+    if([expires doubleValue]<=[[NSDate date] timeIntervalSince1970]){
+        isExpired = YES;
+    } else {
+        isExpired = NO;
+    }
+    if (accessToken == nil || isExpired) {
+        if([self loginApi:delegate] == NO)
+            return NO;
+    }
+    return YES;
 }
 
 -(BOOL)isAsyncPending{
     return (numAsyncPending!=0);
 }
 
-#pragma mark - Events
-
-/*
--(void) Event_Add:(NSObject*)object{
-    //[self makeRequest:@"/v09/json/event" parameters:[object JSONRepresentation] method:@"POST"];
-}
--(void) Event_Get:(NSObject*)object{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@",object ] parameters:@"" method:@"GET"];
-}
--(void) Event_Update:(NSObject*)object{
-    //[self makeRequest:@"/v09/json/event" parameters:[object JSONRepresentation] method:@"PUT"];
-}
--(void) Event_Comment_Add:(NSObject*)object{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/comment",object ]  parameters:[object JSONRepresentation] method:@"POST"];
-}
--(void) Event_Comment_Delete:(NSObject*)object : (NSObject*) commentID{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/comment/%@",object,commentID ]  parameters:[object JSONRepresentation] method:@"DELETE"];
-}
--(void) Event_Comments_Get:(NSObject*)object{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/comments",object ] parameters:@"" method:@"GET"];
-}
--(void) Event_Comment_Update:(NSObject*)object{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/comment",object ] parameters:[object JSONRepresentation] method:@"PUT"];
-}
--(void) Event_Participant_Invite:(NSObject*)object: (NSObject*) personID{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/participant/invite/personid/%@",object,personID ] parameters:[object JSONRepresentation] method:@"PUT"];
-}
--(void) Event_Participants_Invite:(NSObject*)object: (NSObject*) personIDs{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/participant/invite/personids/%@",object,personIDs ] parameters:[object JSONRepresentation] method:@"PUT"];
-}
--(void) Event_Request_Invitation:(NSObject*)object: (NSObject*) personID{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/requestinvite/personid/%@",object,personID ] parameters:[object JSONRepresentation] method:@"PUT"];
-}
--(void) Event_Participants_Get:(NSObject*)object{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/participants",object ] parameters:@"" method:@"GET"];
-}
--(void) Event_Participant_Delete:(NSObject*)object : (NSObject*) eventParticipantID{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/participant",object ] parameters:@"" method:@"GET"];
-}
--(void) Event_RSVP:(NSObject*)object{
-    //no info in website
-}
--(void) Event_Search:(NSObject*)object{
-    //no info in website
-}
--(void) Event_Search_byPersonID:(NSObject*)object : (NSObject*) start :(NSObject *) end{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/Event/search/personid/%@/start/%@/end/%@",object ] parameters:@"" method:@"GET"];
-}
--(void) Event_AppData_Add:(NSObject*)object{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/appdata",object ] parameters:[object JSONRepresentation] method:@"POST"];
-}
--(void) Event_AppData_Delete:(NSObject*)object : (NSObject*) appDataID{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/appdata/%@",object,appDataID ]  parameters:[object JSONRepresentation] method:@"DELETE"];
-}
--(void) Event_AppData_Get:(NSObject*)object : (NSObject *) appDataID{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/appdata/%@",object,appDataID ] parameters:@"" method:@"GET"];
-}
--(void) Event_AppData_GetAll:(NSObject*)object{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/appdata",object] parameters:@"" method:@"GET"];
++ (NSString*)serializeURL:(NSString *)baseUrl
+                   withParams:(NSDictionary *)params {
     
-}
--(void) Event_AppData_Update:(NSObject*)object{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/event/%@/appdata",object ] parameters:[object JSONRepresentation] method:@"PUT"];
-}
-*/
-
-#pragma mark - Friend
-
-/*
-
--(void) Friend_Get:(NSObject*)object{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/Friend/personid/%@",object ] parameters:@"" method:@"GET"];
-}
--(void) Friend_Invite:(NSObject*)object: (NSObject*) friendb{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/friend/invite/frienda/%@/friendb/%@",object,friendb ] parameters:[object JSONRepresentation] method:@"PUT"];
-}
--(void) Friend_Invite_bySocialNetwork:(NSObject*)object{
-    //no info on website
-}
--(void) Friend_Respond:(NSObject*)object{
-    //no info on website
-}
--(void) Friend_SocialNetwork_Get:(NSObject*)object: (NSObject*) socialnetwork{
+    NSURL* parsedURL = [NSURL URLWithString:baseUrl];
+    NSString* queryPrefix = parsedURL.query ? @"&" : @"?";
     
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/Friend/personid/%@/socialnetwork/%@",object,socialnetwork ] parameters:@"" method:@"GET"];
-}
--(void) Friend_SocialNetwork_AppGet{
-    //no info on website
-}
-*/
-
-#pragma mark - Person
-
-/*
- 
- -(void) Person_Get:(NSObject*)object{
- [self makeRequest:[NSString stringWithFormat:@"/v09/json/person/%@",object ] parameters:@"" method:@"GET"];
- }
- -(void) Person_Update:(NSObject*)object{
- //[self makeRequest:@"/v09/json/person" parameters:[object JSONRepresentation] method:@"PUT"];
- }
- -(void) Person_AppData_Add:(NSObject*)object{
- //[self makeRequest:[NSString stringWithFormat:@"/v09/json/person/%@/appdata",object ] parameters:[object JSONRepresentation] method:@"POST"];
- }
- -(void) Person_AppData_Delete:(NSObject*)object : (NSObject*) appDataID{
- //[self makeRequest:[NSString stringWithFormat:@"/v09/json/person/%@/appdata/%@",object,appDataID ]  parameters:[object JSONRepresentation] method:@"DELETE"];
- }
- -(void) Person_AppData_Get:(NSObject*)object : (NSObject *) appDataID{
- [self makeRequest:[NSString stringWithFormat:@"/v09/json/person/%@/appdata/%@",object,appDataID ] parameters:@"" method:@"GET"];
- }
- -(void) Person_AppData_GetAll:(NSObject*)object{
- [self makeRequest:[NSString stringWithFormat:@"/v09/json/person/%@/appdata",object] parameters:@"" method:@"GET"];
- }
- -(void) Person_AppData_Update:(NSObject*)object{
- //[self makeRequest:[NSString stringWithFormat:@"/v09/json/person/%@/appdata",object ] parameters:[object JSONRepresentation] method:@"PUT"];
- }
- -(void) Person_Locations_Get:(NSObject*)object{
- [self makeRequest:[NSString stringWithFormat:@"/v09/json/person/%@/locations",object] parameters:@"" method:@"GET"];
- }
- -(void) Person_SocialNetworkInfo_Get:(NSObject*)object{
- //no info from website
- }
- 
-*/
-
-#pragma mark - Notification
-
-/*
-
--(void) Notification_Send:(NSObject*)object{
-    //[self makeRequest:@"/v09/json/notification" parameters:[object JSONRepresentation] method:@"POST"];
+    NSMutableArray* pairs = [NSMutableArray array];
+    for (NSString* key in [params keyEnumerator]) {
+        
+        
+        NSString* escaped_value = (__bridge NSString*)CFURLCreateStringByAddingPercentEscapes(
+                              NULL, /* allocator */
+                              (__bridge CFStringRef)[params objectForKey:key],
+                              NULL, /* charactersToLeaveUnescaped */
+                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                              kCFStringEncodingUTF8);
+        
+        [pairs addObject:[NSString stringWithFormat:@"%@=%@", key, escaped_value]];
+    }
+    NSString* query = [pairs componentsJoinedByString:@"&"];
+    
+    return [NSString stringWithFormat:@"%@%@%@", baseUrl, queryPrefix, query];
 }
 
-*/
-
-#pragma mark - Location
-
-/*
--(void) Location_Add:(NSObject*)object{
-    //[self makeRequest:@"/v09/json/location" parameters:[object JSONRepresentation] method:@"POST"];
-}
--(void) Location_Delete:(NSObject*)object{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/location/%@",object] parameters:[object JSONRepresentation] method:@"DELETE"];
-}
--(void) Location_Get:(NSObject*)object{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/location/%@",object ] parameters:@"" method:@"GET"];
-}
--(void) Location_Update:(NSObject*)object{
-    //[self makeRequest:@"/v09/json/location" parameters:[object JSONRepresentation] method:@"PUT"];
-}
--(void) Location_CategoriesGet:(NSObject*)object{
-    [self makeRequest:@"/v09/json/location/categories" parameters:@"" method:@"GET"];
-}
--(void) Locations_Search_byAddress:(NSObject*)object{
-    //[self makeRequest:@"/v09/json/locations/search" parameters:[object JSONRepresentation] method:@"GET"];
-}
--(void) Locations_Search_byGPS:(NSObject*)latitude:(NSObject*)longitude{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/locations/search/latitude/%@/longitude/%@",latitude,longitude] parameters:@"" method:@"GET"];
-}
--(void) Locations_Search_byIPAddress:(NSString*)ipAddress{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/locations/search/ip/%@",ipAddress] parameters:@"" method:@"GET"];
-}
--(void) Location_AppData_Add:(NSObject*)object{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/location/%@/appdata",object ] parameters:[object JSONRepresentation] method:@"POST"];
-}
--(void) Location_AppData_Delete:(NSObject*)object  : (NSObject*) appDataID{
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/location/%@/appdata/%@",object,appDataID ]  parameters:[object JSONRepresentation] method:@"DELETE"];
-}
--(void) Location_AppData_Update:(NSObject*)object {
-    //[self makeRequest:[NSString stringWithFormat:@"/v09/json/location/%@/appdata",object ] parameters:[object JSONRepresentation] method:@"PUT"];
-}
--(void) Location_AppData_Get:(NSObject*)object  : (NSObject*) appDataID{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/location/%@/appdata/%@",object,appDataID ] parameters:@"" method:@"GET"];
-}
--(void) Location_AppData_GetAll:(NSObject*)object {
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/location/%@/appdata",object] parameters:@"" method:@"GET"];
-}
-
- */
-
-#pragma mark - GeoCode
-
-/*
-
--(void) GeoCode_byAddress:(NSObject*)object{
-https://service.proxomo.com/v09/json/geo/lookup/address/{address} 
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/geo/lookup/address/%@",object] parameters:@"" method:@"GET"];
-}
--(void) Reverse_GeoCode:(NSObject*)latitude:(NSObject*)longitude{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/geo/lookup/latitude/%@/longitude/%@",latitude,longitude] parameters:@"" method:@"GET"];
-}
--(void) GeoCode_byIPAddress:(NSString*)ipAddress{
-    [self makeRequest:[NSString stringWithFormat:@"/v09/json/geo/lookup/ip/%@",ipAddress] parameters:@"" method:@"GET"];
-}
- */
 
 @end
