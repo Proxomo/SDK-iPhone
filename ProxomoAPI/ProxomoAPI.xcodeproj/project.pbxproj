@@ -7,14 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3700E4801491C103000A88C2 /* ProxomoApi+Proxomo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3700E47E1491C100000A88C2 /* ProxomoApi+Proxomo.h */; };
-		3700E4811491C103000A88C2 /* ProxomoApi+Proxomo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3700E47F1491C101000A88C2 /* ProxomoApi+Proxomo.m */; };
 		3700E48514930A01000A88C2 /* Category.h in Headers */ = {isa = PBXBuildFile; fileRef = 3700E483149309FE000A88C2 /* Category.h */; };
 		3700E48614930A01000A88C2 /* Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3700E48414930A00000A88C2 /* Category.m */; };
 		3700E48B14956675000A88C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48A14956675000A88C2 /* UIKit.framework */; };
 		3700E48D14956706000A88C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48C14956706000A88C2 /* CoreGraphics.framework */; };
 		370330111485CACB006FFEF6 /* ProxomoList.h in Headers */ = {isa = PBXBuildFile; fileRef = 3703300F1485CACB006FFEF6 /* ProxomoList.h */; };
 		370330121485CACB006FFEF6 /* ProxomoList.m in Sources */ = {isa = PBXBuildFile; fileRef = 370330101485CACB006FFEF6 /* ProxomoList.m */; };
+		3733244514AED0EF00C77193 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733242C14AED0EF00C77193 /* SBJsonWriter.m */; };
+		3733244614AED0EF00C77193 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733242D14AED0EF00C77193 /* SBJsonWriter.h */; };
+		3733244714AED0EF00C77193 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733242E14AED0EF00C77193 /* SBJsonUTF8Stream.m */; };
+		3733244814AED0EF00C77193 /* SBJsonUTF8Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733242F14AED0EF00C77193 /* SBJsonUTF8Stream.h */; };
+		3733244914AED0EF00C77193 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733243014AED0EF00C77193 /* SBJsonTokeniser.m */; };
+		3733244A14AED0EF00C77193 /* SBJsonTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733243114AED0EF00C77193 /* SBJsonTokeniser.h */; };
+		3733244B14AED0EF00C77193 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733243214AED0EF00C77193 /* SBJsonStreamWriterState.m */; };
+		3733244C14AED0EF00C77193 /* SBJsonStreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733243314AED0EF00C77193 /* SBJsonStreamWriterState.h */; };
+		3733244D14AED0EF00C77193 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733243414AED0EF00C77193 /* SBJsonStreamWriterAccumulator.m */; };
+		3733244E14AED0EF00C77193 /* SBJsonStreamWriterAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733243514AED0EF00C77193 /* SBJsonStreamWriterAccumulator.h */; };
+		3733244F14AED0EF00C77193 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733243614AED0EF00C77193 /* SBJsonStreamWriter.m */; };
+		3733245014AED0EF00C77193 /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733243714AED0EF00C77193 /* SBJsonStreamWriter.h */; };
+		3733245114AED0EF00C77193 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733243814AED0EF00C77193 /* SBJsonStreamParserState.m */; };
+		3733245214AED0EF00C77193 /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733243914AED0EF00C77193 /* SBJsonStreamParserState.h */; };
+		3733245314AED0EF00C77193 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733243A14AED0EF00C77193 /* SBJsonStreamParserAdapter.m */; };
+		3733245414AED0EF00C77193 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733243B14AED0EF00C77193 /* SBJsonStreamParserAdapter.h */; };
+		3733245514AED0EF00C77193 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733243C14AED0EF00C77193 /* SBJsonStreamParserAccumulator.m */; };
+		3733245614AED0EF00C77193 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733243D14AED0EF00C77193 /* SBJsonStreamParserAccumulator.h */; };
+		3733245714AED0EF00C77193 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733243E14AED0EF00C77193 /* SBJsonStreamParser.m */; };
+		3733245814AED0EF00C77193 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733243F14AED0EF00C77193 /* SBJsonStreamParser.h */; };
+		3733245914AED0EF00C77193 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733244014AED0EF00C77193 /* SBJsonParser.m */; };
+		3733245A14AED0EF00C77193 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733244114AED0EF00C77193 /* SBJsonParser.h */; };
+		3733245B14AED0EF00C77193 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733244214AED0EF00C77193 /* SBJson.h */; };
+		3733245C14AED0EF00C77193 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733244314AED0EF00C77193 /* NSObject+SBJson.m */; };
+		3733245D14AED0EF00C77193 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733244414AED0EF00C77193 /* NSObject+SBJson.h */; };
 		3737F40214AE2E20004C63AF /* AuthorizeDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 3737F40014AE2E20004C63AF /* AuthorizeDialog.h */; };
 		3737F40314AE2E20004C63AF /* AuthorizeDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 3737F40114AE2E20004C63AF /* AuthorizeDialog.m */; };
 		3737F40414AE305D004C63AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48A14956675000A88C2 /* UIKit.framework */; };
@@ -44,8 +67,6 @@
 		37AC6501147E0B8D00F0CDD3 /* ProxomoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64FF147E0B8D00F0CDD3 /* ProxomoApi.m */; };
 		37AC650F1482B5CB00F0CDD3 /* ProxomoObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */; };
 		37AC65101482B5CB00F0CDD3 /* ProxomoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */; };
-		37B4AA4A148739E6002FF82E /* ProxomoObject+Proxomo.h in Headers */ = {isa = PBXBuildFile; fileRef = 37B4AA48148739E6002FF82E /* ProxomoObject+Proxomo.h */; };
-		37B4AA4B148739E6002FF82E /* ProxomoObject+Proxomo.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B4AA49148739E6002FF82E /* ProxomoObject+Proxomo.m */; };
 		37B4AA4E14873FC7002FF82E /* ProxomoList+Proxomo.h in Headers */ = {isa = PBXBuildFile; fileRef = 37B4AA4C14873FC7002FF82E /* ProxomoList+Proxomo.h */; };
 		37B4AA4F14873FC7002FF82E /* ProxomoList+Proxomo.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B4AA4D14873FC7002FF82E /* ProxomoList+Proxomo.m */; };
 /* End PBXBuildFile section */
@@ -61,14 +82,37 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3700E47E1491C100000A88C2 /* ProxomoApi+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "ProxomoApi+Proxomo.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		3700E47F1491C101000A88C2 /* ProxomoApi+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "ProxomoApi+Proxomo.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3700E483149309FE000A88C2 /* Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Category.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3700E48414930A00000A88C2 /* Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Category.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3700E48A14956675000A88C2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3700E48C14956706000A88C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		3703300F1485CACB006FFEF6 /* ProxomoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoList.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		370330101485CACB006FFEF6 /* ProxomoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoList.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3733242C14AED0EF00C77193 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = JSON/SBJsonWriter.m; sourceTree = SOURCE_ROOT; };
+		3733242D14AED0EF00C77193 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = JSON/SBJsonWriter.h; sourceTree = SOURCE_ROOT; };
+		3733242E14AED0EF00C77193 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonUTF8Stream.m; path = JSON/SBJsonUTF8Stream.m; sourceTree = SOURCE_ROOT; };
+		3733242F14AED0EF00C77193 /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonUTF8Stream.h; path = JSON/SBJsonUTF8Stream.h; sourceTree = SOURCE_ROOT; };
+		3733243014AED0EF00C77193 /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonTokeniser.m; path = JSON/SBJsonTokeniser.m; sourceTree = SOURCE_ROOT; };
+		3733243114AED0EF00C77193 /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonTokeniser.h; path = JSON/SBJsonTokeniser.h; sourceTree = SOURCE_ROOT; };
+		3733243214AED0EF00C77193 /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriterState.m; path = JSON/SBJsonStreamWriterState.m; sourceTree = SOURCE_ROOT; };
+		3733243314AED0EF00C77193 /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriterState.h; path = JSON/SBJsonStreamWriterState.h; sourceTree = SOURCE_ROOT; };
+		3733243414AED0EF00C77193 /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriterAccumulator.m; path = JSON/SBJsonStreamWriterAccumulator.m; sourceTree = SOURCE_ROOT; };
+		3733243514AED0EF00C77193 /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriterAccumulator.h; path = JSON/SBJsonStreamWriterAccumulator.h; sourceTree = SOURCE_ROOT; };
+		3733243614AED0EF00C77193 /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriter.m; path = JSON/SBJsonStreamWriter.m; sourceTree = SOURCE_ROOT; };
+		3733243714AED0EF00C77193 /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriter.h; path = JSON/SBJsonStreamWriter.h; sourceTree = SOURCE_ROOT; };
+		3733243814AED0EF00C77193 /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserState.m; path = JSON/SBJsonStreamParserState.m; sourceTree = SOURCE_ROOT; };
+		3733243914AED0EF00C77193 /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserState.h; path = JSON/SBJsonStreamParserState.h; sourceTree = SOURCE_ROOT; };
+		3733243A14AED0EF00C77193 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserAdapter.m; path = JSON/SBJsonStreamParserAdapter.m; sourceTree = SOURCE_ROOT; };
+		3733243B14AED0EF00C77193 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserAdapter.h; path = JSON/SBJsonStreamParserAdapter.h; sourceTree = SOURCE_ROOT; };
+		3733243C14AED0EF00C77193 /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserAccumulator.m; path = JSON/SBJsonStreamParserAccumulator.m; sourceTree = SOURCE_ROOT; };
+		3733243D14AED0EF00C77193 /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserAccumulator.h; path = JSON/SBJsonStreamParserAccumulator.h; sourceTree = SOURCE_ROOT; };
+		3733243E14AED0EF00C77193 /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParser.m; path = JSON/SBJsonStreamParser.m; sourceTree = SOURCE_ROOT; };
+		3733243F14AED0EF00C77193 /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParser.h; path = JSON/SBJsonStreamParser.h; sourceTree = SOURCE_ROOT; };
+		3733244014AED0EF00C77193 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonParser.m; path = JSON/SBJsonParser.m; sourceTree = SOURCE_ROOT; };
+		3733244114AED0EF00C77193 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonParser.h; path = JSON/SBJsonParser.h; sourceTree = SOURCE_ROOT; };
+		3733244214AED0EF00C77193 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson.h; path = JSON/SBJson.h; sourceTree = SOURCE_ROOT; };
+		3733244314AED0EF00C77193 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SBJson.m"; path = "JSON/NSObject+SBJson.m"; sourceTree = SOURCE_ROOT; };
+		3733244414AED0EF00C77193 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJson.h"; path = "JSON/NSObject+SBJson.h"; sourceTree = SOURCE_ROOT; };
 		3737F40014AE2E20004C63AF /* AuthorizeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizeDialog.h; sourceTree = "<group>"; };
 		3737F40114AE2E20004C63AF /* AuthorizeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizeDialog.m; sourceTree = "<group>"; };
 		3769CFBD148C416F00E6B629 /* Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Proxomo.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -99,8 +143,6 @@
 		37AC64FF147E0B8D00F0CDD3 /* ProxomoApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoApi.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		37B4AA48148739E6002FF82E /* ProxomoObject+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "ProxomoObject+Proxomo.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		37B4AA49148739E6002FF82E /* ProxomoObject+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "ProxomoObject+Proxomo.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37B4AA4C14873FC7002FF82E /* ProxomoList+Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProxomoList+Proxomo.h"; sourceTree = "<group>"; };
 		37B4AA4D14873FC7002FF82E /* ProxomoList+Proxomo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "ProxomoList+Proxomo.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
@@ -131,6 +173,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3733242B14AED0D500C77193 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				3733242C14AED0EF00C77193 /* SBJsonWriter.m */,
+				3733242D14AED0EF00C77193 /* SBJsonWriter.h */,
+				3733242E14AED0EF00C77193 /* SBJsonUTF8Stream.m */,
+				3733242F14AED0EF00C77193 /* SBJsonUTF8Stream.h */,
+				3733243014AED0EF00C77193 /* SBJsonTokeniser.m */,
+				3733243114AED0EF00C77193 /* SBJsonTokeniser.h */,
+				3733243214AED0EF00C77193 /* SBJsonStreamWriterState.m */,
+				3733243314AED0EF00C77193 /* SBJsonStreamWriterState.h */,
+				3733243414AED0EF00C77193 /* SBJsonStreamWriterAccumulator.m */,
+				3733243514AED0EF00C77193 /* SBJsonStreamWriterAccumulator.h */,
+				3733243614AED0EF00C77193 /* SBJsonStreamWriter.m */,
+				3733243714AED0EF00C77193 /* SBJsonStreamWriter.h */,
+				3733243814AED0EF00C77193 /* SBJsonStreamParserState.m */,
+				3733243914AED0EF00C77193 /* SBJsonStreamParserState.h */,
+				3733243A14AED0EF00C77193 /* SBJsonStreamParserAdapter.m */,
+				3733243B14AED0EF00C77193 /* SBJsonStreamParserAdapter.h */,
+				3733243C14AED0EF00C77193 /* SBJsonStreamParserAccumulator.m */,
+				3733243D14AED0EF00C77193 /* SBJsonStreamParserAccumulator.h */,
+				3733243E14AED0EF00C77193 /* SBJsonStreamParser.m */,
+				3733243F14AED0EF00C77193 /* SBJsonStreamParser.h */,
+				3733244014AED0EF00C77193 /* SBJsonParser.m */,
+				3733244114AED0EF00C77193 /* SBJsonParser.h */,
+				3733244214AED0EF00C77193 /* SBJson.h */,
+				3733244314AED0EF00C77193 /* NSObject+SBJson.m */,
+				3733244414AED0EF00C77193 /* NSObject+SBJson.h */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
 		3737F3FF14AE2DE7004C63AF /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +212,21 @@
 				3737F40114AE2E20004C63AF /* AuthorizeDialog.m */,
 			);
 			name = UserInterface;
+			sourceTree = "<group>";
+		};
+		378B185814AFA75B00D876E8 /* ProxomoBase */ = {
+			isa = PBXGroup;
+			children = (
+				37AC64FE147E0B8D00F0CDD3 /* ProxomoApi.h */,
+				37AC64FF147E0B8D00F0CDD3 /* ProxomoApi.m */,
+				37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */,
+				37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */,
+				37B4AA4C14873FC7002FF82E /* ProxomoList+Proxomo.h */,
+				37B4AA4D14873FC7002FF82E /* ProxomoList+Proxomo.m */,
+				3703300F1485CACB006FFEF6 /* ProxomoList.h */,
+				370330101485CACB006FFEF6 /* ProxomoList.m */,
+			);
+			name = ProxomoBase;
 			sourceTree = "<group>";
 		};
 		37AC64AC147E069B00F0CDD3 = {
@@ -173,12 +262,10 @@
 		37AC64BC147E069C00F0CDD3 /* ProxomoAPI */ = {
 			isa = PBXGroup;
 			children = (
-				3737F3FF14AE2DE7004C63AF /* UserInterface */,
-				3700E47E1491C100000A88C2 /* ProxomoApi+Proxomo.h */,
-				3700E47F1491C101000A88C2 /* ProxomoApi+Proxomo.m */,
-				37AC64FE147E0B8D00F0CDD3 /* ProxomoApi.h */,
-				37AC64FF147E0B8D00F0CDD3 /* ProxomoApi.m */,
 				3769CFBD148C416F00E6B629 /* Proxomo.h */,
+				378B185814AFA75B00D876E8 /* ProxomoBase */,
+				3733242B14AED0D500C77193 /* JSON */,
+				3737F3FF14AE2DE7004C63AF /* UserInterface */,
 				37AC64E1147E08F800F0CDD3 /* Definitions */,
 				37AC64BD147E069C00F0CDD3 /* Supporting Files */,
 			);
@@ -215,14 +302,8 @@
 		37AC64E1147E08F800F0CDD3 /* Definitions */ = {
 			isa = PBXGroup;
 			children = (
-				37B4AA48148739E6002FF82E /* ProxomoObject+Proxomo.h */,
-				37B4AA49148739E6002FF82E /* ProxomoObject+Proxomo.m */,
-				37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */,
-				37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */,
-				37B4AA4C14873FC7002FF82E /* ProxomoList+Proxomo.h */,
-				37B4AA4D14873FC7002FF82E /* ProxomoList+Proxomo.m */,
-				3703300F1485CACB006FFEF6 /* ProxomoList.h */,
-				370330101485CACB006FFEF6 /* ProxomoList.m */,
+				37AC64EE147E093200F0CDD3 /* Person.h */,
+				37AC64EF147E093200F0CDD3 /* Person.m */,
 				37AC64E2147E093200F0CDD3 /* AppData.h */,
 				37AC64E3147E093200F0CDD3 /* AppData.m */,
 				37AC64E4147E093200F0CDD3 /* Event.h */,
@@ -235,8 +316,6 @@
 				37AC64EB147E093200F0CDD3 /* Location.m */,
 				37AC64EC147E093200F0CDD3 /* Notification.h */,
 				37AC64ED147E093200F0CDD3 /* Notification.m */,
-				37AC64EE147E093200F0CDD3 /* Person.h */,
-				37AC64EF147E093200F0CDD3 /* Person.m */,
 				3700E483149309FE000A88C2 /* Category.h */,
 				3700E48414930A00000A88C2 /* Category.m */,
 			);
@@ -260,12 +339,23 @@
 				37AC6500147E0B8D00F0CDD3 /* ProxomoApi.h in Headers */,
 				37AC650F1482B5CB00F0CDD3 /* ProxomoObject.h in Headers */,
 				370330111485CACB006FFEF6 /* ProxomoList.h in Headers */,
-				37B4AA4A148739E6002FF82E /* ProxomoObject+Proxomo.h in Headers */,
 				37B4AA4E14873FC7002FF82E /* ProxomoList+Proxomo.h in Headers */,
 				3769CFBE148C417000E6B629 /* Proxomo.h in Headers */,
-				3700E4801491C103000A88C2 /* ProxomoApi+Proxomo.h in Headers */,
 				3700E48514930A01000A88C2 /* Category.h in Headers */,
 				3737F40214AE2E20004C63AF /* AuthorizeDialog.h in Headers */,
+				3733244614AED0EF00C77193 /* SBJsonWriter.h in Headers */,
+				3733244814AED0EF00C77193 /* SBJsonUTF8Stream.h in Headers */,
+				3733244A14AED0EF00C77193 /* SBJsonTokeniser.h in Headers */,
+				3733244C14AED0EF00C77193 /* SBJsonStreamWriterState.h in Headers */,
+				3733244E14AED0EF00C77193 /* SBJsonStreamWriterAccumulator.h in Headers */,
+				3733245014AED0EF00C77193 /* SBJsonStreamWriter.h in Headers */,
+				3733245214AED0EF00C77193 /* SBJsonStreamParserState.h in Headers */,
+				3733245414AED0EF00C77193 /* SBJsonStreamParserAdapter.h in Headers */,
+				3733245614AED0EF00C77193 /* SBJsonStreamParserAccumulator.h in Headers */,
+				3733245814AED0EF00C77193 /* SBJsonStreamParser.h in Headers */,
+				3733245A14AED0EF00C77193 /* SBJsonParser.h in Headers */,
+				3733245B14AED0EF00C77193 /* SBJson.h in Headers */,
+				3733245D14AED0EF00C77193 /* NSObject+SBJson.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,11 +466,21 @@
 				37AC6501147E0B8D00F0CDD3 /* ProxomoApi.m in Sources */,
 				37AC65101482B5CB00F0CDD3 /* ProxomoObject.m in Sources */,
 				370330121485CACB006FFEF6 /* ProxomoList.m in Sources */,
-				37B4AA4B148739E6002FF82E /* ProxomoObject+Proxomo.m in Sources */,
 				37B4AA4F14873FC7002FF82E /* ProxomoList+Proxomo.m in Sources */,
-				3700E4811491C103000A88C2 /* ProxomoApi+Proxomo.m in Sources */,
 				3700E48614930A01000A88C2 /* Category.m in Sources */,
 				3737F40314AE2E20004C63AF /* AuthorizeDialog.m in Sources */,
+				3733244514AED0EF00C77193 /* SBJsonWriter.m in Sources */,
+				3733244714AED0EF00C77193 /* SBJsonUTF8Stream.m in Sources */,
+				3733244914AED0EF00C77193 /* SBJsonTokeniser.m in Sources */,
+				3733244B14AED0EF00C77193 /* SBJsonStreamWriterState.m in Sources */,
+				3733244D14AED0EF00C77193 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				3733244F14AED0EF00C77193 /* SBJsonStreamWriter.m in Sources */,
+				3733245114AED0EF00C77193 /* SBJsonStreamParserState.m in Sources */,
+				3733245314AED0EF00C77193 /* SBJsonStreamParserAdapter.m in Sources */,
+				3733245514AED0EF00C77193 /* SBJsonStreamParserAccumulator.m in Sources */,
+				3733245714AED0EF00C77193 /* SBJsonStreamParser.m in Sources */,
+				3733245914AED0EF00C77193 /* SBJsonParser.m in Sources */,
+				3733245C14AED0EF00C77193 /* NSObject+SBJson.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
