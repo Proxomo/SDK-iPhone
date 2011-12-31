@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "Proxomo.h"
 
 @implementation ViewController
 
@@ -18,13 +17,23 @@
 }
 #pragma mark API Delegate
 
--(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject{
+-(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject {
     NSLog(@"Async response received for %@", proxomoObject);
+    if(proxomoObject == _userContext){
+        if([_userContext isAuthorized] == NO){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authorization Failure" message:@"Login Failed" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+            [alert show];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authorization Success" message:@"User is Logged into Proxomo" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        //[_userContext GetSynchronous:_apiContext];
+    }
 }
 
 -(void)ProxomoAuthorize:(id)button {
-    userContext = [[Person alloc] initWithContext:apiContext];
-    [userContext loginToSocialNetwork:FACEBOOK];
+    _userContext = [[Person alloc] init];
+    [_userContext loginToSocialNetwork:FACEBOOK forApplication:_apiContext];
 }
 
 #pragma mark - View lifecycle
@@ -33,7 +42,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    apiContext = [[ProxomoApi alloc] initWithKey:@"xEEF1e56ghNixRIaixe2USHoQTnZVm7tqzzfMGemoX8=" appID:@"ihjNViYPiCGMdnjR" andDelegate:self];
+    _apiContext = [[ProxomoApi alloc] initWithKey:@"xEEF1e56ghNixRIaixe2USHoQTnZVm7tqzzfMGemoX8=" appID:@"ihjNViYPiCGMdnjR" andDelegate:self];
+    /*
+    AppData *crud = [[AppData alloc] initWithValue:@"bar" forKey:@"foo"];
+    [crud AddSynchronous:_apiContext];  
+     */
 }
 
 - (void)viewDidUnload

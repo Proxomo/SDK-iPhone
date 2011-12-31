@@ -11,8 +11,8 @@
 
 @interface ViewController : UIViewController {
 
-    ProxomoApi *apiContext;
-    Person *userContext;
+    ProxomoApi *_apiContext;
+    Person *_userContext;
 }
 
 @end
