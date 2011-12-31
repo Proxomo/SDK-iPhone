@@ -120,7 +120,7 @@
      * Create a bunch of new Location instances
      */
     for(int x=1; x <= TESTLOOPS; x++){
-        location = [[Location alloc] initWithContext:apiContext forAppDelegate:self];
+        location = [[Location alloc] init];
         [location setName:[NSString stringWithFormat:@"TestLocation-%d",x]];
         [location setCity:[NSString stringWithFormat:@"City%d",x]];
         [location setLatitude:[NSNumber numberWithInt:x]];
@@ -407,7 +407,7 @@
 
 -(void) ntestPerson {
     Person *person = [[Person alloc] init];
-    [person loginToSocialNetwork:FACEBOOK];
+    [person loginToSocialNetwork:FACEBOOK forApplication:apiContext];
     
 }
 
