@@ -6,9 +6,7 @@
 //  Copyright (c) 2011 Proxomo. All rights reserved.
 //
 
-#import "ProxomoApi+Proxomo.h"
 #import "Location.h"
-#import "ProxomoObject+Proxomo.h"
 #import "AppData.h"
 
 @implementation Location
@@ -25,56 +23,11 @@
 @synthesize CountryName;
 @synthesize CountryCode;
 
--(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation{
-    if(jsonRepresentation){
-        [super updateFromJsonRepresentation:jsonRepresentation];
-        Name = [jsonRepresentation objectForKey:@"Name"];
-        Latitude = [jsonRepresentation objectForKey:@"Latitude"];
-        Longitude = [jsonRepresentation objectForKey:@"Longitude"];
-        LocationID = [jsonRepresentation objectForKey:@"LocationID"];
-        Address1 = [jsonRepresentation  objectForKey:@"Address1"];
-        Address2  = [jsonRepresentation objectForKey:@"Address2"];
-        City = [jsonRepresentation objectForKey:@"City"];
-        State = [jsonRepresentation objectForKey:@"State"];
-        Zip = [jsonRepresentation objectForKey:@"Zip"];
-        CountryName = [jsonRepresentation objectForKey:@"CountryName"];
-        CountryCode = [jsonRepresentation objectForKey:@"CountryCode"];
-        LocationSecurity = [[jsonRepresentation objectForKey:@"LocationSecurity"] intValue];
-    }
-}
-
--(NSMutableDictionary*)jsonRepresentation{    
-    NSMutableDictionary *dict = nil;
-    
-    dict = [super jsonRepresentation];
-    if (Name) [dict setValue:Name forKey:@"Name"];
-    if (Latitude) [dict setValue:Latitude forKey:@"Latitude"];
-    if (Longitude) [dict setValue:Longitude forKey:@"Longitude"];
-    if (LocationID) [dict setValue:LocationID forKey:@"LocationID"];
-    if (Address1) [dict setValue:Address1 forKey:@"Address1"];
-    if (Address2) [dict setValue:Address2 forKey:@"Address2"];
-    if (City) [dict setValue:City forKey:@"City"];
-    if (State) [dict setValue:State forKey:@"State"];
-    if (Zip) [dict setValue:Zip forKey:@"Zip"];
-    if (CountryName) [dict setValue:CountryName forKey:@"CountryName"];
-    if (CountryCode) [dict setValue:CountryCode forKey:@"CountryCode"];
-    [dict setValue:[NSNumber numberWithInt:LocationSecurity] forKey:@"LocationSecurity"];
-    
-    return dict;
-}
 
 #pragma mark - API Delegate
 
 -(enumObjectType) objectType{
     return LOCATION_TYPE;
-}
-
--(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
-    [super handleError:response requestType:requestType responseCode:code responseStatus:status];
-}
-
--(void) handleResponse:(NSData *)response requestType:(enumRequestType)requestType  responseCode:(NSInteger)code responseStatus:(NSString *)status{
-    [super handleResponse:response requestType:requestType responseCode:code responseStatus:status];
 }
 
 #pragma mark - Search

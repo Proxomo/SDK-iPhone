@@ -11,8 +11,8 @@
 #import "ProxomoApi.h"
 
 // view color and screen transform for flipping
-static CGFloat kBorderGray[4] = {0.3, 0.3, 0.3, 0.8};
-static CGFloat kBorderBlack[4] = {0.3, 0.3, 0.3, 1};
+//static CGFloat kBorderGray[4] = {0.3, 0.3, 0.3, 0.8};
+//static CGFloat kBorderBlack[4] = {0.3, 0.3, 0.3, 1};
 static CGFloat kTransitionDuration = 0.3;
 static CGFloat kPadding = 0;
 static CGFloat kBorderWidth = 10;
@@ -29,6 +29,8 @@ static BOOL IsDeviceIPad() {
 }
 
 @implementation AuthorizeDialog
+
+@synthesize auth_result, personID, socialnetwork, socialnetwork_id, access_token;
 
 -(void)initFrame{
     appDelegate = nil;
@@ -79,12 +81,12 @@ static BOOL IsDeviceIPad() {
 }
 
 - (id) initWithURL:(NSString *)authURL loginParams:(NSMutableDictionary *)params appDelegate:(id)delegate{
-    
     self = [super init];
     if (self) {
         [self initFrame];
         authParams = params;
         loginUrl = authURL;
+        appDelegate = delegate;
     }
     return self;
 }
@@ -95,27 +97,20 @@ static BOOL IsDeviceIPad() {
     NSMutableURLRequest *urlRequest = nil;
     
     urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
-    NSLog(@"WebView: %@", url);
     [webView loadRequest:urlRequest];
 }
 
-- (void)addObservers {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(deviceOrientationDidChange:)
-                                                 name:@"UIDeviceOrientationDidChangeNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:) name:@"UIKeyboardWillShowNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:) name:@"UIKeyboardWillHideNotification" object:nil];
-}
+#pragma mark - Orientation
 
-- (void)removeObservers {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"UIDeviceOrientationDidChangeNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"UIKeyboardWillShowNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"UIKeyboardWillHideNotification" object:nil];
+- (void)updateWebOrientation {
+    UIInterfaceOrientation current_orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(current_orientation)) {
+        [webView stringByEvaluatingJavaScriptFromString:
+         @"document.body.setAttribute('orientation', 90);"];
+    } else {
+        [webView stringByEvaluatingJavaScriptFromString:
+         @"document.body.removeAttribute('orientation');"];
+    }
 }
 
 
@@ -163,6 +158,180 @@ static BOOL IsDeviceIPad() {
         self.transform = [self transformForOrientation];
     }
 }
+
+- (BOOL)shouldRotateToOrientation:(UIInterfaceOrientation)current_orientation {
+    if (current_orientation == orientation) {
+        return NO;
+    } else {
+        return orientation == UIInterfaceOrientationPortrait
+        || orientation == UIInterfaceOrientationPortraitUpsideDown
+        || orientation == UIInterfaceOrientationLandscapeLeft
+        || orientation == UIInterfaceOrientationLandscapeRight;
+    }
+}
+
+- (void)deviceOrientationDidChange:(void*)object {
+    UIInterfaceOrientation current_orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (!showingKeyboard && [self shouldRotateToOrientation:current_orientation]) {
+        [self updateWebOrientation];
+        
+        CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:duration];
+        [self sizeToFitOrientation:YES];
+        [UIView commitAnimations];
+    }
+}
+
+- (void)addObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deviceOrientationDidChange:)
+                                                 name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:) name:@"UIKeyboardWillShowNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:) name:@"UIKeyboardWillHideNotification" object:nil];
+}
+
+- (void)removeObservers {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"UIKeyboardWillShowNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"UIKeyboardWillHideNotification" object:nil];
+}
+
+#pragma mark - Status
+
+- (void)postDismissCleanup {
+    [self removeObservers];
+    [self removeFromSuperview];
+    [backgroundView removeFromSuperview];
+}
+
+- (void)dismiss:(BOOL)animated {
+    loginUrl = nil;
+    
+    if (animated) {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:kTransitionDuration];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(postDismissCleanup)];
+        self.alpha = 0;
+        [UIView commitAnimations];
+    } else {
+        [self postDismissCleanup];
+    }
+}
+
+- (void)dismissWithSuccess:(BOOL)success animated:(BOOL)animated {
+    if ([appDelegate respondsToSelector:@selector(authComplete:withStatus:forPerson:)]) {
+        [appDelegate authComplete:success withStatus:auth_result forPerson:self];
+    }
+    [self dismiss:animated];
+}
+
+- (void)cancel {
+    [self dismissWithSuccess:NONE animated:NO];
+}
+
+- (void)dismissWithError:(NSError*)error animated:(BOOL)animated {
+    [self dismiss:animated];
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [spinner stopAnimating];
+    spinner.hidden = YES;
+    
+    [self updateWebOrientation];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    // 102 == WebKitErrorFrameLoadInterruptedByPolicyChange
+    // examine if (!([error.domain isEqualToString:@"WebKitErrorDomain"] && error.code == 102)) {
+    [self dismissWithError:error animated:YES];
+}
+
+- (NSString *) getStringFromUrl: (NSString*) url needle:(NSString *) needle {
+    NSString * str = nil;
+    NSRange start = [url rangeOfString:needle];
+    if (start.location != NSNotFound) {
+        NSRange end = [[url substringFromIndex:start.location+start.length] rangeOfString:@"&"];
+        NSUInteger offset = start.location+start.length;
+        str = end.location == NSNotFound
+        ? [url substringFromIndex:offset]
+        : [url substringWithRange:NSMakeRange(offset, end.location)];
+        str = [str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    return str;
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
+ navigationType:(UIWebViewNavigationType)navigationType {
+    NSURL* url = request.URL;
+
+    NSLog(@"viewing:%@:%@", url.scheme, [url absoluteString]);
+    if ( [[url absoluteString] rangeOfString:@"https://service.proxomo.com/LoginComplete.aspx"].location != NSNotFound) {
+        /*
+          * look for proxomo specific error codes and log specific errors
+          */
+        auth_result = [self getStringFromUrl:[url absoluteString] needle:@"result="];
+        personID = [self getStringFromUrl:[url absoluteString] needle:@"personID="];
+        socialnetwork = [self getStringFromUrl:[url absoluteString] needle:@"socialnetwork="];
+        socialnetwork_id = [self getStringFromUrl:[url absoluteString] needle:@"socialnetwork_id="];
+        access_token = [self getStringFromUrl:[url absoluteString] needle:@"access_token="];
+        personID = [self getStringFromUrl:[url absoluteString] needle:@"personID="];
+        
+        if([auth_result isEqualToString:@"success"]){
+            [self dismissWithSuccess:YES animated:YES];
+        }else{
+            [self dismissWithSuccess:NO animated:NO];
+        }
+    }else if ([loginUrl isEqual:url]) {
+        return YES;
+    } else if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - keyboard
+
+- (void)keyboardWillShow:(NSNotification*)notification {
+    
+    showingKeyboard = YES;
+    
+    if (IsDeviceIPad()) {
+        return;
+    }
+    
+    UIInterfaceOrientation current_orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(current_orientation)) {
+        webView.frame = CGRectInset(webView.frame,
+                                     -(kPadding + kBorderWidth),
+                                     -(kPadding + kBorderWidth));
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification*)notification {
+    showingKeyboard = NO;
+    
+    if (IsDeviceIPad()) {
+        return;
+    }
+    UIInterfaceOrientation current_orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(current_orientation)) {
+        webView.frame = CGRectInset(webView.frame,
+                                     kPadding + kBorderWidth,
+                                     kPadding + kBorderWidth);
+    }
+}
+
+#pragma mark - Drawing Code
 
 -(void)expose{
     [self getAuthURL];

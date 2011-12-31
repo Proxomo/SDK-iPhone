@@ -7,7 +7,6 @@
 //
 
 #import "ProxomoList+Proxomo.h"
-#import "ProxomoObject+Proxomo.h"
 #import "AppData.h"
 #import "Location.h"
 

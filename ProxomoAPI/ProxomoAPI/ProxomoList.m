@@ -6,9 +6,7 @@
 //  Copyright (c) 2011 Proxomo. All rights reserved.
 //
 
-#import "ProxomoApi+Proxomo.h"
 #import "ProxomoList+Proxomo.h"
-#import "ProxomoObject+Proxomo.h"
 #import "AppData.h"
 
 @implementation ProxomoList

@@ -7,8 +7,6 @@
 //
 
 #import "Event.h"
-#import "ProxomoObject+Proxomo.h"
-
 
 @implementation Event
 
@@ -71,6 +69,7 @@
     return [NSDate dateWithTimeIntervalSince1970:interval];
 }
 
+/*
 -(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation{
     if(jsonRepresentation){
         [super updateFromJsonRepresentation:jsonRepresentation];
@@ -90,54 +89,7 @@
         PersonName = [jsonRepresentation objectForKey:@"PersonName"];
     }
 }
-
--(NSMutableDictionary*)jsonRepresentation{
-    long long temp;
-    NSString *jsonDate;
-    NSMutableDictionary *dict;
-    
-    dict = [super jsonRepresentation];
-    if (EventName) [dict setValue:EventName forKey:@"EventName"];
-    if (Description) [dict setValue:Description forKey:@"Description"];
-    if (EventType) [dict setValue:EventType forKey:@"EventType"];
-    [dict setValue:[NSNumber numberWithInteger:(int)Privacy] forKey:@"Privacy"];
-    [dict setValue:[NSNumber numberWithInt:(int)Status] forKey:@"Status"];
-    if (StartTime) {
-        temp = [StartTime timeIntervalSince1970] * 1000;
-        jsonDate = [NSString stringWithFormat:@"/Date(%ld)/",temp];
-        [dict setValue:jsonDate forKey:@"StartTime"]; 
-    }
-    if (EndTime){
-        temp = [EndTime timeIntervalSince1970] * 1000;
-        jsonDate = [NSString stringWithFormat:@"/Date(%ld)/",temp];
-        [dict setValue:jsonDate forKey:@"EndTime"];
-
-    }   
-    if (LastUpdate){
-        temp = [LastUpdate timeIntervalSince1970] * 1000;
-        jsonDate = [NSString stringWithFormat:@"/Date(%ld)/",temp];
-        [dict setValue:jsonDate forKey:@"LastUpdate"];
-    }
-    [dict setValue:[NSNumber numberWithInteger:MinParticipants] forKey:@"MinParticipants"];
-    [dict setValue:[NSNumber numberWithInteger:MaxParticipants] forKey:@"MaxParticipants"];
-    if (ImageUrl) [dict setValue:ImageUrl forKey:@"ImageURL"];
-    if (Notes) [dict setValue:Notes forKey:@"Notes"];
-    if (Latitude) [dict setValue:Latitude forKey:@"Latitude"];
-    if (Longitude) [dict setValue:Longitude forKey:@"Longitude"];
-    if (PersonID) [dict setValue:PersonID forKey:@"PersonID"];
-    if (PersonName) [dict setValue:PersonName forKey:@"PersonName"];
-    if (LocationID) [dict setValue:LocationID forKey:@"LocationID"];
-    if (PersonID) [dict setValue:PersonID forKey:@"PersonID"];
-    if (Address1) [dict setValue:Address1 forKey:@"Address1"];
-    if (Address2) [dict setValue:Address2 forKey:@"Address2"];
-    if (City) [dict setValue:City forKey:@"City"];
-    if (State) [dict setValue:State forKey:@"State"];
-    if (Zip) [dict setValue:Zip forKey:@"Zip"];
-    if (CountryName) [dict setValue:CountryName forKey:@"CountryName"];
-    if (CountryCode) [dict setValue:CountryCode forKey:@"CountryCode"];
-
-    return dict;
-}
+ */
 
 #pragma mark - API Delegate
 
@@ -145,6 +97,7 @@
     return EVENT_TYPE;
 }
 
+/*
 -(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
     [super handleError:response requestType:requestType responseCode:code responseStatus:status];
 }
@@ -156,5 +109,6 @@
     }
     [super handleResponse:response requestType:requestType  responseCode:code responseStatus:status];
 }
+ */
 
 @end
