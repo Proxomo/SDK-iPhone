@@ -6,8 +6,8 @@
 //  Copyright (c) 2011 Proxomo. All rights reserved.
 //
 
-#import "ProxomoApi+Proxomo.h"
-#import "ProxomoObject+Proxomo.h"
+#import "ProxomoApi.h"
+#import "ProxomoObject.h"
 #import "ProxomoList+Proxomo.h"
 #import "AppData.h"
 
@@ -51,25 +51,16 @@
 
 #pragma mark - JSON Data Support
 
+/*
 -(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation{
     if(jsonRepresentation){
+        [super updateFromJsonRepresentation:jsonRepresentation];
         Key = [jsonRepresentation objectForKey:@"Key"];
         Value = [jsonRepresentation objectForKey:@"Value"];
         ObjectType = [jsonRepresentation objectForKey:@"ObjectType"];
-        [super updateFromJsonRepresentation:jsonRepresentation];
     }
 }
-
--(NSMutableDictionary*)jsonRepresentation{
-    NSMutableDictionary *dict = nil;
-    
-    dict = [super jsonRepresentation];
-    if (Key) [dict setValue:Key forKey:@"Key"];
-    if (Value) [dict setValue:Value forKey:@"Value"];
-    if (ObjectType) [dict setValue:ObjectType forKey:@"ObjectType"];
-    
-    return dict;
-}
+ */
 
 #pragma mark - API Delegate
 -(enumObjectType) objectType{

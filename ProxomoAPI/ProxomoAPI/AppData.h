@@ -14,6 +14,7 @@
     NSString *Key;
     NSString *Value;
     NSString *ObjectType;
+    int  __foo;
 }
 
 @property (nonatomic, strong) NSString *Key;
