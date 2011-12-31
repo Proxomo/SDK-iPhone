@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ProxomoApi.h"
 
 @protocol ProxomoAppDelegate
 /**
@@ -16,9 +17,9 @@
 -(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject;
 @end
 
-@interface ProxomoObject : NSObject {
-    __weak id appDelegate;
-    __weak id proxomoContext;
+@interface ProxomoObject : NSObject <ProxomoApiDelegate> {
+    id appDelegate;
+    ProxomoApi *_apiContext;
     NSString *restResponse;
     NSInteger responseCode;
     
@@ -27,13 +28,22 @@
 }
 
 @property (nonatomic, strong) NSString *restResponse;
-@property (nonatomic, weak) id appDelegate;
+@property (nonatomic, strong) id appDelegate;
 @property (nonatomic, strong) NSString *ID;
 
 -(id)initWithID:(NSString*)objectdId;
--(id)initWithContext:(id)context;
--(id)initWithContext:(id)context forAppDelegate:(id<ProxomoAppDelegate>)delegate;
-    
+// What type am I?
+-(enumObjectType) objectType;
+
+// JSON Serialization
+-(void) updateFromJsonData:(NSData*)response;
+-(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation;
+-(NSMutableDictionary*)proxyForJson;
+
+// init from JSON
+-(id) initFromJsonData:(NSData*)jsonData;
+-(id) initFromJsonRepresentation:(NSDictionary*)jsonRepresentation;
+
 /**
  asynchronously adds the object using the API context
  */

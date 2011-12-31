@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ProxomoApi.h"
 #import "ProxomoObject.h"
 
 @interface ProxomoList : ProxomoObject {
