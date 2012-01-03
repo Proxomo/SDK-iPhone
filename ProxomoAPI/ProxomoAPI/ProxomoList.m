@@ -31,7 +31,7 @@
 -(void)GetAll:(ProxomoApi*)context getType:(enumObjectType)type{
     if([ProxomoList isSupported:type]){
         //[self setListType:type]; done in API
-        [context GetAll:self getType:type];
+        [context GetAll:self getType:type inObject:nil];
     }else{
         [self handleError:nil requestType:GET responseCode:405 responseStatus:@"405 Method Not Allowed (Unsupported)"];
     }
@@ -40,7 +40,7 @@
 -(BOOL)GetAll_Synchronous:(ProxomoApi*)context getType:(enumObjectType)getType{    
     if([ProxomoList isSupported:getType]){
         // [self setListType:getType]; done in API
-        return [context GetAll_Synchronous:self getType:getType];
+        return [context GetAll_Synchronous:self getType:getType inObject:nil];
     }else{
         [self handleError:nil requestType:GET responseCode:405 responseStatus:@"unsupported"];
     }

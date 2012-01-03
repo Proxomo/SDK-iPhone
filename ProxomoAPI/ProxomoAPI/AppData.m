@@ -51,21 +51,15 @@
 
 #pragma mark - JSON Data Support
 
-/*
--(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation{
-    if(jsonRepresentation){
-        [super updateFromJsonRepresentation:jsonRepresentation];
-        Key = [jsonRepresentation objectForKey:@"Key"];
-        Value = [jsonRepresentation objectForKey:@"Value"];
-        ObjectType = [jsonRepresentation objectForKey:@"ObjectType"];
-    }
-}
- */
-
 #pragma mark - API Delegate
 -(enumObjectType) objectType{
     return APPDATA_TYPE;
 }
+
+-(NSString *) objectPath{
+    return @"appdata";
+}
+
 
 -(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
     [super handleError:response requestType:requestType responseCode:code responseStatus:status];
@@ -78,14 +72,14 @@
 
 +(void)getAllInContext:(ProxomoApi*)context intoList:(ProxomoList*)proxomoList useAsync:(BOOL)useAsync{
     if(useAsync){
-        [context GetAll:proxomoList getType:APPDATA_TYPE];
+        [context GetAll:proxomoList getType:APPDATA_TYPE inObject:nil];
     }else{
-        [context GetAll_Synchronous:proxomoList getType:APPDATA_TYPE];
+        [context GetAll_Synchronous:proxomoList getType:APPDATA_TYPE inObject:nil];
     }
 }
 
 +(void)searchInContext:(ProxomoApi*)context forObjectType:(NSString*)objectType intoList:(ProxomoList*)proxomoList useAsync:(BOOL)useAsync{
-    [context Search:proxomoList searchUrl:@"/search/objecttype" searchUri:objectType forListType:APPDATA_TYPE useAsync:useAsync];
+    [context Search:proxomoList searchUrl:@"/search/objecttype" searchUri:objectType forListType:APPDATA_TYPE useAsync:useAsync inObject:nil];
 }
 
 

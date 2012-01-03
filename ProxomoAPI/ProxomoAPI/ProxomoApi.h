@@ -52,9 +52,9 @@ typedef enum {
     NSInteger apiResultCode;
     
     // basic API information
-    NSString *apiKey;
-    NSString *applicationId;
-    NSString *accessToken;
+    NSString *apiKey;           /// Key for API instance issued by Proxomo
+    NSString *applicationId;   /// Application ID issued by Proxomo
+    NSString *accessToken;     /// User or Application Login Token
     NSString *apiVersion;
     NSNumber *expires;
     
@@ -113,33 +113,33 @@ typedef enum {
 /**
  Adds the ProxomoObject, sets the ID in object
  */
--(void) Add:(id)object;
+-(void) Add:(id)object inObject:(id)path;
 /**
  Adds the ProxomoObject, sets the ID in object
  @returns true == success, false == failure
  */
--(BOOL) AddSynchronous:(id)object;
+-(BOOL) AddSynchronous:(id)object inObject:(id)path;
 
 /**
  Updates or creates a single instance of ProxomoObject.  
  Asynchronously updates or creates a single instance.  
  ID must be set in object.  
  */
--(void) Update:(id)object;
+-(void) Update:(id)object inObject:(id)path;
 /**
  * Updates or creates the ProxomoObject.
  * sets the ID in object
  @returns true == success, false == failure
  */
--(BOOL) UpdateSynchronous:(id)object;
+-(BOOL) UpdateSynchronous:(id)object inObject:(id)path;
 
 /**
  deletes a data instance by ID
  ID must be set in object
  */
--(void) Delete:(id)object;
+-(void) Delete:(id)object inObject:(id)path;
 /// @returns true == success, false == failure
--(BOOL) DeleteSynchronous:(NSString*)ID deleteType:(enumObjectType)type;
+-(BOOL) DeleteSynchronous:(id)object inObject:(id)path;
 
 
 /*
@@ -150,20 +150,20 @@ typedef enum {
  // gets an instance by ID
  // ID must be set in object
  */
--(void) Get:(id)object;
+-(void) Get:(id)object inObject:(id)path;
 /// @returns id of new AppData instance
--(BOOL) GetSynchronous:(id)object getType:(enumObjectType)type;
+-(BOOL) GetSynchronous:(id)object inObject:(id)path;
 
 /**
  // gets all of the AppData instances 
  // uses the ProxomoList as the delegate
  */
--(void) GetAll:(id)proxomoList getType:(enumObjectType)type;
+-(void) GetAll:(id)proxomoList getType:(enumObjectType)type inObject:(id)path;
 /// @returns an array of AppData instances
--(BOOL) GetAll_Synchronous:(id)proxomoList getType:(enumObjectType)getType;
+-(BOOL) GetAll_Synchronous:(id)proxomoList getType:(enumObjectType)getType inObject:(id)path;
 
 /// General Search
--(void) Search:(id)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)useAsync;
+-(void) Search:(id)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)useAsync inObject:(id)path;
 
 
 @end

@@ -223,8 +223,8 @@
 				37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */,
 				37B4AA4C14873FC7002FF82E /* ProxomoList+Proxomo.h */,
 				37B4AA4D14873FC7002FF82E /* ProxomoList+Proxomo.m */,
-				3703300F1485CACB006FFEF6 /* ProxomoList.h */,
 				370330101485CACB006FFEF6 /* ProxomoList.m */,
+				3703300F1485CACB006FFEF6 /* ProxomoList.h */,
 			);
 			name = ProxomoBase;
 			sourceTree = "<group>";

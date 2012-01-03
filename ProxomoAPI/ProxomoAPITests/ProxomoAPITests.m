@@ -185,13 +185,12 @@
         
     NSLog(@"Adding App Data to ID %@",[location2 ID]);
     AppData *appData = [[AppData alloc] initWithValue:@"Test Value" forKey:@"Location"];
-    if(![location2  AddAppData_Synchronous:appData withContext:apiContext]){
+    if(![appData AddSynchronous:location2]){
         STFail(@"Adding AppData to object failed");
     }
-    if(![appData DeleteSynchronous:apiContext]){
+    if(![appData DeleteSynchronous:location2]){
         STFail(@"Failed to delete attached AppData");
     }
-        
     for(Location *loc in save){
         STAssertTrue([loc DeleteSynchronous:apiContext],@"Delete returned false");
         STAssertFalse([loc GetSynchronous:apiContext], @"Could get deleted location");

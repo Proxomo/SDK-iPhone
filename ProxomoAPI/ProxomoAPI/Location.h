@@ -47,13 +47,4 @@ typedef enum {
 +(void)searchInContext:(id)context forIP:(NSString*)ip intoList:(ProxomoList*)proxomoList useAsync:(BOOL)useAsync;
 
 
-/** 
- Application Data Functions
- adds the object, sets the ID in object
- */
--(void) AddAppData:(id)appData withContext:(id)context;
-/// @returns true == success, false == failure
--(BOOL) AddAppData_Synchronous:(id)appData withContext:(id)context;
-
-
 @end

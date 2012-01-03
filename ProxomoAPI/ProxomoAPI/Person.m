@@ -2,11 +2,11 @@
 //  Persons.m
 //  PROXOMO
 //
-//  Created by Fred Crable on 10/26/11.
 //  Copyright (c) 2011 Proxomo. All rights reserved.
 //
 
 #import "Person.h"
+#import "AppData.h"
 
 #import <UIKit/UIDevice.h>
 #import <UIKit/UIApplication.h>
@@ -14,7 +14,27 @@
 #define kBaseURL @"https://service.proxomo.com/"
 
 @implementation Person
-@synthesize loginDialogView;
+
+@synthesize EmailAddress;
+@synthesize EmailAlerts; 
+@synthesize EmailVerificationCode;
+@synthesize EmailVerificationStatus; 
+@synthesize EmailVerified; 
+@synthesize FacebookID; ///	String	No	Facebook unique identifier.
+@synthesize FirstName; ///	String	Yes	First Name of the Person.
+@synthesize FullName; ///	String	Yes	Full Name of the Person.
+@synthesize ImageURL; ///	String	No	Image URL of the Person.
+@synthesize LastLogin; ///	DateTime	No	Last Date and Time the Person logged into Proxomo.
+@synthesize LastName; ///	String	Yes	Last Name of the Person.
+@synthesize MobileAlerts; 
+@synthesize MobileNumber; ///	String	No	Mobile phone number of the Person.
+@synthesize MobileVerificationCode;
+@synthesize MobileVerificationStatus;
+@synthesize MobileVerified;
+@synthesize TwitterID;
+@synthesize UserName;
+@synthesize UTCOffset;
+
 
 -(void)authComplete:(BOOL)success withStatus:(NSString*)status forPerson:(id)person{
     NSLog(@"Proxomo Authentication %@ for %@", status, person);
@@ -25,8 +45,8 @@
         ID = [loginDialogView personID];
         [_apiContext setUserContext:self];
     }
-    if(appDelegate){
-        [appDelegate asyncObjectComplete:success proxomoObject:self];
+    if([appDelegate respondsToSelector:@selector(authComplete:withStatus:forPerson:)]){
+        [appDelegate authComplete:success withStatus:status forPerson:self];
     }
 }
 
@@ -61,6 +81,14 @@
 
 -(enumObjectType) objectType{
     return PERSON_TYPE;
+}
+
+-(NSString *) objectPath{
+    return @"person";
+}
+
+-(NSString *)getAccessToken{
+    return _access_token;
 }
 
 @end

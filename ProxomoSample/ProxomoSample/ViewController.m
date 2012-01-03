@@ -15,19 +15,45 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
-#pragma mark API Delegate
+
+#pragma mark App Delegate
 
 -(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject {
     NSLog(@"Async response received for %@", proxomoObject);
-    if(proxomoObject == _userContext){
+    if(!success){
+        NSLog(@"Operation Failed for %@", proxomoObject);
+        return;
+    }
+    if([proxomoObject isKindOfClass:[Person class]]){
+        Person *p = (Person*)proxomoObject;
+        NSLog(@"User Updated %@",[p FullName]);
+        
+        NSString *personDataID = [[NSUserDefaults standardUserDefaults] objectForKey:@"SamplePersonLogin"];
+        
+        if(![personDataID isEqualToString:[p ID]]){
+            AppData *a = [[AppData alloc] initWithValue:[p ID] forKey:@"SamplePersonLogin"];
+            [a Add:_userContext]; 
+            [a setKey:@"SamplePersonFullName"];
+            [a setValue:[p FullName]];
+            [a Add:_userContext];
+            [[NSUserDefaults standardUserDefaults] setObject:[p ID] forKey:@"SamplePersonLogin"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+}
+
+-(void)authComplete:(BOOL)success withStatus:(NSString*)status forPerson:(id)person{
+    if(person == _userContext){
         if([_userContext isAuthorized] == NO){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authorization Failure" message:@"Login Failed" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
             [alert show];
         }else{
+
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authorization Success" message:@"User is Logged into Proxomo" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
         }
-        //[_userContext GetSynchronous:_apiContext];
+        [_userContext Get:_apiContext];
     }
 }
 
@@ -43,10 +69,16 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     _apiContext = [[ProxomoApi alloc] initWithKey:@"xEEF1e56ghNixRIaixe2USHoQTnZVm7tqzzfMGemoX8=" appID:@"ihjNViYPiCGMdnjR" andDelegate:self];
-    /*
-    AppData *crud = [[AppData alloc] initWithValue:@"bar" forKey:@"foo"];
-    [crud AddSynchronous:_apiContext];  
-     */
+
+    AppData *appInitData = [[AppData alloc] initWithValue:@"v09" forKey:@"SampleViewController"];
+    NSString *appDataID = [[NSUserDefaults standardUserDefaults] objectForKey:@"SampleViewController"];
+
+    [appInitData setID:appDataID];
+    if(![appInitData GetSynchronous:_apiContext]){
+        [appInitData AddSynchronous:_apiContext];  
+        [[NSUserDefaults standardUserDefaults] setObject:[appInitData ID] forKey:@"SampleViewController"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)viewDidUnload

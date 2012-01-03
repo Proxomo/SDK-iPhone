@@ -97,6 +97,11 @@
     return EVENT_TYPE;
 }
 
+-(NSString *) objectPath{
+    return @"event";
+}
+
+
 /*
 -(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
     [super handleError:response requestType:requestType responseCode:code responseStatus:status];

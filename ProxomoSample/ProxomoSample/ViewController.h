@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Proxomo.h>
 
-@interface ViewController : UIViewController {
+@interface ViewController : UIViewController <ProxomoAppDelegate,ProxomoAuthDelegate> {
 
     ProxomoApi *_apiContext;
     Person *_userContext;

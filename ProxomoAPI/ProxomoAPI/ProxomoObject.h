@@ -27,6 +27,7 @@
     NSString *ID;
 }
 
+@property (nonatomic, strong) ProxomoApi *_apiContext;
 @property (nonatomic, strong) NSString *restResponse;
 @property (nonatomic, strong) id appDelegate;
 @property (nonatomic, strong) NSString *ID;
@@ -34,6 +35,8 @@
 -(id)initWithID:(NSString*)objectdId;
 // What type am I?
 -(enumObjectType) objectType;
+-(NSString *) objectPath;
+
 
 // JSON Serialization
 -(void) updateFromJsonData:(NSData*)response;

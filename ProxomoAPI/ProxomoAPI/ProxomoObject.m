@@ -7,6 +7,7 @@
 //
 
 #import "ProxomoObject.h"
+#import "Person.h"
 #import "SBJson.h"
 #import <objc/runtime.h>
 
@@ -15,7 +16,7 @@
 @synthesize restResponse;
 @synthesize ID;
 @synthesize appDelegate;
-
+@synthesize _apiContext;
 
 -(id) init {
     self = [super init];
@@ -38,58 +39,106 @@
     return GENERIC_TYPE;
 }
 
+-(NSString *) objectPath{
+    return @"";
+}
+
+
 // adds the object, sets the ID in object
 -(void) Add:(id)context  
 {   
-    _apiContext = context;
-    [context Add:self];
+    if([context isKindOfClass:[ProxomoApi class]]){
+        _apiContext = context;
+        [_apiContext Add:self inObject:nil];
+    }else{
+        _apiContext = [context _apiContext];
+        [_apiContext Add:self inObject:context];
+    }
 }
 
 // @returns true == success, false == failure
 -(BOOL) AddSynchronous:(id)context {
-    _apiContext = context;
-    return [context AddSynchronous:self];
+    if([context isKindOfClass:[ProxomoApi class]]){
+        _apiContext = context;
+        return [_apiContext AddSynchronous:self inObject:nil];
+    }else{
+        _apiContext = [context _apiContext];
+       return [_apiContext AddSynchronous:self inObject:context];
+    }
 }
 
 // updates or creates a single instance from object
 // asynchronously updates or creates a single instance
 // ID must be set in object
 -(void) Update:(id)context{
-    _apiContext = context;
-    [context Update:self];
+    if([context isKindOfClass:[ProxomoApi class]]){
+        _apiContext = context;
+        [_apiContext Update:self inObject:nil];
+    }else{
+        _apiContext = [context _apiContext];
+        [_apiContext Update:self inObject:context];
+    }     
 }
 
 // @return true == success, false == failure
 -(BOOL) UpdateSynchronous:(id)context{
-    _apiContext = context;
-    return [context UpdateSynchronous:self];
+    if([context isKindOfClass:[ProxomoApi class]]){
+        _apiContext = context;
+        return [_apiContext UpdateSynchronous:self inObject:nil];
+    }else{
+        _apiContext = [context _apiContext];
+        return [_apiContext UpdateSynchronous:self inObject:context];
+    }
 }
+
 // gets an instance by ID
 // ID must be set in object
 // updates and overwrites current properties
 -(void) Get:(id)context{
-    _apiContext = context;
-    [context Get:self];
+    if([context isKindOfClass:[ProxomoApi class]]){
+        _apiContext = context;
+        [_apiContext Get:self inObject:nil];
+    }else{
+        _apiContext = [context _apiContext];
+        [_apiContext Get:self inObject:context];
+    }
+
+    
 }
 
 // @returns id of new AppData instance
 -(BOOL) GetSynchronous:(id)context{
-    _apiContext = context;
-    return [context GetSynchronous:self getType:[self objectType]];
+    if([context isKindOfClass:[ProxomoApi class]]){
+        _apiContext = context;
+        return [_apiContext GetSynchronous:self inObject:nil];
+    }else{
+        _apiContext = [context _apiContext];
+        return [_apiContext GetSynchronous:self inObject:context];
+    }
 }
 
 
 // deletes a data instance by ID
 // ID must be set in object
 -(void) Delete:(id)context{
-    _apiContext = context;
-    [context Delete:self];
+    if([context isKindOfClass:[ProxomoApi class]]){
+        _apiContext = context;
+        [_apiContext Delete:self inObject:nil];
+    }else{
+        _apiContext = [context _apiContext];
+        [_apiContext Delete:self inObject:context];
+    } 
 }
 
 // @returns true == success, false == failure
 -(BOOL) DeleteSynchronous:(id)context{
-    _apiContext = context;
-    return [context DeleteSynchronous:[self ID] deleteType:[self objectType]];
+    if([context isKindOfClass:[ProxomoApi class]]){
+        _apiContext = context;
+        return [_apiContext DeleteSynchronous:self inObject:nil];
+    }else{
+        _apiContext = [context _apiContext];
+        return [_apiContext DeleteSynchronous:self inObject:context];
+    }
 }
 
 #pragma mark - JSON Utilities
@@ -205,7 +254,11 @@
     if(![jsonRepresentation isKindOfClass:[NSDictionary class]]) 
         return;
     
-    ID = [jsonRepresentation objectForKey:@"ID"];
+    NSString *temp_id = [jsonRepresentation objectForKey:@"ID"];
+    if(temp_id){
+        // don't loose or overwrite a good ID
+        ID = temp_id;
+    }
     
     /*
      * Can this loop over Clazz variables - needs optimization
@@ -313,7 +366,7 @@
         }
     }
     
-    if(appDelegate){
+    if([appDelegate respondsToSelector:@selector(asyncObjectComplete:proxomoObject:)]){
         [appDelegate asyncObjectComplete:(responseCode==200) proxomoObject:self];
     }
     requestType = NONE;
@@ -323,7 +376,7 @@
     requestType = NONE;
     responseCode = code;
     restResponse = status;
-    if(appDelegate){
+    if([appDelegate respondsToSelector:@selector(asyncObjectComplete:proxomoObject:)]){
         [appDelegate asyncObjectComplete:FALSE proxomoObject:self];
     }
 }

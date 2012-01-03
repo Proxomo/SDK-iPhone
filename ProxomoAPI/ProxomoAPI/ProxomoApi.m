@@ -238,7 +238,10 @@
     [self _updateStatus:connection status:statusString];
     
     if(delegate != nil){
-        [delegate handleResponse:data requestType:[request intValue] responseCode:responseCode responseStatus:statusString];
+        if(responseCode == 200)
+            [delegate handleResponse:data requestType:[request intValue] responseCode:responseCode responseStatus:statusString];
+        else
+            [delegate handleError:data requestType:[request intValue] responseCode:responseCode responseStatus:statusString];
     }
     
     [responseData removeObjectForKey:connectionHash];
@@ -495,69 +498,90 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 
 #pragma mark - CRUD
 
--(void) Add:(ProxomoObject*)object {
-    // let the object know it will receive a post response
-    if(appDelegate) [object setAppDelegate:appDelegate];
-    [self makeAsyncRequest:[self getUrlForRequest:[object objectType] requestType:POST] method:POST delegate:object];
+
+-(NSString *) objectPath{
+    return kBaseJSON;
 }
 
--(BOOL) AddSynchronous:(ProxomoObject*)object {
-    if(appDelegate) [object setAppDelegate:appDelegate];
-    return [self makeSyncRequest:[self getUrlForRequest:[object objectType] requestType:POST] method:POST delegate:object];
+-(BOOL) makeRequest:(enumRequestType)method async:(BOOL)async forObject:(id)object inObject:(id)path {
+    NSString *url, *ID;
+    
+    if(path){
+        url = [self getUrlForRequest:[path objectType] requestType:method];
+        ID = [self htmlEncodeString:[path ID]];
+        if (!ID) return false;
+        url = [url stringByAppendingFormat:@"/%@/%@", ID, [object objectPath]];
+    }else{
+        url = [self getUrlForRequest:[object objectType] requestType:method];
+    }
+    
+    if(method != POST && method != PUT){
+        ID = [self htmlEncodeString:[object ID]];
+        if (!ID) return false;
+        url = [url stringByAppendingFormat:@"/%@", ID];
+    }
+    
+    if(async){
+        [object setAppDelegate:appDelegate];
+        [self makeAsyncRequest:url method:method delegate:object];
+        return true;
+    }else{
+        [object setAppDelegate:nil];
+        return [self makeSyncRequest:url method:method delegate:object];
+    }
 }
 
--(void) Update:(ProxomoObject*)object{
-    if(appDelegate) [object setAppDelegate:appDelegate];
-    [self makeAsyncRequest:[self getUrlForRequest:[object objectType] requestType:PUT] method:PUT delegate:object];
+-(void) Add:(ProxomoObject*)object inObject:(id)path {
+    [self makeRequest:POST async:YES forObject:object inObject:path];
 }
 
--(BOOL) UpdateSynchronous:(ProxomoObject*)object{
-    if(appDelegate) [object setAppDelegate:appDelegate];
-    return [self makeSyncRequest:[self getUrlForRequest:[object objectType] requestType:PUT] method:PUT delegate:object];
+-(BOOL) AddSynchronous:(ProxomoObject*)object inObject:(id)path {
+    return [self makeRequest:POST async:NO forObject:object inObject:path];
 }
 
--(void) Delete:(ProxomoObject*)object {
-    if(appDelegate) [object setAppDelegate:appDelegate];
-    NSString *ID = [self htmlEncodeString:[object ID]];
-    [self makeAsyncRequest:[NSString stringWithFormat:@"%@/%@", [self getUrlForRequest:[object objectType] requestType:DELETE], ID] method:DELETE delegate:object];
+-(void) Update:(ProxomoObject*)object inObject:(id)path {
+    [self makeRequest:PUT async:YES forObject:object inObject:path];
 }
 
--(BOOL) DeleteSynchronous:(NSString*)ID deleteType:(enumObjectType)type {
-    ID = [self htmlEncodeString:ID];
-    return [self makeSyncRequest:[NSString stringWithFormat:@"%@/%@", [self getUrlForRequest:type requestType:DELETE], ID] method:DELETE delegate:nil];
+-(BOOL) UpdateSynchronous:(ProxomoObject*)object inObject:(id)path {
+    return [self makeRequest:PUT async:NO forObject:object inObject:path];
+}
+
+-(void) Delete:(ProxomoObject*)object inObject:(id)path {
+    [self makeRequest:DELETE async:YES forObject:object inObject:path];
+}
+
+-(BOOL) DeleteSynchronous:(ProxomoObject*)object inObject:(id)path {
+    return [self makeRequest:DELETE async:NO forObject:object inObject:path];
 }
 
 #pragma mark - Getters
 
--(void) Get:(ProxomoObject*)object {
-    NSString *ID = [self htmlEncodeString:[object ID]];
-    if(appDelegate) [object setAppDelegate:appDelegate];
-    [self makeAsyncRequest:[NSString stringWithFormat:@"%@/%@", [self getUrlForRequest:[object objectType] requestType:GET], ID] method:GET delegate:object];
+-(void) Get:(ProxomoObject*)object inObject:(id)path {
+    [self makeRequest:GET async:YES forObject:object inObject:path];
 }
 
--(BOOL) GetSynchronous:(ProxomoObject*)object getType:(enumObjectType)type{
-    NSString *ID = [self htmlEncodeString:[object ID]];
-    if(appDelegate) [object setAppDelegate:appDelegate];
-    return [self makeSyncRequest:[NSString stringWithFormat:@"%@/%@", [self getUrlForRequest:type requestType:GET], ID] method:GET delegate:object];
+-(BOOL) GetSynchronous:(ProxomoObject*)object inObject:(id)path {
+    return [self makeRequest:GET async:NO forObject:object inObject:path];
 }
 
 #pragma mark - Lists
 
 
--(void)GetAll:(ProxomoList*)proxomoList getType:(enumObjectType)type{
+-(void)GetAll:(ProxomoList*)proxomoList getType:(enumObjectType)type inObject:(id)path {
     if([ProxomoList isSupported:type]){
         [proxomoList setListType:type];
-        if (appDelegate) [proxomoList setAppDelegate:appDelegate];
+        [proxomoList setAppDelegate:appDelegate];
         [self makeAsyncRequest:[self getUrlForRequest:type requestType:GET] method:GET delegate:proxomoList];
     }else{
         [proxomoList handleError:nil requestType:GET responseCode:405 responseStatus:@"405 Method Not Allowed (Unsupported)"];
     }
 }
 
--(BOOL)GetAll_Synchronous:(ProxomoList*)proxomoList getType:(enumObjectType)getType{
+-(BOOL)GetAll_Synchronous:(ProxomoList*)proxomoList getType:(enumObjectType)getType inObject:(id)path {
     if([ProxomoList isSupported:getType]){
         [proxomoList setListType:getType];
-        if (appDelegate) [proxomoList setAppDelegate:appDelegate];
+        [proxomoList setAppDelegate:appDelegate];
         return [self makeSyncRequest:[self getUrlForRequest:getType requestType:GET] method:GET delegate:proxomoList];
     }else{
         [proxomoList handleError:nil requestType:GET responseCode:405 responseStatus:@"405 Method Not Allowed (Unsupported)"];
@@ -565,7 +589,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     return false;
 }
 
--(void) Search:(ProxomoList*)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)async {
+-(void) Search:(ProxomoList*)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)async  inObject:(id)path {
     
     url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:objType requestType:GET],  url, [self htmlEncodeString:uri]];
     [proxomoList setListType:objType];

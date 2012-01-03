@@ -2,7 +2,7 @@
 //  Persons.h
 //  PROXOMO
 //
-//  Created by Charisse Dirain on 10/26/11.
+//  Created by Fred Crable on 10/26/11.
 //  Copyright (c) 2011 Proxomo. All rights reserved.
 //
 
@@ -23,6 +23,9 @@ typedef enum {
     NSString *_socialnetwork;
     NSString *_socialnetwork_id;  
     
+    /**
+     Person obtained from social network ID
+     */
     NSString *EmailAddress; ///	String	No	EMail address of the Person.
     BOOL EmailAlerts; ///	Boolean	Yes	Determines if the Person has approved to receive alerts and notifications via EMail. (Defaults to False)
     NSString *EmailVerificationCode; ///	String	No	Verification code used to verify the EMail address of the Person.  This code should be sent to the user and verified.
@@ -42,22 +45,34 @@ typedef enum {
     NSString *TwitterID; ///	String	No	Please note: While TwitterID is defined Twitter integration has not yet been added to Proxomo.
     NSString *UserName; ///	String	No	This field is not used by Proxomo.  Developers can use this field to associate a Person to another account if needed.
     double UTCOffset; ///	Double	No	Coordinate Universal Time Offset of the Person.
-    
 }
 
+/**
+ Obtains the correct person ID using the login application for a social network
+ */
 -(void)loginToSocialNetwork:(enumSocialNetwork)network forApplication:(id)apiContext;
 -(BOOL)isAuthorized;
+-(NSString*)getAccessToken;
 
-/*
--(void) Person_AppData_Add:(NSObject*)object;
--(void) Person_AppData_Delete:(NSObject*)object : (NSObject*) appDataID;
--(void) Person_AppData_Get:(NSObject*)object : (NSObject *) appDataID;
--(void) Person_AppData_GetAll:(NSObject*)object;
--(void) Person_AppData_Update:(NSObject*)object;
--(void) Person_Locations_Get:(NSObject*)object;
--(void) Person_SocialNetworkInfo_Get:(NSObject*)object;
-*/
 
-@property (nonatomic, strong) AuthorizeDialog *loginDialogView;
+@property (nonatomic, strong) NSString *EmailAddress;
+@property (nonatomic) BOOL EmailAlerts; 
+@property (nonatomic, strong) NSString *EmailVerificationCode;
+@property (nonatomic, strong) NSNumber *EmailVerificationStatus; 
+@property (nonatomic) BOOL EmailVerified; 
+@property (nonatomic, strong) NSString *FacebookID; ///	String	No	Facebook unique identifier.
+@property (nonatomic, strong) NSString *FirstName; ///	String	Yes	First Name of the Person.
+@property (nonatomic, strong) NSString *FullName; ///	String	Yes	Full Name of the Person.
+@property (nonatomic, strong) NSString *ImageURL; ///	String	No	Image URL of the Person.
+@property (nonatomic, strong) NSDate *LastLogin; ///	DateTime	No	Last Date and Time the Person logged into Proxomo.
+@property (nonatomic, strong) NSString *LastName; ///	String	Yes	Last Name of the Person.
+@property (nonatomic) BOOL MobileAlerts; 
+@property (nonatomic, strong) NSString *MobileNumber; ///	String	No	Mobile phone number of the Person.
+@property (nonatomic, strong) NSString *MobileVerificationCode;
+@property (nonatomic, strong) NSNumber *MobileVerificationStatus;
+@property (nonatomic) BOOL MobileVerified;
+@property (nonatomic, strong) NSString *TwitterID;
+@property (nonatomic, strong) NSString *UserName;
+@property (nonatomic) double UTCOffset;
 
 @end
