@@ -33,7 +33,6 @@
 @property (nonatomic, strong) NSString *ID;
 
 -(id)initWithID:(NSString*)objectdId;
-// What type am I?
 -(enumObjectType) objectType;
 -(NSString *) objectPath;
 

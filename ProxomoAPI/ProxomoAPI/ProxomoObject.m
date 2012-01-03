@@ -7,6 +7,7 @@
 //
 
 #import "ProxomoObject.h"
+#import "ProxomoList.h"
 #import "Person.h"
 #import "SBJson.h"
 #import <objc/runtime.h>

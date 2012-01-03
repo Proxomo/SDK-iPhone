@@ -473,31 +473,34 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     [self _receiveDidStopWithStatus:connection code:400 status:[error localizedDescription]];
 }
 
--(NSString *)getUrlForRequest:(enumObjectType)objectType requestType:(enumRequestType)requestType{
-
-    switch(objectType){
+-(NSString *)getPathForObjectType:(enumObjectType)type{
+    switch(type){
         case APPDATA_TYPE:
-            return [NSString stringWithFormat:@"%@appdata", kBaseJSON];
+            return @"appdata";
         case FRIEND_TYPE:
-            return [NSString stringWithFormat:@"%@friend", kBaseJSON];
+        case SOCIALNETFRIEND_TYPE:
+            return @"friends/personid";
         case EVENT_TYPE:
-            return [NSString stringWithFormat:@"%@event", kBaseJSON];
+            return @"event";
         case GEOCODE_TYPE:
-            return [NSString stringWithFormat:@"%geocode", kBaseJSON];
+            return @"geocode";
         case LOCATION_TYPE:
-            return [NSString stringWithFormat:@"%@location", kBaseJSON];
+            return @"location";
         case NOTIFICATION_TYPE:
-            return [NSString stringWithFormat:@"%@notification", kBaseJSON];
+            return @"notification";
         case PERSON_TYPE:
-            return [NSString stringWithFormat:@"%@person", kBaseJSON];
-        default:
+            return @"person";
+                default:
             return kBaseJSON;
     }
     return kBaseJSON;
+
+}
+-(NSString *)getUrlForRequest:(enumObjectType)objectType requestType:(enumRequestType)requestType{
+    return [NSString stringWithFormat:@"%@%@",kBaseJSON, [self getPathForObjectType:objectType]];
 }
 
 #pragma mark - CRUD
-
 
 -(NSString *) objectPath{
     return kBaseJSON;
@@ -507,15 +510,35 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     NSString *url, *ID;
     
     if(path){
-        url = [self getUrlForRequest:[path objectType] requestType:method];
-        ID = [self htmlEncodeString:[path ID]];
-        if (!ID) return false;
-        url = [url stringByAppendingFormat:@"/%@/%@", ID, [object objectPath]];
+        if([object objectType] == FRIEND_TYPE){
+            url = [self getUrlForRequest:[object objectType] requestType:method];
+            ID = [self htmlEncodeString:[path ID]];
+            if (!ID) return false;
+            url = [url stringByAppendingFormat:@"/%@", ID];
+        }else if([object objectType] == SOCIALNETFRIEND_TYPE){
+            url = [self getUrlForRequest:[object objectType] requestType:method];
+            ID = [self htmlEncodeString:[path ID]];
+            if (!ID) return false;
+            url = [url stringByAppendingFormat:@"/%@/socialnetwork/0", ID];
+        }else{
+            url = [self getUrlForRequest:[path objectType] requestType:method];
+            ID = [self htmlEncodeString:[path ID]];
+            if (!ID) return false;
+            url = [url stringByAppendingFormat:@"/%@/%@", ID, [self getPathForObjectType:[object objectType]]];
+        }
     }else{
         url = [self getUrlForRequest:[object objectType] requestType:method];
     }
     
-    if(method != POST && method != PUT){
+    if([object isKindOfClass:[ProxomoList class]]){
+        switch ([object objectType]) {
+            case LOCATION_TYPE:
+                url = [url stringByAppendingString:@"s"];
+                break;
+            default:
+                break;
+        }
+    }else if(method != POST && method != PUT){
         ID = [self htmlEncodeString:[object ID]];
         if (!ID) return false;
         url = [url stringByAppendingFormat:@"/%@", ID];
@@ -569,24 +592,13 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 
 
 -(void)GetAll:(ProxomoList*)proxomoList getType:(enumObjectType)type inObject:(id)path {
-    if([ProxomoList isSupported:type]){
-        [proxomoList setListType:type];
-        [proxomoList setAppDelegate:appDelegate];
-        [self makeAsyncRequest:[self getUrlForRequest:type requestType:GET] method:GET delegate:proxomoList];
-    }else{
-        [proxomoList handleError:nil requestType:GET responseCode:405 responseStatus:@"405 Method Not Allowed (Unsupported)"];
-    }
+    [proxomoList setListType:type];
+    [self makeRequest:GET async:YES forObject:proxomoList inObject:path];
 }
 
--(BOOL)GetAll_Synchronous:(ProxomoList*)proxomoList getType:(enumObjectType)getType inObject:(id)path {
-    if([ProxomoList isSupported:getType]){
-        [proxomoList setListType:getType];
-        [proxomoList setAppDelegate:appDelegate];
-        return [self makeSyncRequest:[self getUrlForRequest:getType requestType:GET] method:GET delegate:proxomoList];
-    }else{
-        [proxomoList handleError:nil requestType:GET responseCode:405 responseStatus:@"405 Method Not Allowed (Unsupported)"];
-    }
-    return false;
+-(BOOL)GetAll_Synchronous:(ProxomoList*)proxomoList getType:(enumObjectType)type inObject:(id)path {
+    [proxomoList setListType:type];
+    return [self makeRequest:GET async:NO forObject:proxomoList inObject:path];
 }
 
 -(void) Search:(ProxomoList*)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)async  inObject:(id)path {

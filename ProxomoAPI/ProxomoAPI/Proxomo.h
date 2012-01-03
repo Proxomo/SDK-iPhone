@@ -18,5 +18,6 @@
 #import "GeoCode.h"
 #import "Notification.h"
 #import "Person.h"
+#import "SocialNetworkFriend.h"
 
 #endif

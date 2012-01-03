@@ -8,7 +8,7 @@
 
 #import "ProxomoApi.h"
 #import "ProxomoObject.h"
-#import "ProxomoList+Proxomo.h"
+#import "ProxomoList.h"
 #import "AppData.h"
 
 #define DEFAULT_OBJECTYPE @"PROXOMO"
@@ -49,8 +49,6 @@
     return self;
 }
 
-#pragma mark - JSON Data Support
-
 #pragma mark - API Delegate
 -(enumObjectType) objectType{
     return APPDATA_TYPE;
@@ -60,7 +58,6 @@
     return @"appdata";
 }
 
-
 -(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
     [super handleError:response requestType:requestType responseCode:code responseStatus:status];
 }
@@ -69,17 +66,13 @@
     [super handleResponse:response requestType:requestType  responseCode:code responseStatus:status];
 }
 
-
-+(void)getAllInContext:(ProxomoApi*)context intoList:(ProxomoList*)proxomoList useAsync:(BOOL)useAsync{
-    if(useAsync){
-        [context GetAll:proxomoList getType:APPDATA_TYPE inObject:nil];
-    }else{
-        [context GetAll_Synchronous:proxomoList getType:APPDATA_TYPE inObject:nil];
++(void)searchInContext:(id)context forObjectType:(NSString*)objectType intoList:(ProxomoList*)proxomoList useAsync:(BOOL)useAsync{
+    id inObject = nil;
+    if(![context isKindOfClass:[ProxomoApi class]]){
+        context = [context _apiContext];
+        inObject = context;
     }
-}
-
-+(void)searchInContext:(ProxomoApi*)context forObjectType:(NSString*)objectType intoList:(ProxomoList*)proxomoList useAsync:(BOOL)useAsync{
-    [context Search:proxomoList searchUrl:@"/search/objecttype" searchUri:objectType forListType:APPDATA_TYPE useAsync:useAsync inObject:nil];
+    [context Search:proxomoList searchUrl:@"/search/objecttype" searchUri:objectType forListType:APPDATA_TYPE useAsync:useAsync inObject:inObject];
 }
 
 

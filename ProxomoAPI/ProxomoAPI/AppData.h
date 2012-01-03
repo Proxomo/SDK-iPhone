@@ -22,8 +22,6 @@
 -(id)initWithValue:(NSString*)value forKey:(NSString*)key;
 -(id)initWithValue:(NSString*)value forKey:(NSString*)key objectType:(NSString*)objectType;
 -(id)initWithValue:(NSString*)value forKey:(NSString*)key objectType:(NSString*)objectType proxomoId:(NSString*)proxomoId;
-
-+(void)getAllInContext:(id)context intoList:(ProxomoList*)proxomoList useAsync:(BOOL)useAsync;
 +(void)searchInContext:(id)context forObjectType:(NSString*)objectType intoList:(ProxomoList*)proxomoList useAsync:(BOOL)useAsync;
 
 @end

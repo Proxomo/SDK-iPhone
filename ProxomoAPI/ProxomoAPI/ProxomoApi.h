@@ -24,7 +24,8 @@ typedef enum {
     LOCATION_TYPE,
     NOTIFICATION_TYPE,
     PERSON_TYPE,
-    PROXOMOLIST_TYPE
+    PROXOMOLIST_TYPE,
+    SOCIALNETFRIEND_TYPE
 } enumObjectType;
 
 typedef enum {
@@ -160,7 +161,7 @@ typedef enum {
  */
 -(void) GetAll:(id)proxomoList getType:(enumObjectType)type inObject:(id)path;
 /// @returns an array of AppData instances
--(BOOL) GetAll_Synchronous:(id)proxomoList getType:(enumObjectType)getType inObject:(id)path;
+-(BOOL) GetAll_Synchronous:(id)proxomoList getType:(enumObjectType)type inObject:(id)path;
 
 /// General Search
 -(void) Search:(id)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)useAsync inObject:(id)path;

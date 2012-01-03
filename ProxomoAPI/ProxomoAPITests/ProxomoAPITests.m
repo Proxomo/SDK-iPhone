@@ -268,7 +268,7 @@
     /*
       * get all and delete them
       */
-    [AppData getAllInContext:apiContext intoList:list useAsync:YES];
+    [list GetAll:apiContext getType:APPDATA_TYPE];
     [self waitForAsync];
     array = [list getList];
     STAssertNotNil(array, @"List of AppData was nil");
@@ -285,7 +285,7 @@
     /*
       * Get all again and assure there are none
       */
-    [AppData getAllInContext:apiContext intoList:list useAsync:YES];
+    [list GetAll:apiContext getType:APPDATA_TYPE];
     [self waitForAsync];
     array = [list getList];
     STAssertNotNil(array, @"GetAll array nil");
@@ -343,7 +343,7 @@
       * get all and delete them
       */
     ProxomoList *list = [[ProxomoList alloc] init];
-    [AppData getAllInContext:apiContext intoList:list useAsync:NO];
+    [list GetAll_Synchronous:apiContext getType:APPDATA_TYPE];
     STAssertNotNil([list getList], @"Get All Fail");
     STAssertTrue([[list getList] count] >= TESTLOOPS, @"Too few GetAll results");
 
@@ -357,7 +357,7 @@
     /*
       * Get all again and assure there are none
       */
-    [AppData getAllInContext:apiContext intoList:list useAsync:NO];
+    [list GetAll_Synchronous:apiContext getType:APPDATA_TYPE];
     STAssertNotNil([list getList], @"GetAll array nil");
     STAssertTrue([[list getList] count] == 0, @"Array should be empty");
 }

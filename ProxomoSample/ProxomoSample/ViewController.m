@@ -1,4 +1,4 @@
-//
+    //
 //  ViewController.m
 //  ProxomoSample
 //
@@ -29,7 +29,6 @@
         NSLog(@"User Updated %@",[p FullName]);
         
         NSString *personDataID = [[NSUserDefaults standardUserDefaults] objectForKey:@"SamplePersonLogin"];
-        
         if(![personDataID isEqualToString:[p ID]]){
             AppData *a = [[AppData alloc] initWithValue:[p ID] forKey:@"SamplePersonLogin"];
             [a Add:_userContext]; 
@@ -38,6 +37,32 @@
             [a Add:_userContext];
             [[NSUserDefaults standardUserDefaults] setObject:[p ID] forKey:@"SamplePersonLogin"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+
+        
+        ProxomoList *userData = [[ProxomoList alloc] init];
+        NSArray *userArray;
+        [userData GetAll_Synchronous:_userContext getType:APPDATA_TYPE];
+        userArray = [userData getList];
+        for (AppData *data in userArray) {
+            NSLog(@"ID %@, Key %@, Value %@, Type %@", [data ID], [data Key],[data Value], [data ObjectType]);
+        }
+        [userData GetAll_Synchronous:_userContext getType:LOCATION_TYPE];
+        userArray = [userData getList];
+        for (Location *loc in userArray) {
+            NSLog(@"ID %@, Addr %@, City %@, State %@", [loc ID], [loc Address1],[loc City], [loc State]);
+        }
+
+        [userData GetAll_Synchronous:_userContext getType:FRIEND_TYPE];
+        userArray = [userData getList];
+        for(Friend *f in userArray){
+            NSLog(@"ID %@, Name %@",[f FacebookID], [f FullName]);
+        }
+        
+        [userData GetAll_Synchronous:_userContext getType:SOCIALNETFRIEND_TYPE];
+        userArray = [userData getList];
+        for(Friend *f in userArray){
+            NSLog(@"ID %@, Name %@",[f FacebookID], [f FullName]);
         }
     }
 }
