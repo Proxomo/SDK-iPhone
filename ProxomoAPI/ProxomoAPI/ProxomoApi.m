@@ -86,7 +86,7 @@
     return self;
 }
 
-- (id) initWithKey:(NSString *)appKey appID:(NSString *)appID andDelegate:(id)delegate{
+- (id) initWithKey:(NSString *)appKey appID:(NSString *)appID delegate:(id)delegate{
     self = [super init];
     if(self){
         apiKey = appKey;
@@ -296,7 +296,7 @@
     return methodString;
 }
 
-- (NSMutableURLRequest*)createRequestUrl:(NSString *)path method:(enumRequestType)method delegate:(id <ProxomoApiDelegate>) requestDelegate
+- (NSMutableURLRequest*)createRequestUrl:(NSString *)path method:(enumRequestType)method delegate:(id)requestDelegate
 {
     NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseURL, path];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -321,11 +321,22 @@
         [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     }
     [urlRequest setHTTPMethod:[self stringForRequestType:method]];
+    /*
+    NSString *objectAccessToken = nil;
+    if ([requestDelegate isKindOfClass:[Person class]] == false) {
+        objectAccessToken = [requestDelegate getAccessToken];
+    }
+    if(objectAccessToken){
+        [urlRequest setValue:objectAccessToken forHTTPHeaderField:@"Authorization"];
+    }else{
+        [urlRequest setValue:accessToken forHTTPHeaderField:@"Authorization"];
+    }
+     */
     [urlRequest setValue:accessToken forHTTPHeaderField:@"Authorization"];
     return urlRequest;
 }
 
-- (void)makeAsyncRequest:(NSString*)path method:(enumRequestType)method delegate:(id <ProxomoApiDelegate>) requestDelegate 
+- (void)makeAsyncRequest:(NSString*)path method:(enumRequestType)method delegate:(id) requestDelegate 
 {
     if(![self checkLogin:requestDelegate]) return;
     

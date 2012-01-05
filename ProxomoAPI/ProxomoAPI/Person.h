@@ -19,7 +19,6 @@ typedef enum {
 @interface Person : ProxomoObject <ProxomoAuthDelegate> {
     AuthorizeDialog *loginDialogView;
     
-    NSString *_access_token;
     NSString *_socialnetwork;
     NSString *_socialnetwork_id;  
     

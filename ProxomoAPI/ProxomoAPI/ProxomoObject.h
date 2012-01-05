@@ -20,6 +20,7 @@
 @interface ProxomoObject : NSObject <ProxomoApiDelegate> {
     id appDelegate;
     ProxomoApi *_apiContext;
+    NSString *_accessToken;      /// User or Application Login Token
     NSString *restResponse;
     NSInteger responseCode;
     
@@ -28,9 +29,12 @@
 }
 
 @property (nonatomic, strong) ProxomoApi *_apiContext;
+@property (nonatomic, strong) NSString *_accessToken;
 @property (nonatomic, strong) NSString *restResponse;
 @property (nonatomic, strong) id appDelegate;
 @property (nonatomic, strong) NSString *ID;
+
+
 
 -(id)initWithID:(NSString*)objectdId;
 -(enumObjectType) objectType;

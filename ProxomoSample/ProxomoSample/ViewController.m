@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "DefinitionView.h"
 
 @implementation ViewController
 
@@ -25,45 +26,11 @@
         return;
     }
     if([proxomoObject isKindOfClass:[Person class]]){
-        Person *p = (Person*)proxomoObject;
-        NSLog(@"User Updated %@",[p FullName]);
-        
-        NSString *personDataID = [[NSUserDefaults standardUserDefaults] objectForKey:@"SamplePersonLogin"];
-        if(![personDataID isEqualToString:[p ID]]){
-            AppData *a = [[AppData alloc] initWithValue:[p ID] forKey:@"SamplePersonLogin"];
-            [a Add:_userContext]; 
-            [a setKey:@"SamplePersonFullName"];
-            [a setValue:[p FullName]];
-            [a Add:_userContext];
-            [[NSUserDefaults standardUserDefaults] setObject:[p ID] forKey:@"SamplePersonLogin"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-
-        
-        ProxomoList *userData = [[ProxomoList alloc] init];
-        NSArray *userArray;
-        [userData GetAll_Synchronous:_userContext getType:APPDATA_TYPE];
-        userArray = [userData getList];
-        for (AppData *data in userArray) {
-            NSLog(@"ID %@, Key %@, Value %@, Type %@", [data ID], [data Key],[data Value], [data ObjectType]);
-        }
-        [userData GetAll_Synchronous:_userContext getType:LOCATION_TYPE];
-        userArray = [userData getList];
-        for (Location *loc in userArray) {
-            NSLog(@"ID %@, Addr %@, City %@, State %@", [loc ID], [loc Address1],[loc City], [loc State]);
-        }
-
-        [userData GetAll_Synchronous:_userContext getType:FRIEND_TYPE];
-        userArray = [userData getList];
-        for(Friend *f in userArray){
-            NSLog(@"ID %@, Name %@",[f FacebookID], [f FullName]);
-        }
-        
-        [userData GetAll_Synchronous:_userContext getType:SOCIALNETFRIEND_TYPE];
-        userArray = [userData getList];
-        for(Friend *f in userArray){
-            NSLog(@"ID %@, Name %@",[f FacebookID], [f FullName]);
-        }
+        DefinitionView *defView = [[DefinitionView alloc] initWithStyle:UITableViewStyleGrouped];
+        [defView setUserContext:_userContext];
+        [defView setApiContext:_apiContext];
+        [defView setPObject:proxomoObject];
+        [[self navigationController] pushViewController:defView animated:NO];
     }
 }
 
@@ -73,8 +40,6 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authorization Failure" message:@"Login Failed" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
             [alert show];
         }else{
-
-            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authorization Success" message:@"User is Logged into Proxomo" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
         }
@@ -82,9 +47,14 @@
     }
 }
 
--(void)ProxomoAuthorize:(id)button {
+-(void)LoginUser:(id)button {
     _userContext = [[Person alloc] init];
     [_userContext loginToSocialNetwork:FACEBOOK forApplication:_apiContext];
+}
+
+-(void)LoginAPI:(id)button {
+    _userContext = nil;
+    [_apiContext loginApi:self];
 }
 
 #pragma mark - View lifecycle
@@ -93,17 +63,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    _apiContext = [[ProxomoApi alloc] initWithKey:@"xEEF1e56ghNixRIaixe2USHoQTnZVm7tqzzfMGemoX8=" appID:@"ihjNViYPiCGMdnjR" andDelegate:self];
-
-    AppData *appInitData = [[AppData alloc] initWithValue:@"v09" forKey:@"SampleViewController"];
-    NSString *appDataID = [[NSUserDefaults standardUserDefaults] objectForKey:@"SampleViewController"];
-
-    [appInitData setID:appDataID];
-    if(![appInitData GetSynchronous:_apiContext]){
-        [appInitData AddSynchronous:_apiContext];  
-        [[NSUserDefaults standardUserDefaults] setObject:[appInitData ID] forKey:@"SampleViewController"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
 }
 
 - (void)viewDidUnload
@@ -122,12 +81,16 @@
 {
     [super viewDidAppear:animated];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button addTarget:self 
-               action:@selector(ProxomoAuthorize:)
-     forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"Proxomo" forState:UIControlStateNormal];
-    button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
+    [button addTarget:self action:@selector(LoginAPI:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"Login API" forState:UIControlStateNormal];
+    button.frame = CGRectMake(80.0, 170.0, 160.0, 40.0);
     [self.view addSubview:button];
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button addTarget:self action:@selector(LoginUser:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"Login User" forState:UIControlStateNormal];
+    button.frame = CGRectMake(80.0, 215.0, 160.0, 40.0);
+    [self.view addSubview:button];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated

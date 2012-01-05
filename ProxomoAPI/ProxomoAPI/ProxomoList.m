@@ -42,6 +42,7 @@
 
     if(![context isKindOfClass:[ProxomoApi class]]){
         inObject = context;
+        _accessToken = [inObject getAccessToken];
         context = [context _apiContext];
     }
 
@@ -56,34 +57,41 @@
     
     if(![context isKindOfClass:[ProxomoApi class]]){
         inObject = context;
+        _accessToken = [inObject getAccessToken];
         context = [context _apiContext];
     }
     
     return [context GetAll_Synchronous:self getType:type inObject:inObject];
 }
 
--(id) createObjectOfType:(enumObjectType)type{
+-(ProxomoObject *) createObjectOfType:(enumObjectType)type fromJsonRepresentation:(NSDictionary*)jsonRepresentation {
+    ProxomoObject *item;
+    
     switch (type) {
         case APPDATA_TYPE:
-            return [[AppData alloc] init];
+            item = [[AppData alloc] init];
             break;
         case LOCATION_TYPE:
-            return [[Location alloc] init];
+            item = [[Location alloc] init];
+            break;
         case FRIEND_TYPE:
-            return [[Friend alloc] init];
+            item = [[Friend alloc] init];
+            break;
         case SOCIALNETFRIEND_TYPE:
-            return [[SocialNetworkFriend alloc] init];
+            item = [[SocialNetworkFriend alloc] init];
+            break;
         default:
             break;
     }
-    return nil;
+    [item updateFromJsonRepresentation:jsonRepresentation];
+    return item;
 }
 
 -(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation {
-    id item;
+    ProxomoObject *item;
     proxomoList = [[NSMutableArray alloc] init];
-    for (NSDictionary *locationDataDictionary in jsonRepresentation) {
-        item = [self createObjectOfType:listType];
+    for (NSDictionary *itemDictionary in jsonRepresentation) {
+        item = [self createObjectOfType:listType fromJsonRepresentation:itemDictionary];
         [proxomoList addObject:item];
     }
 }

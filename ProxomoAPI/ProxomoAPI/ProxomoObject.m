@@ -18,6 +18,7 @@
 @synthesize ID;
 @synthesize appDelegate;
 @synthesize _apiContext;
+@synthesize _accessToken;
 
 -(id) init {
     self = [super init];
@@ -42,6 +43,10 @@
 
 -(NSString *) objectPath{
     return @"";
+}
+
+-(NSString*)getAccessToken{
+    return _accessToken;
 }
 
 
@@ -197,9 +202,10 @@
     ptrdiff_t offset;
     int ival = 0;
     long lval = 0;
-    double tempDate;
+    double dval;
     NSString *jsonDate;
     NSString *key;
+    char cval;
     
     if (ID) [dict setValue:ID forKey:@"ID"]; // inherited do not appear in list?
     for (int i = 0; i < count ; i++)
@@ -221,12 +227,17 @@
                     continue;
                 }
                 if ([ivarValue isKindOfClass:[NSDate class]]) {
-                    tempDate = [(NSDate*)ivarValue timeIntervalSince1970] * 1000;
-                    jsonDate = [NSString stringWithFormat:@"/Date(%ld)/",tempDate];
+                    dval = [(NSDate*)ivarValue timeIntervalSince1970] * 1000;
+                    jsonDate = [NSString stringWithFormat:@"/Date(%ld)/",dval];
                     [dict setValue:jsonDate forKey:key]; 
                 }else{
                     [dict setValue:ivarValue forKey:key];
                 }
+                break;
+            case 'd':
+                offset = ivar_getOffset(ivars[i]);
+                dval = *(double *)((__bridge void*)self + offset);
+                [dict setValue:[NSNumber numberWithDouble:dval] forKey:key];
                 break;
             case 'i':
                 offset = ivar_getOffset(ivars[i]);
@@ -238,8 +249,13 @@
                 lval = *(long *)((__bridge void*)self + offset);
                 [dict setValue:[NSNumber numberWithLong:lval] forKey:key];
                 break;
+            case 'c':
+                offset = ivar_getOffset(ivars[i]);
+                cval = *(char *)((__bridge void*)self + offset);
+                [dict setValue:[NSNumber numberWithBool:cval] forKey:key];
+                break;
             default:
-                NSLog(@"Invalid JSON Property Type %c",ivarType);
+                NSLog(@"Invalid JSON Property proxy %c",ivarType);
                 break;
         }
     }
@@ -274,6 +290,8 @@
     ptrdiff_t offset;
     int ival = 0;
     long lval = 0;
+    char cval = 0;
+    double dval = 0;
     NSString *key;
     
     // inherited do not appear in list?
@@ -283,7 +301,7 @@
         key = [NSString  stringWithCString:ivarName encoding:NSUTF8StringEncoding];
         typeEncoding = ivar_getTypeEncoding(ivars[i]);
         ivarType = typeEncoding[0];
-        
+
         if (ivarName[0] == '_') {
             continue; // skip fields hidden by starting with _
         }
@@ -293,6 +311,7 @@
             //NSLog(@"Empty json key:%@",key);
             continue;
         }
+        offset = ivar_getOffset(ivars[i]);
         switch (ivarType) {
             case '@':
                 if ([ivarValue isKindOfClass:[NSDate class]]) {
@@ -305,18 +324,38 @@
                     NSLog(@"Invalid json type %s for %@",class_getName([ivarValue class]), key);
                 }
                 break;
+            case 'd':
+                if([ivarValue respondsToSelector:@selector(doubleValue)]){
+                    dval = [ivarValue doubleValue];
+                    *(double *)((__bridge void*)self + offset) = dval;
+                }
+                break;               
             case 'i':
-                offset = ivar_getOffset(ivars[i]);
-                ival = 99; // todo convert json dictonary type to int
-                *(int *)((__bridge void*)self + offset) = ival;
+                if([ivarValue respondsToSelector:@selector(intValue)]){
+                    ival = [ivarValue intValue];
+                    *(int *)((__bridge void*)self + offset) = ival;
+                }
                 break;
             case 'l':
+                if([ivarValue respondsToSelector:@selector(longValue)]){
+                    lval = [ivarValue longValue];
+                    *(int *)((__bridge void*)self + offset) = lval;
+                }
+                break;
+            case 'c':
+            case 'B':
+                // BOOLEAN
                 offset = ivar_getOffset(ivars[i]);
-                lval = 99; // todo convert json dictonary type to int
-                *(long *)((__bridge void*)self + offset) = lval;
+                cval = 0;
+                if([ivarValue respondsToSelector:@selector(boolValue)]){
+                    cval = [ivarValue boolValue];
+                }else if([ivarValue respondsToSelector:@selector(intValue)]){
+                    cval = [ivarValue intValue];
+                }
+                *(char *)((__bridge void*)self + offset) = cval;
                 break;
             default:
-                NSLog(@"Invalid JSON Property Type %c",ivarType);
+                NSLog(@"Invalid JSON Property update %c",ivarType);
                 break;
         }
     }

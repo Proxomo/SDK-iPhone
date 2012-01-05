@@ -39,7 +39,7 @@
 -(void)authComplete:(BOOL)success withStatus:(NSString*)status forPerson:(id)person{
     NSLog(@"Proxomo Authentication %@ for %@", status, person);
     if(success){
-        _access_token = [loginDialogView access_token];
+        _accessToken = [loginDialogView access_token];
         _socialnetwork = [loginDialogView socialnetwork];
         _socialnetwork_id = [loginDialogView socialnetwork_id];
         ID = [loginDialogView personID];
@@ -51,7 +51,7 @@
 }
 
 -(BOOL)isAuthorized {
-    return (_access_token != nil && _socialnetwork_id != nil);
+    return (_accessToken != nil && _accessToken != nil);
 }
 
 -(void)loginToSocialNetwork:(enumSocialNetwork)network forApplication:(id)apiContext{
@@ -88,7 +88,7 @@
 }
 
 -(NSString *)getAccessToken{
-    return _access_token;
+    return _accessToken;
 }
 
 @end

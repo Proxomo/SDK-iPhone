@@ -40,6 +40,7 @@ typedef enum {
 -(NSMutableDictionary*) proxyForJson;
 -(void) handleResponse:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status;
 -(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status;
+-(NSString*)getAccessToken;
 @end
 
 /** 
@@ -54,8 +55,8 @@ typedef enum {
     
     // basic API information
     NSString *apiKey;           /// Key for API instance issued by Proxomo
-    NSString *applicationId;   /// Application ID issued by Proxomo
-    NSString *accessToken;     /// User or Application Login Token
+    NSString *applicationId;    /// Application ID issued by Proxomo
+    NSString *accessToken;      /// User or Application Login Token
     NSString *apiVersion;
     NSNumber *expires;
     
@@ -84,7 +85,8 @@ typedef enum {
  * API Initialization Function
  */
 -(id) initWithKey:(NSString*)appKey appID:(NSString*)appID;
--(id) initWithKey:(NSString *)appKey appID:(NSString *)appID andDelegate:(id)delegate;
+-(id) initWithKey:(NSString *)appKey appID:(NSString *)appID delegate:(id)delegate;
+
 
 /*
  * Login Handler
