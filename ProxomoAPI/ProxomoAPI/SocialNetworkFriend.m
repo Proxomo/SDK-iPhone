@@ -23,4 +23,8 @@
     return @"socialnetwork";
 }
 
+-(NSString *) description {
+    return FullName;
+}
+
 @end

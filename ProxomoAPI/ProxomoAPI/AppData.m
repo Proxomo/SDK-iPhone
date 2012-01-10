@@ -75,5 +75,9 @@
     [context Search:proxomoList searchUrl:@"/search/objecttype" searchUri:objectType forListType:APPDATA_TYPE useAsync:useAsync inObject:inObject];
 }
 
+-(NSString *) description {
+    return [NSString stringWithFormat:@"%@, %@, %@", ObjectType, Key, Value];
+}
+
 
 @end

@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSMutableArray *proxomoList;
 @property (nonatomic) enumObjectType listType;
 +(BOOL)isSupported:(enumObjectType)listType;
--(NSArray*)getList;
+-(NSArray*)arrayValue;
 
 /**
  gets all of the instances for given type

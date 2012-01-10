@@ -556,7 +556,9 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     }
     
     if(async){
-        [object setAppDelegate:appDelegate];
+        if ([object appDelegate] == nil) {
+            [object setAppDelegate:appDelegate];
+        }
         [self makeAsyncRequest:url method:method delegate:object];
         return true;
     }else{

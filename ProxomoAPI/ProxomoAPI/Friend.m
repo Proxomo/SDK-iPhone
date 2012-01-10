@@ -29,5 +29,8 @@
     return @"friend";
 }
 
+-(NSString *) description {
+    return [NSString stringWithFormat:@"%@, %@", FullName, PersonID];
+}
 
 @end

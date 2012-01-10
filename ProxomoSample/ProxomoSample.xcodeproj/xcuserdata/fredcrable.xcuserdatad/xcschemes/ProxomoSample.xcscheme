@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "37FE16DF149FB177009E45D1"
-               BuildableName = "ProxomoSample.app"
+               BuildableName = "ProxomoDemo.app"
                BlueprintName = "ProxomoSample"
                ReferencedContainer = "container:ProxomoSample.xcodeproj">
             </BuildableReference>
@@ -32,7 +32,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "37FE16DF149FB177009E45D1"
-            BuildableName = "ProxomoSample.app"
+            BuildableName = "ProxomoDemo.app"
             BlueprintName = "ProxomoSample"
             ReferencedContainer = "container:ProxomoSample.xcodeproj">
          </BuildableReference>
@@ -50,7 +50,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "37FE16DF149FB177009E45D1"
-            BuildableName = "ProxomoSample.app"
+            BuildableName = "ProxomoDemo.app"
             BlueprintName = "ProxomoSample"
             ReferencedContainer = "container:ProxomoSample.xcodeproj">
          </BuildableReference>
@@ -68,7 +68,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "37FE16DF149FB177009E45D1"
-            BuildableName = "ProxomoSample.app"
+            BuildableName = "ProxomoDemo.app"
             BlueprintName = "ProxomoSample"
             ReferencedContainer = "container:ProxomoSample.xcodeproj">
          </BuildableReference>

@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		376B544E14B5654800AC5C5F /* DefinitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 376B544D14B5654800AC5C5F /* DefinitionView.m */; };
+		376B544E14B5654800AC5C5F /* ProxomoObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 376B544D14B5654800AC5C5F /* ProxomoObjectView.m */; };
+		3771394C14B69C2D008C92E3 /* ProxomoListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771394B14B69C2D008C92E3 /* ProxomoListView.m */; };
+		37806FDE14BBE96700CF864E /* ProxomoBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 37806FDD14BBE96700CF864E /* ProxomoBG.png */; };
+		37806FE114BBEBCA00CF864E /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 37806FE014BBEBCA00CF864E /* icon.jpg */; };
+		37806FE314BBECF200CF864E /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 37806FE214BBECF200CF864E /* icon.png */; };
+		37806FE514BBF27800CF864E /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37806FE414BBF27800CF864E /* LoginView.xib */; };
+		379767D914BA28790016F934 /* FeatureTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 379767D814BA28790016F934 /* FeatureTableView.m */; };
 		37F0DBCF149FEB1100E7A46D /* libProxomoAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F0DBCE149FEB1100E7A46D /* libProxomoAPI.a */; };
 		37FE16E5149FB177009E45D1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37FE16E4149FB177009E45D1 /* UIKit.framework */; };
 		37FE16E7149FB177009E45D1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37FE16E6149FB177009E45D1 /* Foundation.framework */; };
@@ -17,14 +23,22 @@
 		37FE16F5149FB177009E45D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FE16F4149FB177009E45D1 /* AppDelegate.m */; };
 		37FE16F8149FB178009E45D1 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37FE16F6149FB177009E45D1 /* MainStoryboard_iPhone.storyboard */; };
 		37FE16FB149FB178009E45D1 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37FE16F9149FB178009E45D1 /* MainStoryboard_iPad.storyboard */; };
-		37FE16FE149FB178009E45D1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FE16FD149FB178009E45D1 /* ViewController.m */; };
+		37FE16FE149FB178009E45D1 /* PersonLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FE16FD149FB178009E45D1 /* PersonLoginView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		376B544C14B5654800AC5C5F /* DefinitionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefinitionView.h; sourceTree = "<group>"; };
-		376B544D14B5654800AC5C5F /* DefinitionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefinitionView.m; sourceTree = "<group>"; };
+		376B544C14B5654800AC5C5F /* ProxomoObjectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxomoObjectView.h; sourceTree = "<group>"; };
+		376B544D14B5654800AC5C5F /* ProxomoObjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxomoObjectView.m; sourceTree = "<group>"; };
+		3771394A14B69C2D008C92E3 /* ProxomoListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxomoListView.h; sourceTree = "<group>"; };
+		3771394B14B69C2D008C92E3 /* ProxomoListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxomoListView.m; sourceTree = "<group>"; };
+		37806FDD14BBE96700CF864E /* ProxomoBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProxomoBG.png; sourceTree = "<group>"; };
+		37806FE014BBEBCA00CF864E /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpg; sourceTree = "<group>"; };
+		37806FE214BBECF200CF864E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		37806FE414BBF27800CF864E /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
+		379767D714BA28790016F934 /* FeatureTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureTableView.h; sourceTree = "<group>"; };
+		379767D814BA28790016F934 /* FeatureTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeatureTableView.m; sourceTree = "<group>"; };
 		37F0DBCE149FEB1100E7A46D /* libProxomoAPI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libProxomoAPI.a; path = "../ProxomoAPI/build/Release-iphoneos/libProxomoAPI.a"; sourceTree = "<group>"; };
-		37FE16E0149FB177009E45D1 /* ProxomoSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProxomoSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		37FE16E0149FB177009E45D1 /* ProxomoDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProxomoDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37FE16E4149FB177009E45D1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		37FE16E6149FB177009E45D1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		37FE16E8149FB177009E45D1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -36,8 +50,8 @@
 		37FE16F4149FB177009E45D1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37FE16F7149FB178009E45D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		37FE16FA149FB178009E45D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		37FE16FC149FB178009E45D1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		37FE16FD149FB178009E45D1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		37FE16FC149FB178009E45D1 /* PersonLoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PersonLoginView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		37FE16FD149FB178009E45D1 /* PersonLoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PersonLoginView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +82,7 @@
 		37FE16E1149FB177009E45D1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				37FE16E0149FB177009E45D1 /* ProxomoSample.app */,
+				37FE16E0149FB177009E45D1 /* ProxomoDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,13 +102,17 @@
 			children = (
 				37FE16F3149FB177009E45D1 /* AppDelegate.h */,
 				37FE16F4149FB177009E45D1 /* AppDelegate.m */,
+				379767D714BA28790016F934 /* FeatureTableView.h */,
+				379767D814BA28790016F934 /* FeatureTableView.m */,
 				37FE16F6149FB177009E45D1 /* MainStoryboard_iPhone.storyboard */,
 				37FE16F9149FB178009E45D1 /* MainStoryboard_iPad.storyboard */,
-				37FE16FC149FB178009E45D1 /* ViewController.h */,
-				37FE16FD149FB178009E45D1 /* ViewController.m */,
 				37FE16EB149FB177009E45D1 /* Supporting Files */,
-				376B544C14B5654800AC5C5F /* DefinitionView.h */,
-				376B544D14B5654800AC5C5F /* DefinitionView.m */,
+				37FE16FC149FB178009E45D1 /* PersonLoginView.h */,
+				37FE16FD149FB178009E45D1 /* PersonLoginView.m */,
+				376B544C14B5654800AC5C5F /* ProxomoObjectView.h */,
+				376B544D14B5654800AC5C5F /* ProxomoObjectView.m */,
+				3771394A14B69C2D008C92E3 /* ProxomoListView.h */,
+				3771394B14B69C2D008C92E3 /* ProxomoListView.m */,
 			);
 			path = ProxomoSample;
 			sourceTree = "<group>";
@@ -102,10 +120,14 @@
 		37FE16EB149FB177009E45D1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				37806FE214BBECF200CF864E /* icon.png */,
+				37806FE014BBEBCA00CF864E /* icon.jpg */,
+				37806FDD14BBE96700CF864E /* ProxomoBG.png */,
 				37FE16EC149FB177009E45D1 /* ProxomoSample-Info.plist */,
 				37FE16ED149FB177009E45D1 /* InfoPlist.strings */,
 				37FE16F0149FB177009E45D1 /* main.m */,
 				37FE16F2149FB177009E45D1 /* ProxomoSample-Prefix.pch */,
+				37806FE414BBF27800CF864E /* LoginView.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -127,7 +149,7 @@
 			);
 			name = ProxomoSample;
 			productName = ProxomoSample;
-			productReference = 37FE16E0149FB177009E45D1 /* ProxomoSample.app */;
+			productReference = 37FE16E0149FB177009E45D1 /* ProxomoDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -163,6 +185,10 @@
 				37FE16EF149FB177009E45D1 /* InfoPlist.strings in Resources */,
 				37FE16F8149FB178009E45D1 /* MainStoryboard_iPhone.storyboard in Resources */,
 				37FE16FB149FB178009E45D1 /* MainStoryboard_iPad.storyboard in Resources */,
+				37806FDE14BBE96700CF864E /* ProxomoBG.png in Resources */,
+				37806FE114BBEBCA00CF864E /* icon.jpg in Resources */,
+				37806FE314BBECF200CF864E /* icon.png in Resources */,
+				37806FE514BBF27800CF864E /* LoginView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,8 +201,10 @@
 			files = (
 				37FE16F1149FB177009E45D1 /* main.m in Sources */,
 				37FE16F5149FB177009E45D1 /* AppDelegate.m in Sources */,
-				37FE16FE149FB178009E45D1 /* ViewController.m in Sources */,
-				376B544E14B5654800AC5C5F /* DefinitionView.m in Sources */,
+				37FE16FE149FB178009E45D1 /* PersonLoginView.m in Sources */,
+				376B544E14B5654800AC5C5F /* ProxomoObjectView.m in Sources */,
+				3771394C14B69C2D008C92E3 /* ProxomoListView.m in Sources */,
+				379767D914BA28790016F934 /* FeatureTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +293,7 @@
 				HEADER_SEARCH_PATHS = ../ProxomoAPI/ProxomoAPI/;
 				INFOPLIST_FILE = "ProxomoSample/ProxomoSample-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ProxomoDemo;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -278,7 +306,7 @@
 				HEADER_SEARCH_PATHS = ../ProxomoAPI/ProxomoAPI/;
 				INFOPLIST_FILE = "ProxomoSample/ProxomoSample-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ProxomoDemo;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

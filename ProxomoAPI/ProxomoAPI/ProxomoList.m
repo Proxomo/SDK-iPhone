@@ -12,7 +12,7 @@
 @synthesize proxomoList;
 @synthesize listType;
 
--(NSArray*)getList{
+-(NSArray*)arrayValue{
     return proxomoList;
 }
 
@@ -40,7 +40,7 @@
         return;
     }
 
-    if(![context isKindOfClass:[ProxomoApi class]]){
+    if(context && ![context isKindOfClass:[ProxomoApi class]]){
         inObject = context;
         _accessToken = [inObject getAccessToken];
         context = [context _apiContext];

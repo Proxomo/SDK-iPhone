@@ -63,7 +63,9 @@
         return;
     }
     _apiContext = apiContext;
-    appDelegate = [apiContext appDelegate];
+    if(!appDelegate){
+        appDelegate = [apiContext appDelegate];
+    }
     
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    @"mobile", @"display_type",
@@ -89,6 +91,10 @@
 
 -(NSString *)getAccessToken{
     return _accessToken;
+}
+
+-(NSString*)description{
+    return FullName;
 }
 
 @end

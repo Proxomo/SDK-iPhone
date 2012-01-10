@@ -198,7 +198,7 @@
 }
 
 - (void) logLocations:(ProxomoList*)pList{
-    for( Location *loc in [pList getList]){
+    for( Location *loc in [pList arrayValue]){
         NSLog(@"%@ %@ %@", [loc Name], [loc City], [loc Address1]);
     }
 }
@@ -260,8 +260,8 @@
       */
     [AppData searchInContext:apiContext forObjectType:@"PROXOMO" intoList:list useAsync:YES];
     [self waitForAsync];
-    NSLog(@"Search returned %d items",[[list getList] count]);
-    array = [list getList];
+    NSLog(@"Search returned %d items",[[list arrayValue] count]);
+    array = [list arrayValue];
     STAssertNotNil(array, @"Array nil");
     STAssertTrue([array count] >= TESTLOOPS, @"Did not get enough items back in search");
 
@@ -270,7 +270,7 @@
       */
     [list GetAll:apiContext getType:APPDATA_TYPE];
     [self waitForAsync];
-    array = [list getList];
+    array = [list arrayValue];
     STAssertNotNil(array, @"List of AppData was nil");
     STAssertTrue([array count] >= TESTLOOPS, @"Did not get enough items back");
 
@@ -287,7 +287,7 @@
       */
     [list GetAll:apiContext getType:APPDATA_TYPE];
     [self waitForAsync];
-    array = [list getList];
+    array = [list arrayValue];
     STAssertNotNil(array, @"GetAll array nil");
     STAssertTrue([array count] == 0, @"App Data Should be empty");
 }
@@ -336,7 +336,7 @@
     STAssertEqualObjects(v1, v2, @"Types %@ %@ do not match", v1, v2);
     
     [AppData searchInContext:apiContext forObjectType:@"PROXOMO" intoList:pList useAsync:NO];
-    NSArray *array = [pList getList];
+    NSArray *array = [pList arrayValue];
     STAssertTrue([array count] >= TESTLOOPS, @"No search results");
     
     /*
@@ -344,8 +344,8 @@
       */
     ProxomoList *list = [[ProxomoList alloc] init];
     [list GetAll_Synchronous:apiContext getType:APPDATA_TYPE];
-    STAssertNotNil([list getList], @"Get All Fail");
-    STAssertTrue([[list getList] count] >= TESTLOOPS, @"Too few GetAll results");
+    STAssertNotNil([list arrayValue], @"Get All Fail");
+    STAssertTrue([[list arrayValue] count] >= TESTLOOPS, @"Too few GetAll results");
 
     // test delete all items
     for (AppData *appDataItem in array) {
@@ -358,8 +358,8 @@
       * Get all again and assure there are none
       */
     [list GetAll_Synchronous:apiContext getType:APPDATA_TYPE];
-    STAssertNotNil([list getList], @"GetAll array nil");
-    STAssertTrue([[list getList] count] == 0, @"Array should be empty");
+    STAssertNotNil([list arrayValue], @"GetAll array nil");
+    STAssertTrue([[list arrayValue] count] == 0, @"Array should be empty");
 }
 
 #pragma mark Event
