@@ -47,7 +47,7 @@
                     @"Person", [NSNumber numberWithInt:kPersonRow],
                     nil];
     _apiContext = [[ProxomoApi alloc] initWithKey:@"xEEF1e56ghNixRIaixe2USHoQTnZVm7tqzzfMGemoX8=" appID:@"ihjNViYPiCGMdnjR" delegate:self];
-
+    self.title = @"Features";
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -122,7 +122,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PersonLoginView *viewController;
+    PersonLoginView *pPersonView;
     ProxomoListView *pListView;
     ProxomoList *pList;
     
@@ -136,10 +136,9 @@
             [self.navigationController pushViewController:pListView animated:YES];
             break;
         case kPersonRow:
-            viewController = [[PersonLoginView alloc] init]; //WithNibName:@"LoginView" bundle:nil];
-            [viewController setApiContext:_apiContext];
-            //viewController.navigationController = self.navigationController;
-            [self.navigationController pushViewController:viewController animated:YES];
+            pPersonView = [[PersonLoginView alloc] init]; //WithNibName:@"LoginView" bundle:nil];
+            [pPersonView setApiContext:_apiContext];
+            [self.navigationController pushViewController:pPersonView animated:YES];
         default:
             break;
     }

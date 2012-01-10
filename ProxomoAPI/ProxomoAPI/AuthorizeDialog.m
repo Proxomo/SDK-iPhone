@@ -11,8 +11,6 @@
 #import "ProxomoApi.h"
 
 // view color and screen transform for flipping
-//static CGFloat kBorderGray[4] = {0.3, 0.3, 0.3, 0.8};
-//static CGFloat kBorderBlack[4] = {0.3, 0.3, 0.3, 1};
 static CGFloat kTransitionDuration = 0.3;
 static CGFloat kPadding = 0;
 static CGFloat kBorderWidth = 10;
@@ -250,8 +248,6 @@ static BOOL IsDeviceIPad() {
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    // 102 == WebKitErrorFrameLoadInterruptedByPolicyChange
-    // examine if (!([error.domain isEqualToString:@"WebKitErrorDomain"] && error.code == 102)) {
     [self dismissWithError:error animated:YES];
 }
 
@@ -380,14 +376,5 @@ static BOOL IsDeviceIPad() {
     [self addObservers];
 
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

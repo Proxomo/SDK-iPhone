@@ -108,20 +108,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    [self loadPObject];
-    [[self navigationController] setNavigationBarHidden:NO];
-    [[self navigationController] setToolbarHidden:NO];
-    
-
-    [self.navigationController.toolbar setBarStyle:UIBarStyleBlackOpaque];  //for example
-    
     UIBarButtonItem *appDataButton = [[UIBarButtonItem alloc] initWithTitle: @"App Data" style: UIBarButtonItemStylePlain target:self action: @selector(getAppData:)];
     UIBarButtonItem *friendsButton = [[UIBarButtonItem alloc] initWithTitle: @"Friends" style: UIBarButtonItemStylePlain target:self action: @selector(getFriends:)];
-    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle: @"Reload" style: UIBarButtonItemStylePlain target:self action: @selector(reload:)];
-                                                                                                                                                  
+
+    [super viewWillAppear:animated];
+    [self loadPObject];
+    [self.navigationController.toolbar setBarStyle:UIBarStyleBlackOpaque];  //for example
     //set the toolbar buttons
     [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, friendsButton, nil]]; 
+    [self.navigationController setToolbarHidden:NO];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -132,8 +128,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
-    [self.navigationController setToolbarHidden:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -235,45 +229,6 @@
 
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 

@@ -30,13 +30,9 @@
             [objView setUserContext:_userContext];
             [objView setApiContext:apiContext];
             [objView setPObject:_userContext];
-            [[self navigationController] pushViewController:objView animated:NO];
+            [self.navigationController pushViewController:objView animated:NO];
         }
     }
-}
-
--(void)back:(id)button {
-    [self.navigationController popViewControllerAnimated:NO];
 }
 
 -(void)LoginUser:(id)button {
@@ -72,26 +68,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    /*
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button addTarget:self action:@selector(LoginAPI:) forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"Login API" forState:UIControlStateNormal];
-    button.frame = CGRectMake(80.0, 170.0, 160.0, 40.0);
-    [self.view addSubview:button];
-    */
-    
+
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button addTarget:self action:@selector(LoginUser:) forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:@"Login" forState:UIControlStateNormal];
     button.frame = CGRectMake(80.0, 195.0, 160.0, 40.0);
     [self.view addSubview:button];
-    
-    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button2 addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-    [button2 setTitle:@"< back" forState:UIControlStateNormal];
-    button2.frame = CGRectMake(20.0, 20.0, 50.0, 20.0);
-    [self.view addSubview:button2];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated

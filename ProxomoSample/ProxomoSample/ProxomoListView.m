@@ -40,7 +40,6 @@
         NSLog(@"Operation Failed for %@", proxomoObject);
         return;
     }
-    [self setTitle:[objectContext ID]];
     [self.tableView reloadData];
 }
 
@@ -60,7 +59,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.title = @"Proxomo List";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -78,10 +77,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    [[self navigationController] setNavigationBarHidden:NO];
-    [[self navigationController] setToolbarHidden:NO];
     [self loadList];
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -92,8 +89,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
-    [self.navigationController setToolbarHidden:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
