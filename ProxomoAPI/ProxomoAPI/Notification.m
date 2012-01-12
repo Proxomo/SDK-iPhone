@@ -8,6 +8,23 @@
 #import "Notification.h"
 
 @implementation Notification
+@synthesize EMailMessage;
+@synthesize EMailSubject;
+@synthesize MobileMessage;
+@synthesize NotificationType;
+@synthesize PersonID;
+@synthesize SendMethod;                    
 
+-(enumObjectType) objectType{
+    return NOTIFICATION_TYPE;
+}
+
+-(NSString *) objectPath{
+    return @"notification";
+}
+
+-(void) Notification_Send:(id)apiContext{
+    
+}
 
 @end

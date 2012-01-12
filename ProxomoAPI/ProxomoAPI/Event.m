@@ -24,7 +24,7 @@
 @synthesize LastUpdate;
 @synthesize MinParticipants;
 @synthesize MaxParticpants;
-
+@synthesize appData;
 
 #pragma mark - JSON Data Support
 

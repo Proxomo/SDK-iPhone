@@ -28,7 +28,7 @@
 -(BOOL) GetAll_Synchronous:(id)apiContext getType:(enumObjectType)getType;
 
 
--(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation;
+-(void) updateFromJsonRepresentation:(id)jsonRepresentation;
 
 
 @end

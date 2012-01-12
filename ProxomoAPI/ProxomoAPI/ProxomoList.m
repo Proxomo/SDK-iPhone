@@ -87,7 +87,7 @@
     return item;
 }
 
--(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation {
+-(void) updateFromJsonRepresentation:(id)jsonRepresentation {
     ProxomoObject *item;
     proxomoList = [[NSMutableArray alloc] init];
     for (NSDictionary *itemDictionary in jsonRepresentation) {

@@ -9,6 +9,10 @@
 #import "ProxomoAPITests.h"
 
 #define TESTLOOPS 1
+#define kTestAddress @"1700 N. Glennville, Richardson, Texas, 75081"
+#define kTestIP @"76.13.1.3"
+#define kTestLongitude [NSNumber numberWithDouble:-122.01371]
+#define kTestLatitude [NSNumber numberWithDouble:37.416489]
 
 @implementation ProxomoAPITests
 
@@ -49,7 +53,7 @@
 {
     NSMutableArray *save = [[NSMutableArray alloc] init];
     Location *location = nil;
-    
+    AppData *data = [[AppData alloc] initWithValue:@"location value" forKey:@"location key"];
     /*
      * Add a bunch of Locations
      */
@@ -79,6 +83,7 @@
         [loc setCity:[loc ID]];
         NSLog(@"Updating %@, City %@",[loc ID], [loc City]);
         [loc Update:apiContext];
+        [data Add:loc];
     }
     [self waitForAsync];
     
@@ -90,6 +95,11 @@
         [loc Get:apiContext];
     }
     [self waitForAsync];
+    
+    for(Location *loc in save){
+        STAssertTrue([[loc appData] count] > 0, @"Missing App Data in location");
+    }
+    
     /*
         Had to comment out the validation
      file://localhost/Users/Shared/forest/proxomo/github/SDK-iPhone/ProxomoAPI/ProxomoAPITests/ProxomoAPITests.m: error: testAsync (ProxomoAPITests) failed: 'Dallas' should be equal to '3eDdTEfkcV2M3hwU' Could not verify update
@@ -197,17 +207,44 @@
     }
 }
 
-- (void) logLocations:(ProxomoList*)pList{
-    for( Location *loc in [pList arrayValue]){
+- (void) logLocations:(NSArray*)pList{
+    for(Location *loc in pList){
         NSLog(@"%@ %@ %@", [loc Name], [loc City], [loc Address1]);
     }
 }
-- (void) unitLocationSearch_Sync {
-    ProxomoList *pList = [[ProxomoList alloc] init];
-    [Location searchInContext:apiContext forIP:@"1801 Glennville Dr., Richardson, Texas, 75002" intoList:pList useAsync:NO];    
+
+- (void) unitLocationSearch {
+    NSArray *pList;
+    
+    Location *location = [[Location alloc] init];
+    pList = [location byIP:kTestIP apiContext:apiContext useAsync:NO];    
+    STAssertTrue([pList count] > 0, @"Empty Location IP Search");
     [self logLocations:pList];
-    [Location searchInContext:apiContext forIP:@"76.13.1.3" intoList:pList useAsync:NO];
+    pList = [location byAddress:kTestAddress apiContext:apiContext useAsync:NO];
+    // getting 404? STAssertTrue([pList count] > 0, @"Empty Location Search");
     [self logLocations:pList];
+    pList = [location byLatitude:kTestLatitude byLogitude:kTestLongitude apiContext:apiContext useAsync:NO];
+    STAssertTrue([pList count] > 0, @"Empty Location Geo Search");
+    [self logLocations:pList];
+    
+    
+    // test async
+    [location byIP:kTestIP apiContext:apiContext useAsync:YES];    
+    [self waitForAsync];
+    pList = [location locations];
+    [self logLocations:pList];
+    STAssertTrue([pList count] > 0, @"Empty Location IP Search");
+    pList = [location byAddress:kTestAddress apiContext:apiContext useAsync:YES];
+    [self waitForAsync];
+    pList = [location locations];
+    [self logLocations:pList];
+    // Getting 404 - STAssertTrue([pList count] > 0, @"Empty Location Search");
+    pList = [location byLatitude:kTestLatitude byLogitude:kTestLongitude apiContext:apiContext useAsync:YES];
+    [self waitForAsync];
+    pList = [location locations];
+    [self logLocations:pList];
+    STAssertTrue([pList count] > 0, @"Empty Location Geo Search");
+
 }
 
 #pragma mark AppData
@@ -365,9 +402,6 @@
 #pragma mark Event
 
 -(void) unitEvent_Synchronous {
-    /*
-    ProxomoList *list = [[ProxomoList alloc] init];
-    NSArray *events;
     Event *event = [[Event alloc] init];
     
     [event setDescription:@"Test Event Descr"];
@@ -383,8 +417,59 @@
     event.Privacy = OPEN_EVENT;
     event.Status = UPCOMING;
     
-    STAssertTrue(event AddSynchronous:apiContext],@"Couldn't add event");
-     */
+    STAssertTrue([event AddSynchronous:apiContext],@"Couldn't add event");
+    
+}
+
+#pragma mark GeoCode
+
+-(void) unitGeoSearch {
+    GeoCode *gcode = [[GeoCode alloc] init];
+    Location *location = [[Location alloc] init];
+    
+    [gcode byAddress:kTestAddress apiContext:apiContext useAsync:NO];
+    STAssertNotNil([gcode Address], @"Nil Address");
+    STAssertNotNil([gcode Latitude], @"Nil Latitude");
+    STAssertNotNil([gcode Longitude], @"Nil Longitude");
+    
+    [gcode setAddress:nil];
+    [gcode setLongitude:nil];
+    [gcode setLatitude:nil];    
+    [gcode byIPAddress:kTestIP apiContext:apiContext useAsync:NO]; 
+    STAssertNotNil([gcode Latitude], @"Nil Latitude");
+    STAssertNotNil([gcode Longitude], @"Nil Longitude");
+    
+    
+    location = [gcode byLatitude:kTestLatitude byLogitude:kTestLongitude apiContext:apiContext]; 
+    STAssertNotNil([location Latitude], @"Nil Latitude");
+    STAssertNotNil([location Longitude], @"Nil Longitude");
+    
+    
+    [gcode setAddress:nil];
+    [gcode setLongitude:nil];
+    [gcode setLatitude:nil];
+    [gcode byAddress:kTestAddress apiContext:apiContext useAsync:YES];
+    [self waitForAsync];
+    STAssertNotNil([gcode Address], @"Nil Address");
+    STAssertNotNil([gcode Latitude], @"Nil Latitude");
+    STAssertNotNil([gcode Longitude], @"Nil Longitude");
+
+  
+    [gcode setAddress:nil];
+    [gcode setLongitude:nil];
+    [gcode setLatitude:nil];
+    [gcode byIPAddress:kTestIP apiContext:apiContext useAsync:YES]; 
+    [self waitForAsync];
+    STAssertNotNil([gcode Latitude], @"Nil Latitude");
+    STAssertNotNil([gcode Longitude], @"Nil Longitude");
+    
+    [location setAddress1:nil];
+    [location setLongitude:nil];
+    [location setLatitude:nil];    
+    [gcode byLatitude:kTestLatitude byLogitude:kTestLongitude locationDelegate:location apiContext:apiContext]; 
+    [self waitForAsync];
+    STAssertNotNil([location Latitude], @"Nil Latitude");
+    STAssertNotNil([location Longitude], @"Nil Longitude");
 }
 
 #pragma mark - Tests
@@ -392,7 +477,11 @@
 -(void) testLocation {
     [self unitLocation_Async];
     [self unitLocation_Synchronous];
-    [self unitLocationSearch_Sync];
+    [self unitLocationSearch];
+}
+
+-(void) testGeoCode {
+    [self unitGeoSearch];
 }
 
 -(void) testAppData {
@@ -401,7 +490,7 @@
 }
 
 -(void) ntestEvent {
-    //[self unitEvent_Synchronous];
+    [self unitEvent_Synchronous];
 }
 
 -(void) ntestPerson {

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "ProxomoObject.h"
+#import "ProxomoList.h"
 #import "AuthorizeDialog.h"
 
 typedef enum {
@@ -21,6 +22,7 @@ typedef enum {
     
     NSString *_socialnetwork;
     NSString *_socialnetwork_id;  
+    ProxomoList *_appData;
     
     /**
      Person obtained from social network ID
@@ -44,6 +46,7 @@ typedef enum {
     NSString *TwitterID; ///	String	No	Please note: While TwitterID is defined Twitter integration has not yet been added to Proxomo.
     NSString *UserName; ///	String	No	This field is not used by Proxomo.  Developers can use this field to associate a Person to another account if needed.
     double UTCOffset; ///	Double	No	Coordinate Universal Time Offset of the Person.
+    NSArray *appData;
 }
 
 /**
@@ -52,7 +55,7 @@ typedef enum {
 -(void)loginToSocialNetwork:(enumSocialNetwork)network forApplication:(id)apiContext;
 -(BOOL)isAuthorized;
 -(NSString*)getAccessToken;
-
+-(NSArray*)appData;
 
 @property (nonatomic, strong) NSString *EmailAddress;
 @property (nonatomic) BOOL EmailAlerts; 
@@ -73,5 +76,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *TwitterID;
 @property (nonatomic, strong) NSString *UserName;
 @property (nonatomic) double UTCOffset;
+@property (nonatomic, strong) NSArray *appData;
+
 
 @end

@@ -264,7 +264,7 @@
     return dict;
 }
 
--(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation {
+-(void) updateFromJsonRepresentation:(id)jsonRepresentation {
     if(!jsonRepresentation)
         return;
     
@@ -303,6 +303,15 @@
         ivarType = typeEncoding[0];
 
         if (ivarName[0] == '_') {
+            if(strcmp(ivarName, "_appData") == 0){
+                id appDataJson = [jsonRepresentation objectForKey:@"AppData"];
+                if(appDataJson && [appDataJson isKindOfClass:[NSArray class]]) {
+                    ProxomoList *pList = [[ProxomoList alloc] init];
+                    [pList setListType:APPDATA_TYPE];
+                    [pList updateFromJsonRepresentation:appDataJson];
+                    object_setIvar(self, ivars[i], pList);
+                }
+            }
             continue; // skip fields hidden by starting with _
         }
         

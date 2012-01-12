@@ -43,7 +43,7 @@
 
 // JSON Serialization
 -(void) updateFromJsonData:(NSData*)response;
--(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation;
+-(void) updateFromJsonRepresentation:(id)jsonRepresentation;
 -(NSMutableDictionary*)proxyForJson;
 
 // init from JSON

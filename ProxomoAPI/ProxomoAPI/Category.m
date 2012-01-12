@@ -9,5 +9,9 @@
 #import "Category.h"
 
 @implementation Category
+@synthesize Category;
+@synthesize CategoryType;
+@synthesize SubCategory;
+
 
 @end

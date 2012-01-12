@@ -28,6 +28,8 @@ typedef enum {
     NSString *Zip;
     NSString *CountryName;
     NSString *CountryCode; 
+    ProxomoList *_appData;
+    ProxomoList *_locations;
 }
 
 @property (nonatomic, strong) NSString *Name;
@@ -43,8 +45,10 @@ typedef enum {
 @property (nonatomic, strong) NSString *CountryName;
 @property (nonatomic, strong) NSString *CountryCode;
 
-+(void)searchInContext:(id)context forAddress:(NSString*)address intoList:(ProxomoList*)proxomoList useAsync:(BOOL)useAsync;
-+(void)searchInContext:(id)context forIP:(NSString*)ip intoList:(ProxomoList*)proxomoList useAsync:(BOOL)useAsync;
-
+-(NSArray*)byAddress:(NSString*)address apiContext:(id)context  useAsync:(BOOL)useAsync; 
+-(NSArray*)byIP:(NSString*)ip apiContext:(id)context useAsync:(BOOL)useAsync; 
+-(NSArray *)byLatitude:(NSNumber*)latitude byLogitude:(NSNumber*)longitude apiContext:(ProxomoApi*)context useAsync:(BOOL)useAsync;
+-(NSArray*)locations;
+-(NSArray*)appData;
 
 @end

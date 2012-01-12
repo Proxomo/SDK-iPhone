@@ -9,10 +9,13 @@
 #import "ProxomoObject.h"
 
 @interface Category : ProxomoObject {
-
     NSString *Category;
     NSString *CategoryType;
     NSString *SubCategory;
 }
+
+@property (nonatomic, strong) NSString *Category;
+@property (nonatomic, strong) NSString *CategoryType;
+@property (nonatomic, strong) NSString *SubCategory;
 
 @end

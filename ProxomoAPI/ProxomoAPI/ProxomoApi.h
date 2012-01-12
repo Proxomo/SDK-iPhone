@@ -167,6 +167,7 @@ typedef enum {
 
 /// General Search
 -(void) Search:(id)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)useAsync inObject:(id)path;
+-(void) GetByUrl:(id)obj searchUrl:(NSString*)url searchUri:(NSString*)uri objectType:(enumObjectType)objType useAsync:(BOOL)async;
 
 
 @end

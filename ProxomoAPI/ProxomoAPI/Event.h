@@ -36,6 +36,7 @@ typedef enum {
     NSString *Notes;
     NSString *PersonID;
     NSString *PersonName;
+    NSArray *appData;
 }
 
 @property (nonatomic, strong) NSString *EventName;
@@ -52,6 +53,6 @@ typedef enum {
 @property (nonatomic, strong) NSString *Notes;
 @property (nonatomic, strong) NSString *PersonID;
 @property (nonatomic, strong) NSString *PersonName;
-
+@property (nonatomic, strong) NSArray *appData;
 
 @end

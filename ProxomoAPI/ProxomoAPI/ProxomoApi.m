@@ -494,14 +494,14 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
         case EVENT_TYPE:
             return @"event";
         case GEOCODE_TYPE:
-            return @"geocode";
+            return @"geo";
         case LOCATION_TYPE:
             return @"location";
         case NOTIFICATION_TYPE:
             return @"notification";
         case PERSON_TYPE:
             return @"person";
-                default:
+        default:
             return kBaseJSON;
     }
     return kBaseJSON;
@@ -618,13 +618,25 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     
     url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:objType requestType:GET],  url, [self htmlEncodeString:uri]];
     [proxomoList setListType:objType];
-    if (appDelegate) [proxomoList setAppDelegate:appDelegate];
+    if (appDelegate && ![proxomoList appDelegate]) [proxomoList setAppDelegate:appDelegate];
     if(async){
         [self makeAsyncRequest:url method:GET delegate:proxomoList];
     }else{
         [self makeSyncRequest:url method:GET delegate:proxomoList];
     }
 }
+
+-(void) GetByUrl:(ProxomoObject*)obj searchUrl:(NSString*)url searchUri:(NSString*)uri objectType:(enumObjectType)objType useAsync:(BOOL)async {
+    url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:objType requestType:GET],  url, [self htmlEncodeString:uri]];
+    
+    if (appDelegate && ![obj appDelegate]) [obj setAppDelegate:appDelegate];
+    if(async){
+        [self makeAsyncRequest:url method:GET delegate:obj];
+    }else{
+        [self makeSyncRequest:url method:GET delegate:obj];
+    }
+}
+
 
 
 @end
