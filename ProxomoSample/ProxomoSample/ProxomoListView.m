@@ -46,6 +46,9 @@
 #pragma mark - List Update
 
 -(void)loadList {
+    if([[pList arrayValue ] count] > 0)
+        return;
+    
     [pList setAppDelegate:self];
     if(objectContext){
         [pList GetAll:objectContext getType:[pList objectType]];
@@ -125,7 +128,10 @@
     
     // Configure the cell...
     ProxomoObject *pObject = [[pList arrayValue] objectAtIndex:indexPath.row];
-    [[cell textLabel] setText:[pObject description]];
+    cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:12.0];
+    cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+    cell.textLabel.numberOfLines = 3; // 0 means no max.
+    cell.textLabel.text = [pObject description];
     
     return cell;
 }

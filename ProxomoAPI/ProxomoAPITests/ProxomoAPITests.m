@@ -499,4 +499,40 @@
     
 }
 
+#define kTestSetSize 10
+
+-(void) testSeedSample {
+    AppData *appData = nil;
+    
+    for(int x=1; x <= kTestSetSize; x++){
+        appData = [[AppData alloc] initWithValue:[[NSString alloc] initWithFormat:@"Value-%d",x] 
+                                          forKey:[[NSString alloc] initWithFormat:@"Key-%d",x]];
+        [appData Add:apiContext];
+    }
+    [self waitForAsync];
+    
+    Location *location = nil;
+    location = [[Location alloc] init];
+    [location setName:@"DFW"];
+    [location setCity:@"Dallas"];
+    [location setLatitude:[NSNumber numberWithInt:32]];
+    [location setLongitude:[NSNumber numberWithDouble:96]];
+    [location setAddress1:@"100 main"];
+    [location setLocationSecurity:PRIVATE_LOCATION];
+    // send to API for adding to cloud
+    [location Add:apiContext];
+    
+    location = [[Location alloc] init];
+    [location setName:@"STL"];
+    [location setCity:@"St. Louis"];
+    [location setLatitude:[NSNumber numberWithInt:38]];
+    [location setLongitude:[NSNumber numberWithDouble:90]];
+    [location setAddress1:@"Hwy 70"];
+    [location setLocationSecurity:PRIVATE_LOCATION];
+    // send to API for adding to cloud
+    [location Add:apiContext];
+    [self waitForAsync];
+   
+}
+
 @end

@@ -59,6 +59,7 @@ typedef enum {
     NSString *accessToken;      /// User or Application Login Token
     NSString *apiVersion;
     NSNumber *expires;
+    NSString *lastError;
     
     // book keeping for async http requests
     NSMutableDictionary *responseData;
@@ -80,6 +81,7 @@ typedef enum {
 @property(nonatomic, strong) NSString *apiVersion;
 @property(nonatomic, strong) id appDelegate;
 @property(nonatomic, strong) id userContext;
+@property(nonatomic, readonly) NSString *lastError;
 
 /**
  * API Initialization Function

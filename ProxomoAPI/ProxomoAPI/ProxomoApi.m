@@ -225,6 +225,10 @@
     }
 }
 
+-(NSString *)lastError{
+    return lastError;
+}
+
 - (void)_receiveDidStopWithStatus:(NSURLConnection *)connection code:(NSInteger)responseCode status:(NSString *)statusString
 {
     NSNumber *connectionHash = [NSNumber numberWithInteger:[connection hash]];    
@@ -243,7 +247,7 @@
         else
             [delegate handleError:data requestType:[request intValue] responseCode:responseCode responseStatus:statusString];
     }
-    
+    lastError = statusString;
     [responseData removeObjectForKey:connectionHash];
     [responseDelegate removeObjectForKey:connectionHash];
     [requests removeObjectForKey:connectionHash];

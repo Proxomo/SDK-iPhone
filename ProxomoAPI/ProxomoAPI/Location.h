@@ -48,7 +48,7 @@ typedef enum {
 -(NSArray*)byAddress:(NSString*)address apiContext:(id)context  useAsync:(BOOL)useAsync; 
 -(NSArray*)byIP:(NSString*)ip apiContext:(id)context useAsync:(BOOL)useAsync; 
 -(NSArray *)byLatitude:(NSNumber*)latitude byLogitude:(NSNumber*)longitude apiContext:(ProxomoApi*)context useAsync:(BOOL)useAsync;
--(NSArray*)locations;
+-(ProxomoList*)locations;
 -(NSArray*)appData;
 
 @end

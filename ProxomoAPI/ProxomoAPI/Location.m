@@ -39,18 +39,20 @@
 -(NSArray*)appData{
     return [_appData arrayValue];
 }
--(NSArray*)locations{
-    return [_locations arrayValue];
+-(ProxomoList*)locations{
+    return _locations;
 }
 
 -(NSArray*)byAddress:(NSString *)address apiContext:(ProxomoApi *)context useAsync:(BOOL)useAsync{
     _locations = [[ProxomoList alloc] init];
+    [_locations setAppDelegate:appDelegate];
     [context Search:_locations searchUrl:@"s/search/address" searchUri:address forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
     return [_locations arrayValue];
 }
 
 -(NSArray*)byIP:(NSString*)ip apiContext:(ProxomoApi *)context useAsync:(BOOL)useAsync{
     _locations = [[ProxomoList alloc] init];
+    [_locations setAppDelegate:appDelegate];
     [context Search:_locations searchUrl:@"s/search/ip" searchUri:ip forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
     return [_locations arrayValue];
 }
@@ -59,8 +61,13 @@
     NSString *searchUrl = [NSString stringWithFormat:@"s/search/latitude/%@/longitude",
                            latitude];
     _locations = [[ProxomoList alloc] init];
+    [_locations setAppDelegate:appDelegate];
     [context Search:_locations searchUrl:searchUrl searchUri:[longitude stringValue] forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
     return [_locations arrayValue];
+}
+
+-(NSString *) description {
+    return [NSString stringWithFormat:@"%@, %@, %@, %@, %@", Name, Address1, City, State, Zip];
 }
 
 
