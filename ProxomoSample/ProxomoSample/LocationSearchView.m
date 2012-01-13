@@ -13,7 +13,7 @@
 
 @implementation LocationSearchView
 @synthesize address, latitude, longitude, ip;
-@synthesize apiContext;
+@synthesize apiContext, userContext;
 
 -(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject {
     NSLog(@"Object repsonse %@", proxomoObject);
@@ -26,6 +26,7 @@
     if ([proxomoObject isKindOfClass:[ProxomoList class]]) {
         ProxomoListView *pListView = [[ProxomoListView alloc] init];
         [pListView setApiContext:apiContext];
+        [pListView setUserContext:userContext];
         [pListView setPList:proxomoObject];
         [self.navigationController pushViewController:pListView animated:YES];
     }

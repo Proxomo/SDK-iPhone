@@ -7,11 +7,11 @@
 //
 
 #import "ProxomoListView.h"
-
+#import "ProxomoObjectView.h"
 
 @implementation ProxomoListView
 @synthesize objectContext;
-@synthesize apiContext;
+@synthesize apiContext, userContext;
 @synthesize pList;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -180,12 +180,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    ProxomoObjectView *objView = [[ProxomoObjectView alloc] initWithStyle:UITableViewStyleGrouped];
+    [objView setUserContext:userContext];
+    [objView setApiContext:apiContext];
+    [objView setPObject:[[pList arrayValue] objectAtIndex:indexPath.row]];
+    [self.navigationController pushViewController:objView animated:NO];
 }
 
 @end

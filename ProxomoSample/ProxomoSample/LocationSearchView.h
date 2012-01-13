@@ -15,7 +15,7 @@
     UITextField *longitude;
     UITextField *ip;
     ProxomoApi *apiContext;
-    Person *_userContext;
+    Person *userContext;
     ProxomoList *pList;
 
 }
@@ -26,5 +26,6 @@
 
 @property (nonatomic, strong)  IBOutlet UITextField  *address, *latitude, *longitude, *ip;
 @property (nonatomic,strong) ProxomoApi *apiContext;
+@property (nonatomic,strong) Person *userContext;
 
 @end

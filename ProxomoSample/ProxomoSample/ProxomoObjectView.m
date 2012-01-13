@@ -200,6 +200,8 @@
                     // TODO
                 }else if ([ivarValue isKindOfClass:[NSString class]]){
                     label = ivarValue;
+                }else if ([ivarValue isKindOfClass:[NSNumber class]]){
+                    label = [ivarValue stringValue];
                 }
                 break;
             case 'd':

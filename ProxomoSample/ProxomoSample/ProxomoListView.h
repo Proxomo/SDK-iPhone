@@ -13,9 +13,11 @@
     ProxomoApi *apiContext;
     ProxomoObject *objectContext;
     ProxomoList *pList;
+    Person *userContext;
 }
 
 @property (nonatomic,strong) ProxomoApi *apiContext;
+@property (nonatomic,strong) Person *userContext;
 @property (nonatomic,strong) ProxomoObject *objectContext;
 @property (nonatomic,strong) ProxomoList *pList;
 
