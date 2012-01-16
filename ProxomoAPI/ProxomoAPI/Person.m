@@ -34,7 +34,6 @@
 @synthesize TwitterID;
 @synthesize UserName;
 @synthesize UTCOffset;
-@synthesize appData;
 
 -(void)authComplete:(BOOL)success withStatus:(NSString*)status forPerson:(id)person{
     NSLog(@"Proxomo Authentication %@ for %@", status, person);

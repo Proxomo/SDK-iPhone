@@ -1,17 +1,18 @@
 //
-//  LocationSearchView.m
+//  GeoSearchView.m
 //  ProxomoSample
 //
-//  Created by Fred Crable on 1/12/12.
+//  Created by Fred Crable on 1/15/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "LocationSearchView.h"
+#import "GeoSearchView.h"
 #import "ProxomoListView.h"
+#import "ProxomoObjectView.h"
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 
-@implementation LocationSearchView
+@implementation GeoSearchView
 @synthesize address, latitude, longitude, ip;
 @synthesize apiContext, userContext;
 
@@ -29,6 +30,12 @@
         [pListView setUserContext:userContext];
         [pListView setPList:proxomoObject];
         [self.navigationController pushViewController:pListView animated:YES];
+    }else{
+        ProxomoObjectView *ov = [[ProxomoObjectView alloc] init];
+        ov.pObject = proxomoObject;
+        ov.apiContext = apiContext;
+        ov.userContext = userContext;
+        [self.navigationController pushViewController:ov animated:YES];
     }
 }
 
@@ -39,45 +46,28 @@
 }
 
 -(IBAction)searchAddress:(id)sender{
-    Location *location = [[Location alloc] init];
-    [location setAppDelegate:self];
-    [location byAddress:address.text apiContext:apiContext useAsync:YES]; 
+    GeoCode *geo = [[GeoCode alloc] init];
+    geo.appDelegate = self;
+    [geo byAddress:address.text apiContext:apiContext useAsync:YES];
     [address resignFirstResponder];
 }
 
 -(IBAction)searchIP:(id)sender{
-    Location *location = [[Location alloc] init];
-    [location setAppDelegate:self];
-    [location byIP:ip.text apiContext:apiContext useAsync:YES];    
+    GeoCode *geo = [[GeoCode alloc] init];
+    geo.appDelegate = self;
+    [geo byIPAddress:ip.text apiContext:apiContext useAsync:YES];    
     [ip resignFirstResponder];
 }
 
 -(IBAction)searchGeo:(id)sender{
-    Location *location = [[Location alloc] init];
-    [location setAppDelegate:self];
-    [location byLatitude:[latitude.text floatValue] byLogitude:[longitude.text floatValue] apiContext:apiContext useAsync:YES];    
+    GeoCode *geo = [[GeoCode alloc] init];
+    Location *loc = [[Location alloc] init];
+    loc.appDelegate = self;
+    [geo byLatitude:[latitude.text doubleValue] byLogitude:[longitude.text doubleValue] locationDelegate:loc apiContext:apiContext];
     [latitude resignFirstResponder];
     [longitude resignFirstResponder];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
 
 - (NSString *)getIPAddress
 {
@@ -114,10 +104,29 @@
     return ipAddress;
 }
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+#pragma mark - View lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Search Locations";
+    self.title = @"Search GeoCodes";
     self.ip.text = [self getIPAddress];
     // Do any additional setup after loading the view from its nib.
 }

@@ -25,71 +25,18 @@
 @synthesize MinParticipants;
 @synthesize MaxParticpants;
 @synthesize appData;
+// location 
+@synthesize LocationID;
+@synthesize Latitude;
+@synthesize Longitude;
+@synthesize Address1;
+@synthesize Address2;
+@synthesize City;
+@synthesize State;
+@synthesize Zip;
+@synthesize CountryName;
+@synthesize CountryCode;
 
-#pragma mark - JSON Data Support
-
-- (NSDate *) getJSONDate:(NSString *)dateString{
-    NSString* header = @"/Date(";
-    uint headerLength = [header length];
-    
-    NSString*  timestampString;
-    
-    NSScanner* scanner = [[NSScanner alloc] initWithString:dateString];
-    [scanner setScanLocation:headerLength];
-    [scanner scanUpToString:@")" intoString:&timestampString];
-    
-    NSCharacterSet* timezoneDelimiter = [NSCharacterSet characterSetWithCharactersInString:@"+-"];
-    NSRange rangeOfTimezoneSymbol = [timestampString rangeOfCharacterFromSet:timezoneDelimiter];
-    
-    if (rangeOfTimezoneSymbol.length!=0) {
-        scanner = [[NSScanner alloc] initWithString:timestampString];
-        
-        NSRange rangeOfFirstNumber;
-        rangeOfFirstNumber.location = 0;
-        rangeOfFirstNumber.length = rangeOfTimezoneSymbol.location;
-        
-        NSRange rangeOfSecondNumber;
-        rangeOfSecondNumber.location = rangeOfTimezoneSymbol.location + 1;
-        rangeOfSecondNumber.length = [timestampString length] - rangeOfSecondNumber.location;
-        
-        NSString* firstNumberString = [timestampString substringWithRange:rangeOfFirstNumber];
-        //NSString* secondNumberString = [timestampString substringWithRange:rangeOfSecondNumber];
-        
-        unsigned long long firstNumber = [firstNumberString longLongValue];
-        //uint secondNumber = [secondNumberString intValue];
-        
-        NSTimeInterval interval = firstNumber/1000;
-        
-        return [NSDate dateWithTimeIntervalSince1970:interval];
-    }
-    
-    unsigned long long firstNumber = [timestampString longLongValue];
-    NSTimeInterval interval = firstNumber/1000;
-    
-    return [NSDate dateWithTimeIntervalSince1970:interval];
-}
-
-/*
--(void) updateFromJsonRepresentation:(NSDictionary*)jsonRepresentation{
-    if(jsonRepresentation){
-        [super updateFromJsonRepresentation:jsonRepresentation];
-        Description = [jsonRepresentation objectForKey:@"Description"];
-         EventName = [jsonRepresentation objectForKey:@"EventName"];
-        EventType = [jsonRepresentation objectForKey:@"EventType"];
-        //Privacy = (enumEventPrivacy)[jsonRepresentation objectForKey:@"Privacy"];
-        //Status = (enumEventPrivacy)[jsonRepresentation objectForKey:@"Status"];
-        StartTime = [self getJSONDate:[jsonRepresentation objectForKey:@"StartTime"]];
-        EndTime = [self getJSONDate:[jsonRepresentation objectForKey:@"EndTime"]];
-        LastUpdate = [self getJSONDate:[jsonRepresentation objectForKey:@"LastUpdate"]];
-        //MaxParticpants = [jsonRepresentation objectForKey:@"MaxParticpants"];
-        //MinParticipants = [jsonRepresentation objectForKey:@"MinParticpants"];
-        ImageUrl = [jsonRepresentation objectForKey:@"ImageURL"];
-        Notes = [jsonRepresentation objectForKey:@"Notes"];
-        PersonID = [jsonRepresentation objectForKey:@"PersonID"];
-        PersonName = [jsonRepresentation objectForKey:@"PersonName"];
-    }
-}
- */
 
 #pragma mark - API Delegate
 
@@ -101,19 +48,45 @@
     return @"event";
 }
 
+-(NSArray*) searchByDistance:(double)miles fromLatitude:(double)latitude fromLongitude:(double)longitude startTime:(NSDate*)start endTime:(NSDate*)end apiContext:(id)context useAsync:(BOOL)useAsync{
+    
+    ProxomoList *proxomoList = [[ProxomoList alloc] init];
+    proxomoList.listType = EVENT_TYPE;
+    
+    /*
+    NSString *searchUrl =  [NSString stringWithFormat:@"s/search/latitude/%f/longitude/%f/distance/%0.0f/start/%0.0f/end",
+                          latitude, longitude, miles, 
+                          [start timeIntervalSince1970]*1000];
+    NSString *searchUri = [NSString stringWithFormat:@"%0.0f",
+                           [end timeIntervalSince1970]*1000];
+     */
+    
+    NSString *searchUrl =  [NSString stringWithFormat:@"s/search/latitude/%f/longitude/%f/distance/%0.0f/start/%@/end",
+                            latitude, longitude, miles, 
+                            [ProxomoApi htmlEncodeString:[ProxomoObject dateJsonRepresentation:start]]];
+    NSString *searchUri = [ProxomoApi htmlEncodeString:[ProxomoObject dateJsonRepresentation:end]];
 
-/*
--(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
-    [super handleError:response requestType:requestType responseCode:code responseStatus:status];
+    [context Search:proxomoList searchUrl:searchUrl searchUri:searchUri
+        forListType:EVENT_TYPE useAsync:useAsync inObject:nil];
+    return [proxomoList arrayValue];
 }
 
--(void) handleResponse:(NSData *)response requestType:(enumRequestType)requestType  responseCode:(NSInteger)code responseStatus:(NSString *)status{
-    if(requestType == POST){
-        NSError *error;
-        ID = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
-    }
-    [super handleResponse:response requestType:requestType  responseCode:code responseStatus:status];
+-(NSArray*) searchByPerson:(Person*)person startTime:(NSDate*)start endTime:(NSDate*)end  apiContext:(id)context useAsync:(BOOL)useAsync{    
+    ProxomoList *proxomoList = [[ProxomoList alloc] init];
+    proxomoList.listType = EVENT_TYPE;
+    
+
+    NSString *searchUrl =  [NSString stringWithFormat:@"s/search/personid/%@/start/%@/end",
+                            person.ID, [ProxomoApi htmlEncodeString:[ProxomoObject dateJsonRepresentation:start]]];
+    NSString *searchUri = [ProxomoApi htmlEncodeString:[ProxomoObject dateJsonRepresentation:end]];
+    
+    [context Search:proxomoList searchUrl:searchUrl searchUri:searchUri
+        forListType:EVENT_TYPE useAsync:useAsync inObject:nil];
+    return [proxomoList arrayValue];
 }
- */
+
+-(NSString*)description {
+    return EventName;
+}
 
 @end

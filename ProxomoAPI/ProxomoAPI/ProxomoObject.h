@@ -25,7 +25,7 @@
     NSInteger responseCode;
     
     // Standard Variables
-    NSString *ID;
+    NSString *ID; /// Proxomo assigned unique identifier.
 }
 
 @property (nonatomic, strong) ProxomoApi *_apiContext;
@@ -39,9 +39,11 @@
 -(id)initWithID:(NSString*)objectdId;
 -(enumObjectType) objectType;
 -(NSString *) objectPath;
+-(void)setApiContext:(id)apiContext;
 
 
 // JSON Serialization
++ (NSString *)dateJsonRepresentation:(NSDate*)date;
 -(void) updateFromJsonData:(NSData*)response;
 -(void) updateFromJsonRepresentation:(id)jsonRepresentation;
 -(NSMutableDictionary*)proxyForJson;

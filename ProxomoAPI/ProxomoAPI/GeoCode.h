@@ -48,7 +48,7 @@
 
 -(void) byAddress:(NSString*)address apiContext:(ProxomoApi*)context useAsync:(BOOL)useAsync;
 -(void) byIPAddress:(NSString*)ipAddress apiContext:(ProxomoApi*)context useAsync:(BOOL)useAsync;
--(Location *) byLatitude:(NSNumber*)latitude byLogitude:(NSNumber*)longitude apiContext:(ProxomoApi*)context;
--(void) byLatitude:(NSNumber*)latitude byLogitude:(NSNumber*)longitude locationDelegate:(Location*)location apiContext:(ProxomoApi*)context;
+-(Location *) byLatitude:(double)latitude byLogitude:(double)longitude apiContext:(ProxomoApi*)context;
+-(void) byLatitude:(double)latitude byLogitude:(double)longitude locationDelegate:(Location*)location apiContext:(ProxomoApi*)context;
 
 @end

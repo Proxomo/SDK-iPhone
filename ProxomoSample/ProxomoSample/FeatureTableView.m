@@ -11,6 +11,7 @@
 #import "ProxomoObjectView.h"
 #import "PersonLoginView.h"
 #import "LocationSearchView.h"
+#import "GeoSearchView.h"
 
 #define kAppDataRow 0
 #define kGeoCodeRow 1
@@ -125,7 +126,8 @@
 {
     PersonLoginView *pPersonView;
     ProxomoListView *pListView;
-    LocationSearchView *searchView;
+    LocationSearchView *locSearchView;
+    GeoSearchView  *geoSearchView;
     ProxomoList *pList;
     
     switch (indexPath.row) {
@@ -143,9 +145,14 @@
             [self.navigationController pushViewController:pPersonView animated:YES];
             break;
         case kLocationsRow:
-            searchView = [[LocationSearchView alloc] initWithNibName:@"LocationSearchView" bundle:nil];
-            [searchView setApiContext:_apiContext];
-            [self.navigationController pushViewController:searchView animated:YES];
+            locSearchView = [[LocationSearchView alloc] initWithNibName:@"LocationSearchView" bundle:nil];
+            [locSearchView setApiContext:_apiContext];
+            [self.navigationController pushViewController:locSearchView animated:YES];
+            break;
+        case kGeoCodeRow:
+            geoSearchView = [[GeoSearchView alloc] initWithNibName:@"GeoSearchView" bundle:nil];
+            [geoSearchView setApiContext:_apiContext];
+            [self.navigationController pushViewController:geoSearchView animated:YES];
             break;
         default:
             break;

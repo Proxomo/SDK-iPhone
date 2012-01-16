@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3700A11C14C3934300A23C3F /* EventComment.h in Headers */ = {isa = PBXBuildFile; fileRef = 3700A11A14C3934300A23C3F /* EventComment.h */; };
+		3700A11D14C3934300A23C3F /* EventComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3700A11B14C3934300A23C3F /* EventComment.m */; };
 		3700E48514930A01000A88C2 /* Category.h in Headers */ = {isa = PBXBuildFile; fileRef = 3700E483149309FE000A88C2 /* Category.h */; };
 		3700E48614930A01000A88C2 /* Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3700E48414930A00000A88C2 /* Category.m */; };
 		3700E48B14956675000A88C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48A14956675000A88C2 /* UIKit.framework */; };
@@ -82,6 +84,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3700A11A14C3934300A23C3F /* EventComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventComment.h; sourceTree = "<group>"; };
+		3700A11B14C3934300A23C3F /* EventComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventComment.m; sourceTree = "<group>"; };
 		3700E483149309FE000A88C2 /* Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Category.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3700E48414930A00000A88C2 /* Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Category.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3700E48A14956675000A88C2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -318,6 +322,8 @@
 				3700E48414930A00000A88C2 /* Category.m */,
 				37815DAC14B2C0AF0011390C /* SocialNetworkFriend.h */,
 				37815DAD14B2C0AF0011390C /* SocialNetworkFriend.m */,
+				3700A11A14C3934300A23C3F /* EventComment.h */,
+				3700A11B14C3934300A23C3F /* EventComment.m */,
 			);
 			name = Definitions;
 			sourceTree = "<group>";
@@ -356,6 +362,7 @@
 				3733245B14AED0EF00C77193 /* SBJson.h in Headers */,
 				3733245D14AED0EF00C77193 /* NSObject+SBJson.h in Headers */,
 				37815DAE14B2C0B00011390C /* SocialNetworkFriend.h in Headers */,
+				3700A11C14C3934300A23C3F /* EventComment.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +488,7 @@
 				3733245914AED0EF00C77193 /* SBJsonParser.m in Sources */,
 				3733245C14AED0EF00C77193 /* NSObject+SBJson.m in Sources */,
 				37815DAF14B2C0B00011390C /* SocialNetworkFriend.m in Sources */,
+				3700A11D14C3934300A23C3F /* EventComment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

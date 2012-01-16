@@ -49,6 +49,9 @@
     return _accessToken;
 }
 
+-(void)setApiContext:(id)apiContext{
+    _apiContext = apiContext;
+}
 
 // adds the object, sets the ID in object
 -(void) Add:(id)context  
@@ -149,7 +152,7 @@
 
 #pragma mark - JSON Utilities
 
-- (NSDate *) getJSONDate:(NSString *)dateString{
+- (NSDate *) convertJsonToDate:(NSString *)dateString{
     NSString* header = @"/Date(";
     uint headerLength = [header length];
     
@@ -190,6 +193,14 @@
     return [NSDate dateWithTimeIntervalSince1970:interval];
 }
 
++ (NSString *)dateJsonRepresentation:(NSDate*)date {
+    NSTimeInterval dateTime;
+    NSString *jsonDate;
+    dateTime = [date timeIntervalSince1970] * 1000;
+    jsonDate = [NSString stringWithFormat:@"/Date(%0.0f+0000)/",dateTime];
+    return jsonDate;
+}
+
 -(NSMutableDictionary*)proxyForJson{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     Class clazz = [self class];
@@ -203,7 +214,6 @@
     int ival = 0;
     long lval = 0;
     double dval;
-    NSString *jsonDate;
     NSString *key;
     char cval;
     
@@ -227,9 +237,7 @@
                     continue;
                 }
                 if ([ivarValue isKindOfClass:[NSDate class]]) {
-                    dval = [(NSDate*)ivarValue timeIntervalSince1970] * 1000;
-                    jsonDate = [NSString stringWithFormat:@"/Date(%ld)/",dval];
-                    [dict setValue:jsonDate forKey:key]; 
+                    [dict setValue:[ProxomoObject dateJsonRepresentation:(NSDate*)ivarValue] forKey:key]; 
                 }else{
                     [dict setValue:ivarValue forKey:key];
                 }
@@ -324,7 +332,7 @@
         switch (ivarType) {
             case '@':
                 if ([ivarValue isKindOfClass:[NSDate class]]) {
-                    object_setIvar(self, ivars[i], [self getJSONDate:ivarValue]);
+                    object_setIvar(self, ivars[i], [self convertJsonToDate:ivarValue]);
                 }else if ([ivarValue isKindOfClass:[NSString class]]) {
                     object_setIvar(self, ivars[i], ivarValue);
                 }else if ([ivarValue isKindOfClass:[NSNumber class]]) {

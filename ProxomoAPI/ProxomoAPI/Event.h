@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Location.h"
+#import "Person.h"
+#import "ProxomoList.h"
 
 typedef enum {
     SECRET_EVENT = 0,
@@ -21,7 +23,7 @@ typedef enum {
     CANCELED = 2
 } enumEventStatus;
 
-@interface Event : Location {
+@interface Event : ProxomoObject {
     NSString *EventName;
     NSString *Description;
     NSString *EventType;
@@ -37,6 +39,20 @@ typedef enum {
     NSString *PersonID;
     NSString *PersonName;
     NSArray *appData;
+    ProxomoList *_appData;
+    
+    // Location Info
+    NSString *Address1;
+    NSString *Address2;
+    NSString *City;
+    NSString *State;
+    NSString *Zip;
+    NSString *CountryName;
+    NSString *CountryCode; 
+    NSString *LocationID;
+    NSNumber *Latitude;
+    NSNumber *Longitude;
+
 }
 
 @property (nonatomic, strong) NSString *EventName;
@@ -54,5 +70,22 @@ typedef enum {
 @property (nonatomic, strong) NSString *PersonID;
 @property (nonatomic, strong) NSString *PersonName;
 @property (nonatomic, strong) NSArray *appData;
+
+// Location Properties
+@property (nonatomic, strong) NSString *LocationID;
+@property (nonatomic, strong) NSNumber *Latitude;
+@property (nonatomic, strong) NSNumber *Longitude;
+@property (nonatomic, strong) NSString *Address1;
+@property (nonatomic, strong) NSString *Address2;
+@property (nonatomic, strong) NSString *City;
+@property (nonatomic, strong) NSString *State;
+@property (nonatomic, strong) NSString *Zip;
+@property (nonatomic, strong) NSString *CountryName;
+@property (nonatomic, strong) NSString *CountryCode;
+
+
+-(NSArray*) searchByDistance:(double)miles fromLatitude:(double)latitude fromLongitude:(double)longitude startTime:(NSDate*)start endTime:(NSDate*)end apiContext:(id)context useAsync:(BOOL)useAsync; 
+
+-(NSArray*) searchByPerson:(Person*)person startTime:(NSDate*)start endTime:(NSDate*)end  apiContext:(id)context useAsync:(BOOL)useAsync; 
 
 @end

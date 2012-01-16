@@ -41,19 +41,41 @@
     [pListView setPList:pList];
     [pListView setApiContext:apiContext];
     [pListView setObjectContext:pObject];
+    [pListView setUserContext:userContext];
     [self.navigationController pushViewController:pListView animated:YES];
 }
 
 -(void)getFriends:(id)button {
-    if ([pObject isKindOfClass:[Person class]]) {
-        ProxomoList *pList = [[ProxomoList alloc] init];
-        [pList setListType:SOCIALNETFRIEND_TYPE];
-        ProxomoListView *pListView = [[ProxomoListView alloc] init];
-        [pListView setPList:pList];
-        [pListView setApiContext:apiContext];
-        [pListView setObjectContext:pObject];
-        [self.navigationController pushViewController:pListView animated:YES];
-    }
+    ProxomoList *pList = [[ProxomoList alloc] init];
+    [pList setListType:SOCIALNETFRIEND_TYPE];
+    ProxomoListView *pListView = [[ProxomoListView alloc] init];
+    [pListView setPList:pList];
+    [pListView setApiContext:apiContext];
+    [pListView setObjectContext:pObject];
+    [pListView setUserContext:userContext];
+    [self.navigationController pushViewController:pListView animated:YES];
+}
+
+-(void)getEvents:(id)button {
+    ProxomoList *pList = [[ProxomoList alloc] init];
+    [pList setListType:EVENT_TYPE];
+    ProxomoListView *pListView = [[ProxomoListView alloc] init];
+    [pListView setPList:pList];
+    [pListView setApiContext:apiContext];
+    [pListView setObjectContext:pObject];
+    [pListView setUserContext:userContext];
+    [self.navigationController pushViewController:pListView animated:YES];
+}
+
+-(void)getComments:(id)button {
+    ProxomoList *pList = [[ProxomoList alloc] init];
+    [pList setListType:EVENTCOMMENT_TYPE];
+    ProxomoListView *pListView = [[ProxomoListView alloc] init];
+    [pListView setPList:pList];
+    [pListView setApiContext:apiContext];
+    [pListView setObjectContext:pObject];
+    [pListView setUserContext:userContext];
+    [self.navigationController pushViewController:pListView animated:YES];
 }
 
 #pragma mark - app delegate
@@ -74,14 +96,15 @@
 
 -(void) loadPObject {
     [pObject setAppDelegate:self];
-    [pObject Get:apiContext];
+    if(objectContext)
+        [pObject Get:objectContext];
+    else
+        [pObject Get:apiContext];
 }
 
 -(void)reload:(id)button {
     [self loadPObject];
 }
-
-
 
 #pragma mark - View lifecycle
 
@@ -96,7 +119,6 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     Class clazz = [pObject class];
     _ivars = class_copyIvarList(clazz, &_count);
-    self.title = @"Loading...";
 }
 
 - (void)viewDidUnload
@@ -110,12 +132,31 @@
 {
     UIBarButtonItem *appDataButton = [[UIBarButtonItem alloc] initWithTitle: @"App Data" style: UIBarButtonItemStylePlain target:self action: @selector(getAppData:)];
     UIBarButtonItem *friendsButton = [[UIBarButtonItem alloc] initWithTitle: @"Friends" style: UIBarButtonItemStylePlain target:self action: @selector(getFriends:)];
+    UIBarButtonItem *eventsButton = [[UIBarButtonItem alloc] initWithTitle: @"Events" style: UIBarButtonItemStylePlain target:self action: @selector(getEvents:)];
+    UIBarButtonItem *commentButton = [[UIBarButtonItem alloc] initWithTitle: @"Events" style: UIBarButtonItemStylePlain target:self action: @selector(getComments:)];
 
+    
     [super viewWillAppear:animated];
-    [self loadPObject];
+    if ([pObject isKindOfClass:[GeoCode class]] == false &&
+        [pObject isKindOfClass:[Location class]] == false &&
+        [pObject isKindOfClass:[SocialNetworkFriend class]] == false &&
+        [pObject isKindOfClass:[EventComment class]] == false )
+    {
+        self.title = @"Loading...";
+        [self loadPObject];
+    }else{
+        self.title = [pObject description];
+    }
     [self.navigationController.toolbar setBarStyle:UIBarStyleBlackOpaque];  //for example
     //set the toolbar buttons
-    [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, friendsButton, nil]]; 
+    if ([pObject isKindOfClass:[Person class]]) {
+        [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, friendsButton, eventsButton, nil]];
+    }else if([pObject isKindOfClass:[Location class]]){
+        [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, nil]];
+    }else if([pObject isKindOfClass:[Event class]]){
+        [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, commentButton, nil]];
+    }
+     
     [self.navigationController setToolbarHidden:NO];
     self.hidesBottomBarWhenPushed = YES;
 }

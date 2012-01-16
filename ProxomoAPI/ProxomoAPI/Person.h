@@ -46,7 +46,6 @@ typedef enum {
     NSString *TwitterID; ///	String	No	Please note: While TwitterID is defined Twitter integration has not yet been added to Proxomo.
     NSString *UserName; ///	String	No	This field is not used by Proxomo.  Developers can use this field to associate a Person to another account if needed.
     double UTCOffset; ///	Double	No	Coordinate Universal Time Offset of the Person.
-    NSArray *appData;
 }
 
 /**
@@ -76,7 +75,5 @@ typedef enum {
 @property (nonatomic, strong) NSString *TwitterID;
 @property (nonatomic, strong) NSString *UserName;
 @property (nonatomic) double UTCOffset;
-@property (nonatomic, strong) NSArray *appData;
-
 
 @end

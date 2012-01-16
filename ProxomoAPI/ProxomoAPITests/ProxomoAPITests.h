@@ -10,9 +10,11 @@
 #import "Proxomo.h"
 
 @interface ProxomoAPITests : SenTestCase <ProxomoAppDelegate> {
-    ProxomoApi *apiContext;
+    ProxomoApi *_apiContext;
+    Person    *_userContext;
     NSRunLoop *runLoop;
 }
 
-@property (nonatomic, strong) ProxomoApi *apiContext;
+@property (nonatomic, strong) ProxomoApi *_apiContext;
+@property (nonatomic, strong) Person    *_userContext;
 @end

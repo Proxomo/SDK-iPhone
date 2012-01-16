@@ -25,7 +25,8 @@ typedef enum {
     NOTIFICATION_TYPE,
     PERSON_TYPE,
     PROXOMOLIST_TYPE,
-    SOCIALNETFRIEND_TYPE
+    SOCIALNETFRIEND_TYPE,
+    EVENTCOMMENT_TYPE
 } enumObjectType;
 
 typedef enum {
@@ -66,7 +67,6 @@ typedef enum {
     NSMutableDictionary *responseDelegate;
     NSMutableDictionary *responses;
     NSMutableDictionary *requests;
-    NSDictionary *encode_url_table;
     NSMutableArray *connections;
     
     id appDelegate;
@@ -106,7 +106,7 @@ typedef enum {
 /*
  * Rest Functions
  */
--(NSString *) htmlEncodeString:(NSString *)input;
++(NSString *) htmlEncodeString:(NSString *)input;
 -(NSString *)getUrlForRequest:(enumObjectType)objectType requestType:(enumRequestType)requestType;
 - (void)makeAsyncRequest:(NSString*)path method:(enumRequestType)method delegate:(id <ProxomoApiDelegate>) requestDelegate;
 - (BOOL)makeSyncRequest:(NSString*)path method:(enumRequestType)method delegate:(id <ProxomoApiDelegate>) requestDelegate;

@@ -39,13 +39,14 @@
 -(NSArray*)appData{
     return [_appData arrayValue];
 }
--(ProxomoList*)locations{
-    return _locations;
+-(NSArray*)locations{
+    return [_locations arrayValue];
 }
 
 -(NSArray*)byAddress:(NSString *)address apiContext:(ProxomoApi *)context useAsync:(BOOL)useAsync{
     _locations = [[ProxomoList alloc] init];
     [_locations setAppDelegate:appDelegate];
+    _apiContext = context;
     [context Search:_locations searchUrl:@"s/search/address" searchUri:address forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
     return [_locations arrayValue];
 }
@@ -53,16 +54,20 @@
 -(NSArray*)byIP:(NSString*)ip apiContext:(ProxomoApi *)context useAsync:(BOOL)useAsync{
     _locations = [[ProxomoList alloc] init];
     [_locations setAppDelegate:appDelegate];
+    _apiContext = context;
     [context Search:_locations searchUrl:@"s/search/ip" searchUri:ip forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
     return [_locations arrayValue];
 }
 
--(NSArray *) byLatitude:(NSNumber*)latitude byLogitude:(NSNumber*)longitude apiContext:(ProxomoApi*)context useAsync:(BOOL)useAsync{
-    NSString *searchUrl = [NSString stringWithFormat:@"s/search/latitude/%@/longitude",
+-(NSArray *) byLatitude:(double)latitude byLogitude:(double)longitude apiContext:(ProxomoApi*)context useAsync:(BOOL)useAsync{
+    NSString *searchUrl = [NSString stringWithFormat:@"s/search/latitude/%f/longitude",
                            latitude];
+    NSString *searchUri = [NSString stringWithFormat:@"%f",
+                           longitude];
     _locations = [[ProxomoList alloc] init];
     [_locations setAppDelegate:appDelegate];
-    [context Search:_locations searchUrl:searchUrl searchUri:[longitude stringValue] forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
+    _apiContext = context;
+    [context Search:_locations searchUrl:searchUrl searchUri:searchUri forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
     return [_locations arrayValue];
 }
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3700A12214C3B27E00A23C3F /* GeoSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3700A12014C3B27E00A23C3F /* GeoSearchView.m */; };
+		3700A12314C3B27E00A23C3F /* GeoSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3700A12114C3B27E00A23C3F /* GeoSearchView.xib */; };
 		373F138214BFDF450094C752 /* LocationSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 373F138014BFDF450094C752 /* LocationSearchView.m */; };
 		373F138314BFDF450094C752 /* LocationSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 373F138114BFDF450094C752 /* LocationSearchView.xib */; };
 		376B544E14B5654800AC5C5F /* ProxomoObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 376B544D14B5654800AC5C5F /* ProxomoObjectView.m */; };
@@ -29,6 +31,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3700A11F14C3B27E00A23C3F /* GeoSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoSearchView.h; sourceTree = "<group>"; };
+		3700A12014C3B27E00A23C3F /* GeoSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoSearchView.m; sourceTree = "<group>"; };
+		3700A12114C3B27E00A23C3F /* GeoSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeoSearchView.xib; sourceTree = "<group>"; };
 		373F137F14BFDF450094C752 /* LocationSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSearchView.h; sourceTree = "<group>"; };
 		373F138014BFDF450094C752 /* LocationSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSearchView.m; sourceTree = "<group>"; };
 		373F138114BFDF450094C752 /* LocationSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationSearchView.xib; sourceTree = "<group>"; };
@@ -121,6 +126,9 @@
 				373F137F14BFDF450094C752 /* LocationSearchView.h */,
 				373F138014BFDF450094C752 /* LocationSearchView.m */,
 				373F138114BFDF450094C752 /* LocationSearchView.xib */,
+				3700A11F14C3B27E00A23C3F /* GeoSearchView.h */,
+				3700A12014C3B27E00A23C3F /* GeoSearchView.m */,
+				3700A12114C3B27E00A23C3F /* GeoSearchView.xib */,
 			);
 			path = ProxomoSample;
 			sourceTree = "<group>";
@@ -198,6 +206,7 @@
 				37806FE314BBECF200CF864E /* icon.png in Resources */,
 				37806FE514BBF27800CF864E /* LoginView.xib in Resources */,
 				373F138314BFDF450094C752 /* LocationSearchView.xib in Resources */,
+				3700A12314C3B27E00A23C3F /* GeoSearchView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +224,7 @@
 				3771394C14B69C2D008C92E3 /* ProxomoListView.m in Sources */,
 				379767D914BA28790016F934 /* FeatureTableView.m in Sources */,
 				373F138214BFDF450094C752 /* LocationSearchView.m in Sources */,
+				3700A12214C3B27E00A23C3F /* GeoSearchView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

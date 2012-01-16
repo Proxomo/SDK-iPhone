@@ -34,26 +34,36 @@
 }
 
 -(void) byAddress:(NSString*)address apiContext:(ProxomoApi*)context  useAsync:(BOOL)useAsync{
+    _apiContext = context;
     [context GetByUrl:self searchUrl:@"/lookup/address" searchUri:address objectType:GEOCODE_TYPE useAsync:useAsync];
 }
 
 -(void) byIPAddress:(NSString*)ipAddress apiContext:(ProxomoApi*)context  useAsync:(BOOL)useAsync{
-     [context GetByUrl:self searchUrl:@"/lookup/ip" searchUri:ipAddress objectType:GEOCODE_TYPE useAsync:useAsync];
+    _apiContext = context;
+    [context GetByUrl:self searchUrl:@"/lookup/ip" searchUri:ipAddress objectType:GEOCODE_TYPE useAsync:useAsync];
 }
 
--(Location *) byLatitude:(NSNumber*)latitude byLogitude:(NSNumber*)longitude apiContext:(ProxomoApi*)context {
-    NSString *searchUrl = [NSString stringWithFormat:@"/lookup/latitude/%@/longitude",
+-(Location *) byLatitude:(double)latitude byLogitude:(double)longitude apiContext:(ProxomoApi*)context {
+    NSString *searchUrl = [NSString stringWithFormat:@"/lookup/latitude/%f/longitude",
                            latitude];
+    NSString *searchUri = [NSString stringWithFormat:@"%f", longitude];
     Location *location = [[Location alloc] init];
-    [context GetByUrl:location searchUrl:searchUrl searchUri:[longitude stringValue] objectType:GEOCODE_TYPE useAsync:NO];
+    _apiContext = context;
+    [context GetByUrl:location searchUrl:searchUrl searchUri:searchUri objectType:GEOCODE_TYPE useAsync:NO];
     return location;
 }
 
--(void) byLatitude:(NSNumber*)latitude byLogitude:(NSNumber*)longitude locationDelegate:(Location*)location apiContext:(ProxomoApi*)context {
-    NSString *searchUrl = [NSString stringWithFormat:@"/lookup/latitude/%@/longitude",
+-(void) byLatitude:(double)latitude byLogitude:(double)longitude locationDelegate:(Location*)location apiContext:(ProxomoApi*)context {
+    NSString *searchUrl = [NSString stringWithFormat:@"/lookup/latitude/%f/longitude",
                            latitude];
-    [context GetByUrl:location searchUrl:searchUrl searchUri:[longitude stringValue] objectType:GEOCODE_TYPE useAsync:YES];
+    NSString *searchUri = [NSString stringWithFormat:@"%f", longitude];
+    _apiContext = context;
+    [context GetByUrl:location searchUrl:searchUrl searchUri:searchUri objectType:GEOCODE_TYPE useAsync:YES];
 }
 
+-(NSString*) description{
+    return [NSString stringWithFormat:@"%0.2fx%0.2f",
+                       [Latitude doubleValue], [Longitude doubleValue]];
+}
 
 @end

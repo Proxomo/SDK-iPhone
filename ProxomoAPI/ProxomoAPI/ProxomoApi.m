@@ -28,6 +28,8 @@
 @synthesize appDelegate;
 @synthesize userContext;
 
+NSDictionary *encode_url_table = nil;
+
 -(void)initData {
     accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
     expires = [[NSUserDefaults standardUserDefaults] objectForKey:@"expires"];
@@ -37,32 +39,34 @@
     responses = [[NSMutableDictionary alloc] init];
     requests = [[NSMutableDictionary alloc] init];
     
-    encode_url_table = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"%24", @"$",
-                         @"%26", @"&", 
-                         @"%2B", @"+",
-                         @"%2C", @",",
-                         @"%2F", @"/",
-                         @"%3A", @":",
-                         @"%3B", @";",
-                         @"%3D", @"=",
-                         @"%3F", @"?",
-                         @"%40", @"@",
-                         @"%20", @" ",
-                         @"%22", @"\"",
-                         @"%3C", @"<",
-                         @"%3E", @">",
-                         @"%23", @"#",
-                         @"%7B", @"{",
-                         @"%7D", @"}",
-                         @"%7C", @"|",
-                         @"%5C", @"\\",
-                         @"%5E", @"^",
-                         @"%7E", @"~",
-                         @"%5B", @"[",
-                         @"%5D", @"]",
-                         @"%60", @"`",
-                         nil];
+    if(!encode_url_table) {
+        encode_url_table = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            @"%24", @"$",
+                            @"%26", @"&", 
+                            @"%2B", @"+",
+                            @"%2C", @",",
+                            @"%2F", @"/",
+                            @"%3A", @":",
+                            @"%3B", @";",
+                            @"%3D", @"=",
+                            @"%3F", @"?",
+                            @"%40", @"@",
+                            @"%20", @" ",
+                            @"%22", @"\"",
+                            @"%3C", @"<",
+                            @"%3E", @">",
+                            @"%23", @"#",
+                            @"%7B", @"{",
+                            @"%7D", @"}",
+                            @"%7C", @"|",
+                            @"%5C", @"\\",
+                            @"%5E", @"^",
+                            @"%7E", @"~",
+                            @"%5B", @"[",
+                            @"%5D", @"]",
+                            @"%60", @"`",
+                            nil];
+    }
     numAsyncPending = 0;
 }
 
@@ -267,9 +271,10 @@
     }
 }
 
--(NSString *) htmlEncodeString:(NSString *)input{
++(NSString *) htmlEncodeString:(NSString *)input{
     NSString *replace;
     // @"%" --> @"%25" // do this 1st!
+    if([input isKindOfClass:[NSNull class]] || [input isEqualToString:@""]) return nil;
     input = [input stringByReplacingOccurrencesOfString:@"%" withString:@"%25"];
     for (NSString *find in encode_url_table) {
         replace = [encode_url_table objectForKey:find];
@@ -505,12 +510,13 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
             return @"notification";
         case PERSON_TYPE:
             return @"person";
+        case EVENTCOMMENT_TYPE:
+            return @"comment";
         default:
-            return kBaseJSON;
+            return @"";
     }
-    return kBaseJSON;
-
 }
+
 -(NSString *)getUrlForRequest:(enumObjectType)objectType requestType:(enumRequestType)requestType{
     return [NSString stringWithFormat:@"%@%@",kBaseJSON, [self getPathForObjectType:objectType]];
 }
@@ -525,19 +531,20 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     NSString *url, *ID;
     
     if(path){
+        [path setApiContext:self];
         if([object objectType] == FRIEND_TYPE){
             url = [self getUrlForRequest:[object objectType] requestType:method];
-            ID = [self htmlEncodeString:[path ID]];
+            ID = [ProxomoApi htmlEncodeString:[path ID]];
             if (!ID) return false;
             url = [url stringByAppendingFormat:@"/%@", ID];
         }else if([object objectType] == SOCIALNETFRIEND_TYPE){
             url = [self getUrlForRequest:[object objectType] requestType:method];
-            ID = [self htmlEncodeString:[path ID]];
+            ID = [ProxomoApi htmlEncodeString:[path ID]];
             if (!ID) return false;
             url = [url stringByAppendingFormat:@"/%@/socialnetwork/0", ID];
         }else{
             url = [self getUrlForRequest:[path objectType] requestType:method];
-            ID = [self htmlEncodeString:[path ID]];
+            ID = [ProxomoApi htmlEncodeString:[path ID]];
             if (!ID) return false;
             url = [url stringByAppendingFormat:@"/%@/%@", ID, [self getPathForObjectType:[object objectType]]];
         }
@@ -546,19 +553,22 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     }
     
     if([object isKindOfClass:[ProxomoList class]]){
+        // Lists needed the S on the end
         switch ([object objectType]) {
             case LOCATION_TYPE:
+            case EVENTCOMMENT_TYPE:
                 url = [url stringByAppendingString:@"s"];
                 break;
             default:
                 break;
         }
     }else if(method != POST && method != PUT){
-        ID = [self htmlEncodeString:[object ID]];
-        if (!ID) return false;
+        ID = [ProxomoApi htmlEncodeString:[object ID]];
+        if (!ID || [ID isEqualToString:@""] ) return false;
         url = [url stringByAppendingFormat:@"/%@", ID];
     }
     
+    [object setApiContext:self];
     if(async){
         if ([object appDelegate] == nil) {
             [object setAppDelegate:appDelegate];
@@ -620,8 +630,11 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 
 -(void) Search:(ProxomoList*)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)async  inObject:(id)path {
     
-    url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:objType requestType:GET],  url, [self htmlEncodeString:uri]];
+    url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:objType 
+                    requestType:GET],  url, 
+                    [ProxomoApi htmlEncodeString:uri]];
     [proxomoList setListType:objType];
+    [proxomoList setApiContext:self];
     if (appDelegate && ![proxomoList appDelegate]) [proxomoList setAppDelegate:appDelegate];
     if(async){
         [self makeAsyncRequest:url method:GET delegate:proxomoList];
@@ -631,9 +644,10 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 }
 
 -(void) GetByUrl:(ProxomoObject*)obj searchUrl:(NSString*)url searchUri:(NSString*)uri objectType:(enumObjectType)objType useAsync:(BOOL)async {
-    url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:objType requestType:GET],  url, [self htmlEncodeString:uri]];
+    url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:objType requestType:GET],  url, [ProxomoApi htmlEncodeString:uri]];
     
     if (appDelegate && ![obj appDelegate]) [obj setAppDelegate:appDelegate];
+    [obj setApiContext:self];
     if(async){
         [self makeAsyncRequest:url method:GET delegate:obj];
     }else{

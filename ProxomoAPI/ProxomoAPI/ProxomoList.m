@@ -16,12 +16,14 @@
     return proxomoList;
 }
 
-+(BOOL)isSupported:(enumObjectType)listType{
++(BOOL)isSupported:(enumObjectType)listType {
     switch (listType) {
         case APPDATA_TYPE:
         case LOCATION_TYPE:
         case FRIEND_TYPE:
         case SOCIALNETFRIEND_TYPE:
+        case EVENT_TYPE:
+        case EVENTCOMMENT_TYPE:
             return YES;
         default:
             return NO;
@@ -80,9 +82,16 @@
         case SOCIALNETFRIEND_TYPE:
             item = [[SocialNetworkFriend alloc] init];
             break;
+        case EVENT_TYPE:
+            item = [[Event alloc] init];
+            break;
+        case EVENTCOMMENT_TYPE:
+            item = [[EventComment alloc] init];
+            break;
         default:
             break;
     }
+    [item setApiContext:_apiContext];
     [item updateFromJsonRepresentation:jsonRepresentation];
     return item;
 }
