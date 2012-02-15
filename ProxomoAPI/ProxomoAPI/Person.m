@@ -100,4 +100,35 @@
     return [_appData arrayValue];
 }
 
+#pragma mark - Friends
+
+-(void)friendInvite:(NSString*)personID{
+    NSString *url = [NSString stringWithFormat:@"%@friend/invite/frienda/%@/friendb/%@", 
+                     [_apiContext getUrlForRequest:GENERIC_TYPE requestType:PUT], 
+                     self.ID,
+                     personID];
+    
+    [_apiContext makeSyncRequest:url method:PUT delegate:self];
+}
+
+-(void)friendInvite:(NSString*)socialID inSocialNetwork:(enumSocialNetwork)network {
+    NSString *url = [NSString stringWithFormat:@"%@friend/invite/frienda/%@/friendb/%@/socialnetwork/%d", 
+                     [_apiContext getUrlForRequest:GENERIC_TYPE requestType:PUT], 
+                     _socialnetwork_id,
+                     socialID,
+                     (NSInteger)network];
+    
+    [_apiContext makeSyncRequest:url method:PUT delegate:self];
+}
+
+-(void)friendRespond:(NSString*)personID withResponse:(enumFriendResponse)response {
+    NSString *url = [NSString stringWithFormat:@"%@friend/respond/frienda/%@/friendb/%@/friendresponse/%d", 
+                     [_apiContext getUrlForRequest:GENERIC_TYPE requestType:PUT], 
+                     ID,
+                     personID,
+                     (NSInteger)response];
+    
+    [_apiContext makeSyncRequest:url method:PUT delegate:self];
+}
+
 @end

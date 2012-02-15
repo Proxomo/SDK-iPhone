@@ -40,7 +40,7 @@
     
     runLoop = [NSRunLoop currentRunLoop];
     _userContext = [[Person alloc] init];
-    [_userContext setID:@"NM77fyFfH32sG9CK"];
+    [_userContext setID:@"8mECuOEvlLPj9nHb"];
     [_userContext Get:_apiContext];
     [self waitForAsync];
     STAssertNotNil([_userContext FullName], @"Null Person Name");
@@ -69,12 +69,12 @@
     for(int x=0; x <= TESTLOOPS; x++){
         location = [[Location alloc] init];
         if(location){
-            [location setName:@"Test Location Name"];
-            [location setCity:@"Dallas"];
-            [location setLatitude:[NSNumber numberWithInt:x]];
-            [location setLongitude:[NSNumber numberWithDouble:100]];
-            [location setAddress1:@"100 main"];
-            [location setLocationSecurity:PRIVATE_LOCATION];
+            location.Name = @"Test Location Name";
+            location.City = @"Dallas";
+            location.Latitude = [NSNumber numberWithInt:x];
+            location.Longitude = [NSNumber numberWithDouble:100];
+            location.Address1 = @"100 main";
+            location.LocationSecurity = PRIVATE_LOCATION;
             // store instance for later
             [save addObject:location];
             // send to API for adding to cloud
@@ -89,7 +89,7 @@
      */
     for(Location *loc in save){
         STAssertNotNil([loc ID], @"ID not set");
-        [loc setCity:[loc ID]];
+        loc.City = [loc ID];
         NSLog(@"Updating %@, City %@",[loc ID], [loc City]);
         [loc Update:_apiContext];
         [data Add:loc];
@@ -100,7 +100,7 @@
      * Now make sure we can get all the values
      */
     for(Location *loc in save){
-        [loc setCity:@"empty"];
+        loc.City = @"empty";
         [loc Get:_apiContext];
     }
     [self waitForAsync];
@@ -140,12 +140,12 @@
      */
     for(int x=1; x <= TESTLOOPS; x++){
         location = [[Location alloc] init];
-        [location setName:[NSString stringWithFormat:@"TestLocation-%d",x]];
-        [location setCity:[NSString stringWithFormat:@"City%d",x]];
-        [location setLatitude:[NSNumber numberWithInt:x]];
-        [location setLongitude:[NSNumber numberWithDouble:x]];
-        [location setAddress1:@"100 main"];
-        [location setLocationSecurity:PRIVATE_LOCATION];
+        location.Name = [NSString stringWithFormat:@"TestLocation-%d",x];
+        location.City = [NSString stringWithFormat:@"City%d",x];
+        location.Latitude = [NSNumber numberWithInt:x];
+        location.Longitude = [NSNumber numberWithDouble:x];
+        location.Address1 = @"100 main";
+        location.LocationSecurity = PRIVATE_LOCATION;
         if(![location AddSynchronous:_apiContext]){
             STFail(@"Location add returned false");
         }
@@ -157,7 +157,7 @@
      * Update an Instance to Other Value
      */
     for (Location *loc in save){
-        [loc setCity:[loc ID]];
+        loc.City = [loc ID];
         NSLog(@"Updating ID %@, City %@",[loc ID], [loc City]);
         if(![loc UpdateSynchronous:_apiContext]){
             STFail(@"Location update returned false");
@@ -284,7 +284,7 @@
       */
     for(appData in save){
         STAssertNotNil([appData ID], @"App Data ID not set");
-        [appData setValue:[appData ID]];
+        appData.Value = [appData ID];
         [appData Update:_apiContext];
     }
     [self waitForAsync];
@@ -293,7 +293,7 @@
       * Now make sure we can get all the values
       */
     for(appData in save){
-        [appData setValue:@"empty"];
+        appData.Value = @"empty";
         [appData Get:_apiContext];
     }
     [self waitForAsync];
@@ -357,10 +357,10 @@
       * Update an Instance to Other Value
       */
     
-    [appData setValue:@"Other Value"];
+    appData.Value = @"Other Value";
     STAssertTrue([appData UpdateSynchronous:_apiContext], @"AppData_Update returned false");
-    STAssertNotNil([appData ID], @"App Data ID not set");
-    STAssertEquals([appData Value], @"Other Value", @"Updated Value is wrong");
+    STAssertNotNil(appData.ID, @"App Data ID not set");
+    STAssertEquals(appData.Value, @"Other Value", @"Updated Value is wrong");
    
     /*
       * test getting the value
@@ -433,7 +433,7 @@
     event.PersonName = @"Tester";
     event.Privacy = OPEN_EVENT;
     event.Status = UPCOMING;
-    event.PersonID = [_userContext ID];
+    event.PersonID = _userContext.ID;
     event.LocationID = location.ID;
         
     STAssertTrue([event AddSynchronous:_apiContext],@"Couldn't add event");
@@ -441,11 +441,17 @@
     // STAssertTrue([event DeleteSynchronous:_apiContext], @"Could not delete event");
     AppData *eventdata = [[AppData alloc] initWithValue:@"event-value" forKey:@"event-key"];
     STAssertTrue([eventdata AddSynchronous:event], @"Couldn't add event data");
+    eventdata.ID = nil;
+    eventdata.Value = @"Value2";
+    STAssertTrue([eventdata AddSynchronous:event], @"Couldn't add event data");
+    eventdata.Value = @"New Value";
+    STAssertTrue([eventdata UpdateSynchronous:event], @"Couldn't update event data");
     
     ProxomoList *plist = [[ProxomoList alloc] init];
     [plist GetAll_Synchronous:event getType:APPDATA_TYPE];
     STAssertTrue([[plist arrayValue] count] > 0, @"Empty event app data");
     for (AppData *data in [plist arrayValue]) {
+        NSLog(@"Event Data Value %@", data.Value);
         STAssertTrue([data DeleteSynchronous:event], @"Couldn't delete event data");
     }
     
@@ -491,6 +497,7 @@
     }
      */
     [save DeleteSynchronous:event];
+    [location DeleteSynchronous:_apiContext];
 }
 
 #pragma mark GeoCode
@@ -535,24 +542,67 @@
     STAssertNotNil([gcode Latitude], @"Nil Latitude");
     STAssertNotNil([gcode Longitude], @"Nil Longitude");
     
-    [location setAddress1:nil];
-    [location setLongitude:nil];
-    [location setLatitude:nil];    
+    location.Address1 = nil;
+    location.Longitude = nil;
+    location.Latitude = nil;    
     [gcode byLatitude:kTestLatitude byLogitude:kTestLongitude locationDelegate:location apiContext:_apiContext]; 
     [self waitForAsync];
     STAssertNotNil([location Latitude], @"Nil Latitude");
     STAssertNotNil([location Longitude], @"Nil Longitude");
 }
 
+-(void)unitPerson_Synchronous{
+    _userContext.FirstName = @"Joe";
+    _userContext.LastName = @"Blow";
+    [_userContext UpdateSynchronous:_apiContext];
+    
+    
+    ProxomoList *socialNetFriends = [[ProxomoList alloc] init];
+    [socialNetFriends GetAll_Synchronous:_userContext getType:SOCIALNETFRIEND_TYPE];
+    for (SocialNetworkFriend *friend in [socialNetFriends arrayValue]) {
+        [_userContext friendInvite:friend.ID inSocialNetwork:FACEBOOK];
+    }
+    
+    ProxomoList *socialNetworkInfo = [[ProxomoList alloc] init];
+    [socialNetworkInfo GetAll_Synchronous:_userContext getType:SOCIALNETWORK_INFO_TYPE];
+    ProxomoList *appFriends = [[ProxomoList alloc] init];
+    [appFriends GetAll_Synchronous:_userContext getType:FRIEND_TYPE];
+    
+    
+    Location *location = [[Location alloc] init];
+    location.PersonID = _userContext.ID;
+    location.Name = @"TestLocation-event";
+    location.City = @"EventCity";
+    location.Latitude = [NSNumber numberWithInt:kTestLatitude];
+    location.Longitude = [NSNumber numberWithDouble:kTestLongitude];
+    location.Address1 = @"100 main";
+    location.LocationSecurity = OPEN_LOCATION;
+    STAssertTrue([location AddSynchronous:_apiContext], @"Location add returned false");
+
+    ProxomoList *locations = [[ProxomoList alloc] init];
+    [locations GetAll_Synchronous:_userContext getType:LOCATION_TYPE];
+    ProxomoList *data = [[ProxomoList alloc] init];
+    [data GetAll_Synchronous:_userContext getType:APPDATA_TYPE];
+    for (AppData *a in [data arrayValue]) {
+        STAssertTrue([a GetSynchronous:_userContext], @"Could not get user data");
+        a.Value = @"Update Value";
+        STAssertTrue([a UpdateSynchronous:_userContext], @"Could not update user data");
+        STAssertTrue([a DeleteSynchronous:_userContext], @"Could not update user data");
+    }
+    [location DeleteSynchronous:_apiContext];
+}
+
 #pragma mark - Tests
 
 -(void) testLocation {
+    NSLog(@"--- Location Tests ---");
     [self unitLocation_Async];
     [self unitLocation_Synchronous];
     [self unitLocationSearch];
 }
 
 -(void) testGeoCode {
+    NSLog(@"--- GeoCode Tests ---");
     [self unitGeoSearch];
 }
 
@@ -562,7 +612,13 @@
 }
 
 -(void) testEvent {
+    NSLog(@"--- Event Tests ---");
     [self unitEvent_Synchronous];
+}
+
+-(void) testPerson {
+    NSLog(@"--- Person Tests ---");
+    [self unitPerson_Synchronous];
 }
 
 #define kTestSetSize 10
@@ -579,22 +635,22 @@
     
     Location *location = nil;
     location = [[Location alloc] init];
-    [location setName:@"DFW"];
-    [location setCity:@"Dallas"];
-    [location setLatitude:[NSNumber numberWithInt:32]];
-    [location setLongitude:[NSNumber numberWithDouble:96]];
-    [location setAddress1:@"100 main"];
-    [location setLocationSecurity:PRIVATE_LOCATION];
+    location.Name = @"DFW";
+    location.City = @"Dallas";
+    location.Latitude = [NSNumber numberWithInt:32];
+    location.Longitude = [NSNumber numberWithDouble:96];
+    location.Address1 = @"100 main";
+    location.LocationSecurity = PRIVATE_LOCATION;
     // send to API for adding to cloud
     [location Add:_apiContext];
     
     location = [[Location alloc] init];
-    [location setName:@"STL"];
-    [location setCity:@"St. Louis"];
-    [location setLatitude:[NSNumber numberWithInt:38]];
-    [location setLongitude:[NSNumber numberWithDouble:90]];
-    [location setAddress1:@"Hwy 70"];
-    [location setLocationSecurity:PRIVATE_LOCATION];
+    location.Name = @"STL";
+    location.City = @"St. Louis";
+    location.Latitude = [NSNumber numberWithInt:38];
+    location.Longitude = [NSNumber numberWithDouble:90];
+    location.Address1 = @"Hwy 70";
+    location.LocationSecurity = PRIVATE_LOCATION;
     // send to API for adding to cloud
     [location Add:_apiContext];
     [self waitForAsync];

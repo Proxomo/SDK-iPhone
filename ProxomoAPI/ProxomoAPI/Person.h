@@ -17,6 +17,12 @@ typedef enum {
     PROXOMO = 1
 } enumSocialNetwork;
 
+typedef enum {
+    FRIEND_IGNORE = 0,
+    FRIEND_ACCEPT = 1,
+    FRIEND_CANCEL = 2
+} enumFriendResponse;
+
 @interface Person : ProxomoObject <ProxomoAuthDelegate> {
     AuthorizeDialog *loginDialogView;
     
@@ -55,6 +61,9 @@ typedef enum {
 -(BOOL)isAuthorized;
 -(NSString*)getAccessToken;
 -(NSArray*)appData;
+-(void)friendInvite:(NSString*)personID;
+-(void)friendRespond:(NSString*)personID withResponse:(enumFriendResponse)response;
+-(void)friendInvite:(NSString*)socialID inSocialNetwork:(enumSocialNetwork)network;
 
 @property (nonatomic, strong) NSString *EmailAddress;
 @property (nonatomic) BOOL EmailAlerts; 

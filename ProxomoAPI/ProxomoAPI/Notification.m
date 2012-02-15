@@ -23,8 +23,10 @@
     return @"notification";
 }
 
--(void) Notification_Send:(id)apiContext{
-    
+-(void) Send:(id)apiContext sendMethod:(enumNotificationSendMethod)method requestType:(enumNotificationType)request {
+    SendMethod = [NSNumber numberWithInt:method];
+    NotificationType = [NSNumber numberWithInt:request];
+    [self AddSynchronous:apiContext];
 }
 
 @end

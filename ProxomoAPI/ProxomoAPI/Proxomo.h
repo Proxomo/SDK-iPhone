@@ -20,5 +20,6 @@
 #import "Person.h"
 #import "SocialNetworkFriend.h"
 #import "EventComment.h"
+#import "SocialNetworkInfo.h"
 
 #endif

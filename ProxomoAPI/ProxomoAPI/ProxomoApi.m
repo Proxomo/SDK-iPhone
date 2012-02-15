@@ -11,7 +11,7 @@
 
 // uncomment these for tracing HTML and API calls
 #define __TRACE_REST
-#define __TRACE_API
+//#define __TRACE_API
 #define __TRACE_DATA
 
 #define HTTP405_NOTALLOWED 405
@@ -407,12 +407,12 @@ NSDictionary *encode_url_table = nil;
 - (BOOL)connection:(NSURLConnection *)connection 
 canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace 
 {
-#ifdef __TRACE_REST
+#ifdef __TRACE_API
     NSLog(@"Checking protection space %@ %@ %@", connection, [protectionSpace realm], protectionSpace.authenticationMethod);
 #endif
     if([protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust])
     {
-#ifdef __TRACE_REST
+#ifdef __TRACE_API
         NSLog(@"Can Auth Secure Requestes!");
 #endif
         return YES;
@@ -425,7 +425,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 {
     if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust])
     {
-#ifdef __TRACE_REST
+#ifdef __TRACE_API
         NSLog(@"Trust Challenge Requested!");
 #endif
         [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
@@ -471,7 +471,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-#ifdef __TRACE_REST
+#ifdef __TRACE_API
     NSLog(@"Connection Did Finish");
     [self _logJar];
 #endif
@@ -512,6 +512,8 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
             return @"person";
         case EVENTCOMMENT_TYPE:
             return @"comment";
+        case SOCIALNETWORK_INFO_TYPE:
+            return @"person";
         default:
             return @"";
     }
@@ -542,6 +544,11 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
             ID = [ProxomoApi htmlEncodeString:[path ID]];
             if (!ID) return false;
             url = [url stringByAppendingFormat:@"/%@/socialnetwork/0", ID];
+        }else if([object objectType] == SOCIALNETWORK_INFO_TYPE){
+            url = [self getUrlForRequest:[object objectType] requestType:method];
+            ID = [ProxomoApi htmlEncodeString:[path ID]];
+            if (!ID) return false;
+            url = [url stringByAppendingFormat:@"/%@/socialnetworkinfo/socialnetwork/0", ID];
         }else{
             url = [self getUrlForRequest:[path objectType] requestType:method];
             ID = [ProxomoApi htmlEncodeString:[path ID]];

@@ -24,6 +24,7 @@
         case SOCIALNETFRIEND_TYPE:
         case EVENT_TYPE:
         case EVENTCOMMENT_TYPE:
+        case SOCIALNETWORK_INFO_TYPE:
             return YES;
         default:
             return NO;
@@ -88,6 +89,9 @@
         case EVENTCOMMENT_TYPE:
             item = [[EventComment alloc] init];
             break;
+        case SOCIALNETWORK_INFO_TYPE:
+            item = [[SocialNetworkInfo alloc] init];
+            break;
         default:
             break;
     }
@@ -101,7 +105,7 @@
     proxomoList = [[NSMutableArray alloc] init];
     for (NSDictionary *itemDictionary in jsonRepresentation) {
         item = [self createObjectOfType:listType fromJsonRepresentation:itemDictionary];
-        [proxomoList addObject:item];
+        if (item!=nil) [proxomoList addObject:item];
     }
 }
 

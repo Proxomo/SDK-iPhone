@@ -26,7 +26,8 @@ typedef enum {
     PERSON_TYPE,
     PROXOMOLIST_TYPE,
     SOCIALNETFRIEND_TYPE,
-    EVENTCOMMENT_TYPE
+    EVENTCOMMENT_TYPE,
+    SOCIALNETWORK_INFO_TYPE
 } enumObjectType;
 
 typedef enum {

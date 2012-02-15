@@ -15,6 +15,8 @@
 		3700E48D14956706000A88C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48C14956706000A88C2 /* CoreGraphics.framework */; };
 		370330111485CACB006FFEF6 /* ProxomoList.h in Headers */ = {isa = PBXBuildFile; fileRef = 3703300F1485CACB006FFEF6 /* ProxomoList.h */; };
 		370330121485CACB006FFEF6 /* ProxomoList.m in Sources */ = {isa = PBXBuildFile; fileRef = 370330101485CACB006FFEF6 /* ProxomoList.m */; };
+		371D03E414C5247300B4AB7C /* SocialNetworkInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 371D03E214C5247300B4AB7C /* SocialNetworkInfo.h */; };
+		371D03E514C5247300B4AB7C /* SocialNetworkInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 371D03E314C5247300B4AB7C /* SocialNetworkInfo.m */; };
 		3733244514AED0EF00C77193 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733242C14AED0EF00C77193 /* SBJsonWriter.m */; };
 		3733244614AED0EF00C77193 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3733242D14AED0EF00C77193 /* SBJsonWriter.h */; };
 		3733244714AED0EF00C77193 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3733242E14AED0EF00C77193 /* SBJsonUTF8Stream.m */; };
@@ -92,6 +94,8 @@
 		3700E48C14956706000A88C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		3703300F1485CACB006FFEF6 /* ProxomoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoList.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		370330101485CACB006FFEF6 /* ProxomoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoList.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		371D03E214C5247300B4AB7C /* SocialNetworkInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialNetworkInfo.h; sourceTree = "<group>"; };
+		371D03E314C5247300B4AB7C /* SocialNetworkInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialNetworkInfo.m; sourceTree = "<group>"; };
 		3733242C14AED0EF00C77193 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = JSON/SBJsonWriter.m; sourceTree = SOURCE_ROOT; };
 		3733242D14AED0EF00C77193 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = JSON/SBJsonWriter.h; sourceTree = SOURCE_ROOT; };
 		3733242E14AED0EF00C77193 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonUTF8Stream.m; path = JSON/SBJsonUTF8Stream.m; sourceTree = SOURCE_ROOT; };
@@ -304,12 +308,14 @@
 		37AC64E1147E08F800F0CDD3 /* Definitions */ = {
 			isa = PBXGroup;
 			children = (
-				37AC64EE147E093200F0CDD3 /* Person.h */,
-				37AC64EF147E093200F0CDD3 /* Person.m */,
 				37AC64E2147E093200F0CDD3 /* AppData.h */,
 				37AC64E3147E093200F0CDD3 /* AppData.m */,
+				3700E483149309FE000A88C2 /* Category.h */,
+				3700E48414930A00000A88C2 /* Category.m */,
 				37AC64E4147E093200F0CDD3 /* Event.h */,
 				37AC64E5147E093200F0CDD3 /* Event.m */,
+				3700A11A14C3934300A23C3F /* EventComment.h */,
+				3700A11B14C3934300A23C3F /* EventComment.m */,
 				37AC64E6147E093200F0CDD3 /* Friend.h */,
 				37AC64E7147E093200F0CDD3 /* Friend.m */,
 				37AC64E8147E093200F0CDD3 /* GeoCode.h */,
@@ -318,12 +324,12 @@
 				37AC64EB147E093200F0CDD3 /* Location.m */,
 				37AC64EC147E093200F0CDD3 /* Notification.h */,
 				37AC64ED147E093200F0CDD3 /* Notification.m */,
-				3700E483149309FE000A88C2 /* Category.h */,
-				3700E48414930A00000A88C2 /* Category.m */,
+				37AC64EE147E093200F0CDD3 /* Person.h */,
+				37AC64EF147E093200F0CDD3 /* Person.m */,
 				37815DAC14B2C0AF0011390C /* SocialNetworkFriend.h */,
 				37815DAD14B2C0AF0011390C /* SocialNetworkFriend.m */,
-				3700A11A14C3934300A23C3F /* EventComment.h */,
-				3700A11B14C3934300A23C3F /* EventComment.m */,
+				371D03E214C5247300B4AB7C /* SocialNetworkInfo.h */,
+				371D03E314C5247300B4AB7C /* SocialNetworkInfo.m */,
 			);
 			name = Definitions;
 			sourceTree = "<group>";
@@ -363,6 +369,7 @@
 				3733245D14AED0EF00C77193 /* NSObject+SBJson.h in Headers */,
 				37815DAE14B2C0B00011390C /* SocialNetworkFriend.h in Headers */,
 				3700A11C14C3934300A23C3F /* EventComment.h in Headers */,
+				371D03E414C5247300B4AB7C /* SocialNetworkInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +496,7 @@
 				3733245C14AED0EF00C77193 /* NSObject+SBJson.m in Sources */,
 				37815DAF14B2C0B00011390C /* SocialNetworkFriend.m in Sources */,
 				3700A11D14C3934300A23C3F /* EventComment.m in Sources */,
+				371D03E514C5247300B4AB7C /* SocialNetworkInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

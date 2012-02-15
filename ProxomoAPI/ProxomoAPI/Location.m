@@ -22,6 +22,8 @@
 @synthesize Zip;
 @synthesize CountryName;
 @synthesize CountryCode;
+@synthesize LocationType;
+@synthesize PersonID;
 
 
 #pragma mark - API Delegate

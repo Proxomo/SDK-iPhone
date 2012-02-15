@@ -78,6 +78,17 @@
     [self.navigationController pushViewController:pListView animated:YES];
 }
 
+-(void)friendInvite:(id)button {
+    Person *p = (Person*)userContext;
+    [p friendInvite:pObject.ID inSocialNetwork:FACEBOOK];
+    Notification *notif = [[Notification alloc] init];
+    notif.MobileMessage = @"I want to be your friend!";
+    notif.EMailSubject = @"Friend Request";
+    notif.EMailMessage = @"I want to be your friend";
+    [notif Send:apiContext sendMethod:NOTIFY_EMAIL requestType:NOTIF_TYPE_FRIEND_INVITE];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - app delegate
 
 -(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject {
@@ -134,6 +145,7 @@
     UIBarButtonItem *friendsButton = [[UIBarButtonItem alloc] initWithTitle: @"Friends" style: UIBarButtonItemStylePlain target:self action: @selector(getFriends:)];
     UIBarButtonItem *eventsButton = [[UIBarButtonItem alloc] initWithTitle: @"Events" style: UIBarButtonItemStylePlain target:self action: @selector(getEvents:)];
     UIBarButtonItem *commentButton = [[UIBarButtonItem alloc] initWithTitle: @"Events" style: UIBarButtonItemStylePlain target:self action: @selector(getComments:)];
+    UIBarButtonItem *inviteButton = [[UIBarButtonItem alloc] initWithTitle: @"Invite" style: UIBarButtonItemStylePlain target:self action: @selector(friendInvite:)];
 
     
     [super viewWillAppear:animated];
@@ -155,6 +167,8 @@
         [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, nil]];
     }else if([pObject isKindOfClass:[Event class]]){
         [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, commentButton, nil]];
+    }else if([pObject isKindOfClass:[SocialNetworkFriend class]]){
+        [self setToolbarItems:[NSArray arrayWithObjects:inviteButton, nil]];
     }
      
     [self.navigationController setToolbarHidden:NO];

@@ -17,8 +17,9 @@ typedef enum {
 
 @interface Location : ProxomoObject {
     NSString *Name;
-    enumLocationSecurity LocationSecurity;
+    enumLocationSecurity LocationSecurity; // Defines security scope for location   
     NSString *LocationID;
+    NSString *LocationType; // Developer-defined type identifier
     NSNumber *Latitude;
     NSNumber *Longitude;
     NSString *Address1;
@@ -28,6 +29,7 @@ typedef enum {
     NSString *Zip;
     NSString *CountryName;
     NSString *CountryCode; 
+    NSString *PersonID;     // Associates location with one person
     ProxomoList *_appData;
     ProxomoList *_locations;
 }
@@ -44,6 +46,8 @@ typedef enum {
 @property (nonatomic, strong) NSString *Zip;
 @property (nonatomic, strong) NSString *CountryName;
 @property (nonatomic, strong) NSString *CountryCode;
+@property (nonatomic, strong) NSString *PersonID;
+@property (nonatomic, strong) NSString *LocationType;
 
 -(NSArray*)byAddress:(NSString*)address apiContext:(id)context  useAsync:(BOOL)useAsync; 
 -(NSArray*)byIP:(NSString*)ip apiContext:(id)context useAsync:(BOOL)useAsync; 
