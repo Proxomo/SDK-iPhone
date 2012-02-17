@@ -85,6 +85,7 @@
     notif.MobileMessage = @"I want to be your friend!";
     notif.EMailSubject = @"Friend Request";
     notif.EMailMessage = @"I want to be your friend";
+    notif.PersonID = pObject.ID;
     [notif Send:apiContext sendMethod:NOTIFY_EMAIL requestType:NOTIF_TYPE_FRIEND_INVITE];
     [self.navigationController popViewControllerAnimated:YES];
 }

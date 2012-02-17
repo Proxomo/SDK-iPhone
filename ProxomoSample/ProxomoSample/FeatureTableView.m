@@ -48,7 +48,7 @@
                     @"Locations", [NSNumber numberWithInt:kLocationsRow],
                     @"Person", [NSNumber numberWithInt:kPersonRow],
                     nil];
-    _apiContext = [[ProxomoApi alloc] initWithKey:@"xEEF1e56ghNixRIaixe2USHoQTnZVm7tqzzfMGemoX8=" appID:@"ihjNViYPiCGMdnjR" delegate:self];
+    _apiContext = [[ProxomoApi alloc] initWithKey:@"PUT YOUR API KEY HERE" appID:@"PUT YOUR APP KEY HERE" delegate:self];
     self.title = @"Features";
     [super viewDidLoad];
 

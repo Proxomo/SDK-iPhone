@@ -35,7 +35,7 @@
 - (void)setUp
 {
     [super setUp];
-    _apiContext = [[ProxomoApi alloc] initWithKey:@"xEEF1e56ghNixRIaixe2USHoQTnZVm7tqzzfMGemoX8=" appID:@"ihjNViYPiCGMdnjR"];
+    _apiContext = [[ProxomoApi alloc] initWithKey:@"PUT YOUR API KEY HERE" appID:@"PUT YOUR APP KEY HERE"];
     [_apiContext setAppDelegate:self];
     
     runLoop = [NSRunLoop currentRunLoop];
@@ -93,6 +93,7 @@
         NSLog(@"Updating %@, City %@",[loc ID], [loc City]);
         [loc Update:_apiContext];
         [data Add:loc];
+        [data Update:loc];
     }
     [self waitForAsync];
     
@@ -207,13 +208,19 @@
     if(![appData AddSynchronous:location2]){
         STFail(@"Adding AppData to object failed");
     }
-    if(![appData DeleteSynchronous:location2]){
-        STFail(@"Failed to delete attached AppData");
+    if(![appData UpdateSynchronous:location2]){
+        STFail(@"Adding AppData to object failed");
     }
+    //if(![appData DeleteSynchronous:location2]){
+    //    STFail(@"Failed to delete attached AppData");
+    //}
     for(Location *loc in save){
         STAssertTrue([loc DeleteSynchronous:_apiContext],@"Delete returned false");
         STAssertFalse([loc GetSynchronous:_apiContext], @"Could get deleted location");
     }
+    
+    ProxomoList *plist = [[ProxomoList alloc] init];
+    [plist GetAll_Synchronous:location2 getType:APPDATA_TYPE];
 }
 
 - (void) logLocations:(NSArray*)pList{
@@ -601,22 +608,22 @@
     [self unitLocationSearch];
 }
 
--(void) testGeoCode {
+-(void) ntestGeoCode {
     NSLog(@"--- GeoCode Tests ---");
     [self unitGeoSearch];
 }
 
--(void) testAppData {
+-(void) ntestAppData {
     [self unitAppData_Async];
     [self unitAppData_Synchronous];
 }
 
--(void) testEvent {
+-(void) ntestEvent {
     NSLog(@"--- Event Tests ---");
     [self unitEvent_Synchronous];
 }
 
--(void) testPerson {
+-(void) ntestPerson {
     NSLog(@"--- Person Tests ---");
     [self unitPerson_Synchronous];
 }
