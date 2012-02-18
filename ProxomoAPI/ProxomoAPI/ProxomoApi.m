@@ -500,6 +500,8 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
         case FRIEND_TYPE:
         case SOCIALNETFRIEND_TYPE:
             return @"friends/personid";
+        case APPFRIEND_TYPE:
+            return @"friends/app/personid";
         case EVENT_TYPE:
             return @"event";
         case GEOCODE_TYPE:
@@ -539,6 +541,11 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
             ID = [ProxomoApi htmlEncodeString:[path ID]];
             if (!ID) return false;
             url = [url stringByAppendingFormat:@"/%@", ID];
+        }else if([object objectType] == APPFRIEND_TYPE){
+            url = [self getUrlForRequest:[object objectType] requestType:method];
+            ID = [ProxomoApi htmlEncodeString:[path ID]];
+            if (!ID) return false;
+            url = [url stringByAppendingFormat:@"/%@/socialnetwork/0", ID];
         }else if([object objectType] == SOCIALNETFRIEND_TYPE){
             url = [self getUrlForRequest:[object objectType] requestType:method];
             ID = [ProxomoApi htmlEncodeString:[path ID]];

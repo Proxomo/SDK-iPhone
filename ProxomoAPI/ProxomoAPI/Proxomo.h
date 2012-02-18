@@ -21,5 +21,6 @@
 #import "SocialNetworkFriend.h"
 #import "EventComment.h"
 #import "SocialNetworkInfo.h"
+#import "SocialNetworkPFriend.h"
 
 #endif

@@ -73,6 +73,8 @@
 		37AC6501147E0B8D00F0CDD3 /* ProxomoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC64FF147E0B8D00F0CDD3 /* ProxomoApi.m */; };
 		37AC650F1482B5CB00F0CDD3 /* ProxomoObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */; };
 		37AC65101482B5CB00F0CDD3 /* ProxomoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */; };
+		37E278B314EF21AD00F79425 /* SocialNetworkPFriend.h in Headers */ = {isa = PBXBuildFile; fileRef = 37E278B114EF21AD00F79425 /* SocialNetworkPFriend.h */; };
+		37E278B414EF21AD00F79425 /* SocialNetworkPFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E278B214EF21AD00F79425 /* SocialNetworkPFriend.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +155,8 @@
 		37AC64FF147E0B8D00F0CDD3 /* ProxomoApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoApi.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37AC650D1482B5C900F0CDD3 /* ProxomoObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		37AC650E1482B5CA00F0CDD3 /* ProxomoObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		37E278B114EF21AD00F79425 /* SocialNetworkPFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialNetworkPFriend.h; sourceTree = "<group>"; };
+		37E278B214EF21AD00F79425 /* SocialNetworkPFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialNetworkPFriend.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +334,8 @@
 				37815DAD14B2C0AF0011390C /* SocialNetworkFriend.m */,
 				371D03E214C5247300B4AB7C /* SocialNetworkInfo.h */,
 				371D03E314C5247300B4AB7C /* SocialNetworkInfo.m */,
+				37E278B114EF21AD00F79425 /* SocialNetworkPFriend.h */,
+				37E278B214EF21AD00F79425 /* SocialNetworkPFriend.m */,
 			);
 			name = Definitions;
 			sourceTree = "<group>";
@@ -370,6 +376,7 @@
 				37815DAE14B2C0B00011390C /* SocialNetworkFriend.h in Headers */,
 				3700A11C14C3934300A23C3F /* EventComment.h in Headers */,
 				371D03E414C5247300B4AB7C /* SocialNetworkInfo.h in Headers */,
+				37E278B314EF21AD00F79425 /* SocialNetworkPFriend.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +504,7 @@
 				37815DAF14B2C0B00011390C /* SocialNetworkFriend.m in Sources */,
 				3700A11D14C3934300A23C3F /* EventComment.m in Sources */,
 				371D03E514C5247300B4AB7C /* SocialNetworkInfo.m in Sources */,
+				37E278B414EF21AD00F79425 /* SocialNetworkPFriend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

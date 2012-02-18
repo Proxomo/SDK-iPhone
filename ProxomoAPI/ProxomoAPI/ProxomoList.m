@@ -25,6 +25,7 @@
         case EVENT_TYPE:
         case EVENTCOMMENT_TYPE:
         case SOCIALNETWORK_INFO_TYPE:
+        case APPFRIEND_TYPE:
             return YES;
         default:
             return NO;
@@ -82,6 +83,9 @@
             break;
         case SOCIALNETFRIEND_TYPE:
             item = [[SocialNetworkFriend alloc] init];
+            break;
+        case APPFRIEND_TYPE:
+            item = [[SocialNetworkPFriend alloc] init];
             break;
         case EVENT_TYPE:
             item = [[Event alloc] init];

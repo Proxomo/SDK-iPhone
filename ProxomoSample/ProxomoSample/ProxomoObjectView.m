@@ -56,6 +56,16 @@
     [self.navigationController pushViewController:pListView animated:YES];
 }
 
+-(void)getPFriends:(id)button {
+    ProxomoList *pList = [[ProxomoList alloc] init];
+    [pList setListType:APPFRIEND_TYPE];
+    ProxomoListView *pListView = [[ProxomoListView alloc] init];
+    [pListView setPList:pList];
+    [pListView setApiContext:apiContext];
+    [pListView setObjectContext:pObject];
+    [pListView setUserContext:userContext];
+    [self.navigationController pushViewController:pListView animated:YES];
+}
 -(void)getEvents:(id)button {
     ProxomoList *pList = [[ProxomoList alloc] init];
     [pList setListType:EVENT_TYPE];
@@ -81,13 +91,22 @@
 -(void)friendInvite:(id)button {
     Person *p = (Person*)userContext;
     [p friendInvite:pObject.ID inSocialNetwork:FACEBOOK];
+}
+
+-(void)notifyFriend:(id)button {
     Notification *notif = [[Notification alloc] init];
     notif.MobileMessage = @"I want to be your friend!";
     notif.EMailSubject = @"Friend Request";
     notif.EMailMessage = @"I want to be your friend";
-    notif.PersonID = pObject.ID;
-    [notif Send:apiContext sendMethod:NOTIFY_EMAIL requestType:NOTIF_TYPE_FRIEND_INVITE];
-    [self.navigationController popViewControllerAnimated:YES];
+    SocialNetworkPFriend *pFriend = (SocialNetworkPFriend*)pObject;
+    notif.PersonID = pFriend.PersonID;
+    [notif Send:apiContext sendMethod:NOTIFY_ALL_METHODS requestType:NOTIF_TYPE_FRIEND_INVITE];
+}
+
+-(void)pfriendInvite:(id)button {
+    Person *p = (Person*)userContext;
+    SocialNetworkPFriend *pFriend = (SocialNetworkPFriend*)pObject;
+    [p friendInvite:pFriend.PersonID];
 }
 
 #pragma mark - app delegate
@@ -142,18 +161,21 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    UIBarButtonItem *appDataButton = [[UIBarButtonItem alloc] initWithTitle: @"App Data" style: UIBarButtonItemStylePlain target:self action: @selector(getAppData:)];
+    UIBarButtonItem *appDataButton = [[UIBarButtonItem alloc] initWithTitle: @"Data" style: UIBarButtonItemStylePlain target:self action: @selector(getAppData:)];
     UIBarButtonItem *friendsButton = [[UIBarButtonItem alloc] initWithTitle: @"Friends" style: UIBarButtonItemStylePlain target:self action: @selector(getFriends:)];
+    UIBarButtonItem *pfriendsButton = [[UIBarButtonItem alloc] initWithTitle: @"PFriends" style: UIBarButtonItemStylePlain target:self action: @selector(getPFriends:)];
     UIBarButtonItem *eventsButton = [[UIBarButtonItem alloc] initWithTitle: @"Events" style: UIBarButtonItemStylePlain target:self action: @selector(getEvents:)];
     UIBarButtonItem *commentButton = [[UIBarButtonItem alloc] initWithTitle: @"Events" style: UIBarButtonItemStylePlain target:self action: @selector(getComments:)];
     UIBarButtonItem *inviteButton = [[UIBarButtonItem alloc] initWithTitle: @"Invite" style: UIBarButtonItemStylePlain target:self action: @selector(friendInvite:)];
-
+    UIBarButtonItem *invitePButton = [[UIBarButtonItem alloc] initWithTitle: @"Invite" style: UIBarButtonItemStylePlain target:self action: @selector(pfriendInvite:)];
+    UIBarButtonItem *notifyButton = [[UIBarButtonItem alloc] initWithTitle: @"Notify" style: UIBarButtonItemStylePlain target:self action: @selector(notifyFriend:)];
     
     [super viewWillAppear:animated];
     if ([pObject isKindOfClass:[GeoCode class]] == false &&
         [pObject isKindOfClass:[Location class]] == false &&
         [pObject isKindOfClass:[SocialNetworkFriend class]] == false &&
-        [pObject isKindOfClass:[EventComment class]] == false )
+        [pObject isKindOfClass:[EventComment class]] == false &&
+        [pObject isKindOfClass:[SocialNetworkPFriend class]] == false )
     {
         self.title = @"Loading...";
         [self loadPObject];
@@ -163,13 +185,15 @@
     [self.navigationController.toolbar setBarStyle:UIBarStyleBlackOpaque];  //for example
     //set the toolbar buttons
     if ([pObject isKindOfClass:[Person class]]) {
-        [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, friendsButton, eventsButton, nil]];
+        [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, friendsButton, pfriendsButton, eventsButton, nil]];
     }else if([pObject isKindOfClass:[Location class]]){
         [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, nil]];
     }else if([pObject isKindOfClass:[Event class]]){
         [self setToolbarItems:[NSArray arrayWithObjects:appDataButton, commentButton, nil]];
     }else if([pObject isKindOfClass:[SocialNetworkFriend class]]){
         [self setToolbarItems:[NSArray arrayWithObjects:inviteButton, nil]];
+    }else if([pObject isKindOfClass:[SocialNetworkPFriend class]]){
+        [self setToolbarItems:[NSArray arrayWithObjects:invitePButton, notifyButton, nil]];
     }
      
     [self.navigationController setToolbarHidden:NO];
