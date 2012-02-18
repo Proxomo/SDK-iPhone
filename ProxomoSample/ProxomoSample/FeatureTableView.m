@@ -3,7 +3,7 @@
 //  ProxomoSample
 //
 //  Created by Fred Crable on 1/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Proxomo. All rights reserved.
 //
 
 #import "FeatureTableView.h"
@@ -17,10 +17,18 @@
 #define kGeoCodeRow 1
 #define kLocationsRow 2
 #define kPersonRow 3
+#define kEventsRow 4
 
 @implementation FeatureTableView
 @synthesize _featureList;
 
+-(void) handleResponse:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
+    NSLog(@"Response: %@", status);
+    
+}
+-(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
+    NSLog(@"Error: %@", status);
+}
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -46,9 +54,11 @@
                     @"AppData", [NSNumber numberWithInt:kAppDataRow],
                     @"GeoCode", [NSNumber numberWithInt:kGeoCodeRow],
                     @"Locations", [NSNumber numberWithInt:kLocationsRow],
+                    @"Events", [NSNumber numberWithInt:kEventsRow],
                     @"Person", [NSNumber numberWithInt:kPersonRow],
                     nil];
-    _apiContext = [[ProxomoApi alloc] initWithKey:@"PUT YOUR API KEY HERE" appID:@"PUT YOUR APP KEY HERE" delegate:self];
+    
+    _apiContext = [[ProxomoApi alloc] initWithKey:@"key" appID:@"appid" delegate:self];
     self.title = @"Features";
     [super viewDidLoad];
 
@@ -154,6 +164,13 @@
             [geoSearchView setApiContext:_apiContext];
             [self.navigationController pushViewController:geoSearchView animated:YES];
             break;
+        case kEventsRow:
+            pList = [[ProxomoList alloc] init];
+            [pList setListType:EVENT_TYPE];
+            pListView = [[ProxomoListView alloc] init];
+            [pListView setApiContext:_apiContext];
+            [pListView setPList:pList];
+            [self.navigationController pushViewController:pListView animated:YES];
         default:
             break;
     }

@@ -3,7 +3,7 @@
 //  ProxomoSample
 //
 //  Created by Fred Crable on 1/15/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Proxomo. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

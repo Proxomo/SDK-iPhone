@@ -104,8 +104,8 @@ NSDictionary *encode_url_table = nil;
 
 - (BOOL)loginApi:(id <ProxomoApiDelegate>) requestDelegate {
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] init];
-    NSString *urlstring= [kBaseURL stringByAppendingString:@"%@/security/accesstoken/get?applicationid=%@&proxomoAPIKey=%@"];
- 
+    NSString *urlstring= [NSString stringWithFormat:@"%@%@/security/accesstoken/get",
+                          kBaseURL, kBaseJSON];
      
     if(apiKey == nil || applicationId == nil){
         NSLog(@"application ID is not set!");
@@ -114,8 +114,9 @@ NSDictionary *encode_url_table = nil;
         }
         return NO;
     }
-    
-    NSString *f_urlstring= [NSString stringWithFormat:urlstring, kBaseJSON, [applicationId stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],[apiKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:apiKey, @"proxomoAPIKey",
+                            applicationId, @"applicationid", nil];
+    NSString *f_urlstring= [ProxomoApi serializeURL:urlstring withParams:params];
     [urlRequest setURL:[NSURL URLWithString:f_urlstring]];
     [urlRequest setHTTPMethod:@"GET"]; 
     NSURLResponse *response; 

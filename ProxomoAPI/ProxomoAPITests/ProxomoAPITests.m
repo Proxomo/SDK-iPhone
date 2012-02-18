@@ -562,14 +562,26 @@
     _userContext.FirstName = @"Joe";
     _userContext.LastName = @"Blow";
     [_userContext UpdateSynchronous:_apiContext];
-    
+    ProxomoList *data = [[ProxomoList alloc] init];
+    [data GetAll_Synchronous:_userContext getType:APPDATA_TYPE];
+    for (AppData *a in [data arrayValue]) {
+        //STAssertTrue([a GetSynchronous:_userContext], @"Could not get user data");
+        //a.Value = @"Update Value";
+        //STAssertTrue([a UpdateSynchronous:_userContext], @"Could not update user data");
+        STAssertTrue([a DeleteSynchronous:_userContext], @"Could not update user data");
+    }
     
     ProxomoList *socialNetFriends = [[ProxomoList alloc] init];
     [socialNetFriends GetAll_Synchronous:_userContext getType:SOCIALNETFRIEND_TYPE];
     for (SocialNetworkFriend *friend in [socialNetFriends arrayValue]) {
         [_userContext friendInvite:friend.ID inSocialNetwork:FACEBOOK];
     }
-    
+    _userContext.EmailVerificationStatus = [NSNumber numberWithInt:1];
+    _userContext.EmailVerified = true;
+    _userContext.MobileVerificationStatus = [NSNumber numberWithInt:1];
+    _userContext.MobileVerified = true;
+    [_userContext UpdateSynchronous:_apiContext];
+    [_userContext GetSynchronous:_apiContext];
     ProxomoList *socialNetworkInfo = [[ProxomoList alloc] init];
     [socialNetworkInfo GetAll_Synchronous:_userContext getType:SOCIALNETWORK_INFO_TYPE];
     ProxomoList *appFriends = [[ProxomoList alloc] init];
@@ -585,23 +597,16 @@
     location.Address1 = @"100 main";
     location.LocationSecurity = OPEN_LOCATION;
     STAssertTrue([location AddSynchronous:_apiContext], @"Location add returned false");
-
+    [location DeleteSynchronous:_apiContext];
+    
     ProxomoList *locations = [[ProxomoList alloc] init];
     [locations GetAll_Synchronous:_userContext getType:LOCATION_TYPE];
-    ProxomoList *data = [[ProxomoList alloc] init];
-    [data GetAll_Synchronous:_userContext getType:APPDATA_TYPE];
-    for (AppData *a in [data arrayValue]) {
-        STAssertTrue([a GetSynchronous:_userContext], @"Could not get user data");
-        a.Value = @"Update Value";
-        STAssertTrue([a UpdateSynchronous:_userContext], @"Could not update user data");
-        STAssertTrue([a DeleteSynchronous:_userContext], @"Could not update user data");
-    }
-    [location DeleteSynchronous:_apiContext];
+
 }
 
 #pragma mark - Tests
 
--(void) testLocation {
+-(void) ntestLocation {
     NSLog(@"--- Location Tests ---");
     [self unitLocation_Async];
     [self unitLocation_Synchronous];
@@ -623,7 +628,7 @@
     [self unitEvent_Synchronous];
 }
 
--(void) ntestPerson {
+-(void) testPerson {
     NSLog(@"--- Person Tests ---");
     [self unitPerson_Synchronous];
 }

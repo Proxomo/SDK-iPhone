@@ -3,7 +3,7 @@
 //  ProxomoSample
 //
 //  Created by Fred Crable on 1/4/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Proxomo. All rights reserved.
 //
 
 #import "ProxomoObjectView.h"
@@ -51,8 +51,18 @@
     ProxomoListView *pListView = [[ProxomoListView alloc] init];
     [pListView setPList:pList];
     [pListView setApiContext:apiContext];
-    [pListView setObjectContext:pObject];
-    [pListView setUserContext:userContext];
+    if([pObject isKindOfClass:[SocialNetworkPFriend class]]){
+        // get the friend's friends
+        Person *friend = [[Person alloc] init];
+        SocialNetworkPFriend *pFriend = (SocialNetworkPFriend*)pObject;
+        friend.ID = pFriend.PersonID;
+        [friend GetSynchronous:apiContext];
+        [pListView setObjectContext:friend];
+        [pListView setUserContext:friend];
+    }else{
+        [pListView setObjectContext:pObject];
+        [pListView setUserContext:userContext];
+    }
     [self.navigationController pushViewController:pListView animated:YES];
 }
 
@@ -193,7 +203,7 @@
     }else if([pObject isKindOfClass:[SocialNetworkFriend class]]){
         [self setToolbarItems:[NSArray arrayWithObjects:inviteButton, nil]];
     }else if([pObject isKindOfClass:[SocialNetworkPFriend class]]){
-        [self setToolbarItems:[NSArray arrayWithObjects:invitePButton, notifyButton, nil]];
+        [self setToolbarItems:[NSArray arrayWithObjects:invitePButton, notifyButton, friendsButton, nil]];
     }
      
     [self.navigationController setToolbarHidden:NO];

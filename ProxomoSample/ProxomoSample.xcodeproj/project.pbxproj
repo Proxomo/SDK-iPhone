@@ -31,22 +31,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3700A11F14C3B27E00A23C3F /* GeoSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoSearchView.h; sourceTree = "<group>"; };
-		3700A12014C3B27E00A23C3F /* GeoSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoSearchView.m; sourceTree = "<group>"; };
+		3700A11F14C3B27E00A23C3F /* GeoSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GeoSearchView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3700A12014C3B27E00A23C3F /* GeoSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GeoSearchView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3700A12114C3B27E00A23C3F /* GeoSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeoSearchView.xib; sourceTree = "<group>"; };
-		373F137F14BFDF450094C752 /* LocationSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSearchView.h; sourceTree = "<group>"; };
-		373F138014BFDF450094C752 /* LocationSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSearchView.m; sourceTree = "<group>"; };
+		373F137F14BFDF450094C752 /* LocationSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LocationSearchView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		373F138014BFDF450094C752 /* LocationSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LocationSearchView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		373F138114BFDF450094C752 /* LocationSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationSearchView.xib; sourceTree = "<group>"; };
-		376B544C14B5654800AC5C5F /* ProxomoObjectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxomoObjectView.h; sourceTree = "<group>"; };
+		376B544C14B5654800AC5C5F /* ProxomoObjectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoObjectView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		376B544D14B5654800AC5C5F /* ProxomoObjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxomoObjectView.m; sourceTree = "<group>"; };
-		3771394A14B69C2D008C92E3 /* ProxomoListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxomoListView.h; sourceTree = "<group>"; };
-		3771394B14B69C2D008C92E3 /* ProxomoListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxomoListView.m; sourceTree = "<group>"; };
+		3771394A14B69C2D008C92E3 /* ProxomoListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProxomoListView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3771394B14B69C2D008C92E3 /* ProxomoListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProxomoListView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37806FDD14BBE96700CF864E /* ProxomoBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProxomoBG.png; sourceTree = "<group>"; };
 		37806FE014BBEBCA00CF864E /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpg; sourceTree = "<group>"; };
 		37806FE214BBECF200CF864E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		37806FE414BBF27800CF864E /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
-		379767D714BA28790016F934 /* FeatureTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeatureTableView.h; sourceTree = "<group>"; };
-		379767D814BA28790016F934 /* FeatureTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeatureTableView.m; sourceTree = "<group>"; };
+		379767D714BA28790016F934 /* FeatureTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FeatureTableView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		379767D814BA28790016F934 /* FeatureTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FeatureTableView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37F0DBCE149FEB1100E7A46D /* libProxomoAPI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libProxomoAPI.a; path = "../ProxomoAPI/build/Release-iphoneos/libProxomoAPI.a"; sourceTree = "<group>"; };
 		37FE16E0149FB177009E45D1 /* ProxomoDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProxomoDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37FE16E4149FB177009E45D1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
