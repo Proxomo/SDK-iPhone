@@ -17,7 +17,7 @@
     return SOCIALNETWORK_INFO_TYPE;
 }
 
--(NSString *) objectPath{
+-(NSString *) objectPath:(enumRequestType)requestType{
     return @"socialnetworkinfo";
 }
 

@@ -84,7 +84,7 @@
     return PERSON_TYPE;
 }
 
--(NSString *) objectPath{
+-(NSString *) objectPath:(enumRequestType)requestType{
     return @"person";
 }
 
@@ -104,7 +104,7 @@
 
 -(void)friendInvite:(NSString*)personID{
     NSString *url = [NSString stringWithFormat:@"%@friend/invite/frienda/%@/friendb/%@", 
-                     [_apiContext getUrlForRequest:GENERIC_TYPE requestType:PUT], 
+                     [_apiContext getUrlForRequest:nil forRequestType:PUT], 
                      self.ID,
                      personID];
     
@@ -113,7 +113,7 @@
 
 -(void)friendInvite:(NSString*)socialID inSocialNetwork:(enumSocialNetwork)network {
     NSString *url = [NSString stringWithFormat:@"%@friend/invite/frienda/%@/friendb/%@/socialnetwork/%d", 
-                     [_apiContext getUrlForRequest:GENERIC_TYPE requestType:PUT], 
+                     [_apiContext getUrlForRequest:nil forRequestType:PUT], 
                      _socialnetwork_id,
                      socialID,
                      (NSInteger)network];
@@ -123,7 +123,7 @@
 
 -(void)friendRespond:(NSString*)personID withResponse:(enumFriendResponse)response {
     NSString *url = [NSString stringWithFormat:@"%@friend/respond/frienda/%@/friendb/%@/friendresponse/%d", 
-                     [_apiContext getUrlForRequest:GENERIC_TYPE requestType:PUT], 
+                     [_apiContext getUrlForRequest:nil forRequestType:PUT], 
                      ID,
                      personID,
                      (NSInteger)response];

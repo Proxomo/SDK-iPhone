@@ -54,7 +54,7 @@
     return APPDATA_TYPE;
 }
 
--(NSString *) objectPath{
+-(NSString *) objectPath:(enumRequestType)requestType{
     return @"appdata";
 }
 

@@ -68,6 +68,7 @@ NSDictionary *encode_url_table = nil;
                             nil];
     }
     numAsyncPending = 0;
+    isInAsyncMode = false;
 }
 
 - (id)init
@@ -100,6 +101,9 @@ NSDictionary *encode_url_table = nil;
         [self checkLogin:delegate];
     }
     return self;
+}
+-(void) setAsync:(BOOL)isAsync{
+    isInAsyncMode = isAsync;
 }
 
 - (BOOL)loginApi:(id <ProxomoApiDelegate>) requestDelegate {
@@ -494,36 +498,16 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     [self _receiveDidStopWithStatus:connection code:400 status:[error localizedDescription]];
 }
 
--(NSString *)getPathForObjectType:(enumObjectType)type{
-    switch(type){
-        case APPDATA_TYPE:
-            return @"appdata";
-        case FRIEND_TYPE:
-        case SOCIALNETFRIEND_TYPE:
-            return @"friends/personid";
-        case APPFRIEND_TYPE:
-            return @"friends/app/personid";
-        case EVENT_TYPE:
-            return @"event";
-        case GEOCODE_TYPE:
-            return @"geo";
-        case LOCATION_TYPE:
-            return @"location";
-        case NOTIFICATION_TYPE:
-            return @"notification";
-        case PERSON_TYPE:
-            return @"person";
-        case EVENTCOMMENT_TYPE:
-            return @"comment";
-        case SOCIALNETWORK_INFO_TYPE:
-            return @"person";
-        default:
-            return @"";
+-(NSString *)getPathForObject:(ProxomoObject*)obj forRequestType:(enumRequestType)requestType {
+    if(obj){
+        return [obj objectPath:requestType];
+    }else{
+        return @"";
     }
 }
 
--(NSString *)getUrlForRequest:(enumObjectType)objectType requestType:(enumRequestType)requestType{
-    return [NSString stringWithFormat:@"%@%@",kBaseJSON, [self getPathForObjectType:objectType]];
+-(NSString *)getUrlForRequest:(ProxomoObject*)obj forRequestType:(enumRequestType)requestType{
+    return [NSString stringWithFormat:@"%@%@",kBaseJSON, [self getPathForObject:obj forRequestType:requestType]];
 }
 
 #pragma mark - CRUD
@@ -538,33 +522,33 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     if(path){
         [path setApiContext:self];
         if([object objectType] == FRIEND_TYPE){
-            url = [self getUrlForRequest:[object objectType] requestType:method];
+            url = [self getUrlForRequest:object forRequestType:method];
             ID = [ProxomoApi htmlEncodeString:[path ID]];
             if (!ID) return false;
             url = [url stringByAppendingFormat:@"/%@", ID];
         }else if([object objectType] == APPFRIEND_TYPE){
-            url = [self getUrlForRequest:[object objectType] requestType:method];
+            url = [self getUrlForRequest:object forRequestType:method];
             ID = [ProxomoApi htmlEncodeString:[path ID]];
             if (!ID) return false;
             url = [url stringByAppendingFormat:@"/%@/socialnetwork/0", ID];
         }else if([object objectType] == SOCIALNETFRIEND_TYPE){
-            url = [self getUrlForRequest:[object objectType] requestType:method];
+            url = [self getUrlForRequest:object forRequestType:method];
             ID = [ProxomoApi htmlEncodeString:[path ID]];
             if (!ID) return false;
             url = [url stringByAppendingFormat:@"/%@/socialnetwork/0", ID];
         }else if([object objectType] == SOCIALNETWORK_INFO_TYPE){
-            url = [self getUrlForRequest:[object objectType] requestType:method];
+            url = [self getUrlForRequest:object forRequestType:method];
             ID = [ProxomoApi htmlEncodeString:[path ID]];
             if (!ID) return false;
             url = [url stringByAppendingFormat:@"/%@/socialnetworkinfo/socialnetwork/0", ID];
         }else{
-            url = [self getUrlForRequest:[path objectType] requestType:method];
+            url = [self getUrlForRequest:path forRequestType:method];
             ID = [ProxomoApi htmlEncodeString:[path ID]];
             if (!ID) return false;
-            url = [url stringByAppendingFormat:@"/%@/%@", ID, [self getPathForObjectType:[object objectType]]];
+            url = [url stringByAppendingFormat:@"/%@/%@", ID, [self getPathForObject:object forRequestType:method]];
         }
     }else{
-        url = [self getUrlForRequest:[object objectType] requestType:method];
+        url = [self getUrlForRequest:object forRequestType:method];
     }
     
     if([object isKindOfClass:[ProxomoList class]]){
@@ -597,7 +581,11 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 }
 
 -(void) Add:(ProxomoObject*)object inObject:(id)path {
-    [self makeRequest:POST async:YES forObject:object inObject:path];
+    if(isInAsyncMode){
+        [self makeRequest:POST async:YES forObject:object inObject:path];
+    }else{
+        [self AddSynchronous:object inObject:path];
+    }
 }
 
 -(BOOL) AddSynchronous:(ProxomoObject*)object inObject:(id)path {
@@ -605,7 +593,11 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 }
 
 -(void) Update:(ProxomoObject*)object inObject:(id)path {
-    [self makeRequest:PUT async:YES forObject:object inObject:path];
+    if(isInAsyncMode){
+     [self makeRequest:PUT async:YES forObject:object inObject:path];
+    }else{
+        [self UpdateSynchronous:object inObject:path];
+    }
 }
 
 -(BOOL) UpdateSynchronous:(ProxomoObject*)object inObject:(id)path {
@@ -613,7 +605,11 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 }
 
 -(void) Delete:(ProxomoObject*)object inObject:(id)path {
-    [self makeRequest:DELETE async:YES forObject:object inObject:path];
+    if(isInAsyncMode){
+        [self makeRequest:DELETE async:YES forObject:object inObject:path];
+    }else{
+        [self DeleteSynchronous:object inObject:path];
+    }
 }
 
 -(BOOL) DeleteSynchronous:(ProxomoObject*)object inObject:(id)path {
@@ -623,7 +619,11 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 #pragma mark - Getters
 
 -(void) Get:(ProxomoObject*)object inObject:(id)path {
-    [self makeRequest:GET async:YES forObject:object inObject:path];
+    if(isInAsyncMode){
+        [self makeRequest:GET async:YES forObject:object inObject:path];
+    }else{
+        [self GetSynchronous:object inObject:path];
+    }
 }
 
 -(BOOL) GetSynchronous:(ProxomoObject*)object inObject:(id)path {
@@ -635,7 +635,11 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 
 -(void)GetAll:(ProxomoList*)proxomoList getType:(enumObjectType)type inObject:(id)path {
     [proxomoList setListType:type];
-    [self makeRequest:GET async:YES forObject:proxomoList inObject:path];
+    if(isInAsyncMode){
+        [self makeRequest:GET async:YES forObject:proxomoList inObject:path];
+    }else{
+        [self makeRequest:GET async:NO forObject:proxomoList inObject:path];
+    }
 }
 
 -(BOOL)GetAll_Synchronous:(ProxomoList*)proxomoList getType:(enumObjectType)type inObject:(id)path {
@@ -645,11 +649,12 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 
 -(void) Search:(ProxomoList*)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)async  inObject:(id)path {
     
-    url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:objType 
-                    requestType:GET],  url, 
-                    [ProxomoApi htmlEncodeString:uri]];
     [proxomoList setListType:objType];
-    [proxomoList setApiContext:self];
+    [proxomoList setApiContext:self];    
+    url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:proxomoList 
+                    forRequestType:GET],  url, 
+                    [ProxomoApi htmlEncodeString:uri]];
+
     if (appDelegate && ![proxomoList appDelegate]) [proxomoList setAppDelegate:appDelegate];
     if(async){
         [self makeAsyncRequest:url method:GET delegate:proxomoList];
@@ -659,7 +664,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 }
 
 -(void) GetByUrl:(ProxomoObject*)obj searchUrl:(NSString*)url searchUri:(NSString*)uri objectType:(enumObjectType)objType useAsync:(BOOL)async {
-    url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:objType requestType:GET],  url, [ProxomoApi htmlEncodeString:uri]];
+    url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:obj forRequestType:GET],  url, [ProxomoApi htmlEncodeString:uri]];
     
     if (appDelegate && ![obj appDelegate]) [obj setAppDelegate:appDelegate];
     [obj setApiContext:self];

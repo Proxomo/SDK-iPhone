@@ -47,10 +47,12 @@
 
 -(void)getFriends:(id)button {
     ProxomoList *pList = [[ProxomoList alloc] init];
-    [pList setListType:SOCIALNETFRIEND_TYPE];
     ProxomoListView *pListView = [[ProxomoListView alloc] init];
+    
+    [pList setListType:SOCIALNETFRIEND_TYPE];
     [pListView setPList:pList];
     [pListView setApiContext:apiContext];
+    
     if([pObject isKindOfClass:[SocialNetworkPFriend class]]){
         // get the friend's friends
         Person *friend = [[Person alloc] init];
@@ -69,6 +71,7 @@
 -(void)getPFriends:(id)button {
     ProxomoList *pList = [[ProxomoList alloc] init];
     [pList setListType:APPFRIEND_TYPE];
+    
     ProxomoListView *pListView = [[ProxomoListView alloc] init];
     [pListView setPList:pList];
     [pListView setApiContext:apiContext];
@@ -104,12 +107,23 @@
 }
 
 -(void)notifyFriend:(id)button {
+    SocialNetworkPFriend *pFriend = (SocialNetworkPFriend*)pObject;
+    Person *friend = [[Person alloc] init];
     Notification *notif = [[Notification alloc] init];
+    
+    friend.ID = pFriend.PersonID;
+    [friend GetSynchronous:apiContext];
+    friend.EmailVerificationStatus = [NSNumber numberWithInt:1];
+    friend.EmailVerified = true;
+    friend.MobileVerificationStatus = [NSNumber numberWithInt:1];
+    friend.MobileVerified = true;
+    [friend UpdateSynchronous:apiContext];
+    
+
     notif.MobileMessage = @"I want to be your friend!";
     notif.EMailSubject = @"Friend Request";
     notif.EMailMessage = @"I want to be your friend";
-    SocialNetworkPFriend *pFriend = (SocialNetworkPFriend*)pObject;
-    notif.PersonID = pFriend.PersonID;
+    notif.PersonID = pFriend.PersonID;    
     [notif Send:apiContext sendMethod:NOTIFY_ALL_METHODS requestType:NOTIF_TYPE_FRIEND_INVITE];
 }
 

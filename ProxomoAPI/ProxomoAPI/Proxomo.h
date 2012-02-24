@@ -22,5 +22,6 @@
 #import "EventComment.h"
 #import "SocialNetworkInfo.h"
 #import "SocialNetworkPFriend.h"
+#import "CustomData.h"
 
 #endif

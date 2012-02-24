@@ -19,7 +19,7 @@
     return EVENTCOMMENT_TYPE;
 }
 
--(NSString *) objectPath{
+-(NSString *) objectPath:(enumRequestType)requestType{
     return @"comment";
 }
 

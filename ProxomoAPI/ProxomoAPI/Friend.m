@@ -25,8 +25,8 @@
     return FRIEND_TYPE;
 }
 
--(NSString *) objectPath {
-    return @"friend";
+-(NSString *) objectPath:(enumRequestType)requestType {
+    return @"friends/personid";
 }
 
 -(NSString *) description {

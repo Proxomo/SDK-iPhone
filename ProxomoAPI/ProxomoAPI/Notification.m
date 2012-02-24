@@ -19,7 +19,7 @@
     return NOTIFICATION_TYPE;
 }
 
--(NSString *) objectPath{
+-(NSString *) objectPath:(enumRequestType)requestType{
     return @"notification";
 }
 

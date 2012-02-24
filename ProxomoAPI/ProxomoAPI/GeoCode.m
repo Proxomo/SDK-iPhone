@@ -29,7 +29,7 @@
     return GEOCODE_TYPE;
 }
 
--(NSString *) objectPath{
+-(NSString *) objectPath:(enumRequestType)requestType{
     return @"geo";
 }
 
@@ -43,22 +43,13 @@
     [context GetByUrl:self searchUrl:@"/lookup/ip" searchUri:ipAddress objectType:GEOCODE_TYPE useAsync:useAsync];
 }
 
--(Location *) byLatitude:(double)latitude byLogitude:(double)longitude apiContext:(ProxomoApi*)context {
-    NSString *searchUrl = [NSString stringWithFormat:@"/lookup/latitude/%f/longitude",
-                           latitude];
-    NSString *searchUri = [NSString stringWithFormat:@"%f", longitude];
-    Location *location = [[Location alloc] init];
-    _apiContext = context;
-    [context GetByUrl:location searchUrl:searchUrl searchUri:searchUri objectType:GEOCODE_TYPE useAsync:NO];
-    return location;
-}
 
 -(void) byLatitude:(double)latitude byLogitude:(double)longitude locationDelegate:(Location*)location apiContext:(ProxomoApi*)context {
     NSString *searchUrl = [NSString stringWithFormat:@"/lookup/latitude/%f/longitude",
                            latitude];
     NSString *searchUri = [NSString stringWithFormat:@"%f", longitude];
     _apiContext = context;
-    [context GetByUrl:location searchUrl:searchUrl searchUri:searchUri objectType:GEOCODE_TYPE useAsync:YES];
+    [context GetByUrl:self searchUrl:searchUrl searchUri:searchUri objectType:GEOCODE_TYPE useAsync:YES];
 }
 
 -(NSString*) description{

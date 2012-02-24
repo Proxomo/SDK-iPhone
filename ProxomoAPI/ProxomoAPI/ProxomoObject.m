@@ -8,7 +8,7 @@
 
 #import "ProxomoObject.h"
 #import "ProxomoList.h"
-#import "Person.h"
+#import "CustomData.h"
 #import "SBJson.h"
 #import <objc/runtime.h>
 
@@ -41,7 +41,7 @@
     return GENERIC_TYPE;
 }
 
--(NSString *) objectPath{
+-(NSString *) objectPath:(enumRequestType)requestType{
     return @"";
 }
 
@@ -268,7 +268,10 @@
         }
     }
     free(ivars);
-    
+    if ([self isKindOfClass:[CustomData class]]) {
+        CustomData *cd = (CustomData *)self;
+        [dict setValue:cd.TableName forKey:@"TableName"];
+    }
     return dict;
 }
 

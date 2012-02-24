@@ -44,7 +44,7 @@
     return EVENT_TYPE;
 }
 
--(NSString *) objectPath{
+-(NSString *) objectPath:(enumRequestType)requestType{
     return @"event";
 }
 

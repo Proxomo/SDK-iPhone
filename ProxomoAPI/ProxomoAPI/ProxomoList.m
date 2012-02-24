@@ -37,6 +37,7 @@
     return listType;
 }
 
+
 -(void)GetAll:(id)context getType:(enumObjectType)type{
     id inObject = nil;
     if(![ProxomoList isSupported:type]){
@@ -100,8 +101,21 @@
             break;
     }
     [item setApiContext:_apiContext];
-    [item updateFromJsonRepresentation:jsonRepresentation];
+    if(jsonRepresentation){
+        [item updateFromJsonRepresentation:jsonRepresentation];
+    }
     return item;
+}
+
+
+-(NSString *) objectPath:(enumRequestType)requestType{
+    ProxomoObject *obj;
+    obj = [self createObjectOfType:listType fromJsonRepresentation:nil];
+    if(obj){
+        return [obj objectPath:requestType];
+    }else{
+        return @"";
+    }
 }
 
 -(void) updateFromJsonRepresentation:(id)jsonRepresentation {

@@ -32,7 +32,7 @@
     return LOCATION_TYPE;
 }
 
--(NSString *) objectPath{
+-(NSString *) objectPath:(enumRequestType)requestType{
     return @"location";
 }
 
@@ -49,7 +49,15 @@
     _locations = [[ProxomoList alloc] init];
     [_locations setAppDelegate:appDelegate];
     _apiContext = context;
-    [context Search:_locations searchUrl:@"s/search/address" searchUri:address forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
+    [context Search:_locations searchUrl:@"s/search?address=" searchUri:address forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
+    return [_locations arrayValue];
+}
+
+-(NSArray*)byAddress:(NSString *)address byRadius:(NSNumber*)radius withQueryString:(NSString*)query maxResults:(NSNumber*)maxResults forPerson:(NSString*)personID apiContext:(ProxomoApi *)context useAsync:(BOOL)useAsync{
+    _locations = [[ProxomoList alloc] init];
+    [_locations setAppDelegate:appDelegate];
+    _apiContext = context;
+    [context Search:_locations searchUrl:@"s/search?address=" searchUri:address forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
     return [_locations arrayValue];
 }
 

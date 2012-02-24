@@ -49,6 +49,10 @@
 		3769CFBE148C417000E6B629 /* Proxomo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3769CFBD148C416F00E6B629 /* Proxomo.h */; };
 		37815DAE14B2C0B00011390C /* SocialNetworkFriend.h in Headers */ = {isa = PBXBuildFile; fileRef = 37815DAC14B2C0AF0011390C /* SocialNetworkFriend.h */; };
 		37815DAF14B2C0B00011390C /* SocialNetworkFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 37815DAD14B2C0AF0011390C /* SocialNetworkFriend.m */; };
+		378F1F5914F7311D0008A991 /* TestCustomData.h in Headers */ = {isa = PBXBuildFile; fileRef = 378F1F5714F7311D0008A991 /* TestCustomData.h */; };
+		378F1F5A14F7311D0008A991 /* TestCustomData.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F1F5814F7311D0008A991 /* TestCustomData.m */; };
+		378F1F5E14F735DD0008A991 /* CustomData.h in Headers */ = {isa = PBXBuildFile; fileRef = 378F1F5C14F735DD0008A991 /* CustomData.h */; };
+		378F1F5F14F735DD0008A991 /* CustomData.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F1F5D14F735DD0008A991 /* CustomData.m */; };
 		37AC64BB147E069B00F0CDD3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC64BA147E069B00F0CDD3 /* Foundation.framework */; };
 		37AC64C9147E069C00F0CDD3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC64C8147E069C00F0CDD3 /* SenTestingKit.framework */; };
 		37AC64CC147E069C00F0CDD3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC64BA147E069B00F0CDD3 /* Foundation.framework */; };
@@ -128,6 +132,10 @@
 		3769CFBD148C416F00E6B629 /* Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Proxomo.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		37815DAC14B2C0AF0011390C /* SocialNetworkFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SocialNetworkFriend.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		37815DAD14B2C0AF0011390C /* SocialNetworkFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SocialNetworkFriend.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		378F1F5714F7311D0008A991 /* TestCustomData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCustomData.h; sourceTree = "<group>"; };
+		378F1F5814F7311D0008A991 /* TestCustomData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCustomData.m; sourceTree = "<group>"; };
+		378F1F5C14F735DD0008A991 /* CustomData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomData.h; sourceTree = "<group>"; };
+		378F1F5D14F735DD0008A991 /* CustomData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomData.m; sourceTree = "<group>"; };
 		37AC64B7147E069B00F0CDD3 /* libProxomoAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libProxomoAPI.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		37AC64BA147E069B00F0CDD3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		37AC64BE147E069C00F0CDD3 /* ProxomoAPI-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProxomoAPI-Prefix.pch"; sourceTree = "<group>"; };
@@ -296,6 +304,8 @@
 				37AC64D6147E069C00F0CDD3 /* ProxomoAPITests.h */,
 				37AC64D7147E069C00F0CDD3 /* ProxomoAPITests.m */,
 				37AC64D1147E069C00F0CDD3 /* Supporting Files */,
+				378F1F5714F7311D0008A991 /* TestCustomData.h */,
+				378F1F5814F7311D0008A991 /* TestCustomData.m */,
 			);
 			path = ProxomoAPITests;
 			sourceTree = "<group>";
@@ -336,6 +346,8 @@
 				371D03E314C5247300B4AB7C /* SocialNetworkInfo.m */,
 				37E278B114EF21AD00F79425 /* SocialNetworkPFriend.h */,
 				37E278B214EF21AD00F79425 /* SocialNetworkPFriend.m */,
+				378F1F5C14F735DD0008A991 /* CustomData.h */,
+				378F1F5D14F735DD0008A991 /* CustomData.m */,
 			);
 			name = Definitions;
 			sourceTree = "<group>";
@@ -377,6 +389,8 @@
 				3700A11C14C3934300A23C3F /* EventComment.h in Headers */,
 				371D03E414C5247300B4AB7C /* SocialNetworkInfo.h in Headers */,
 				37E278B314EF21AD00F79425 /* SocialNetworkPFriend.h in Headers */,
+				378F1F5914F7311D0008A991 /* TestCustomData.h in Headers */,
+				378F1F5E14F735DD0008A991 /* CustomData.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,6 +519,8 @@
 				3700A11D14C3934300A23C3F /* EventComment.m in Sources */,
 				371D03E514C5247300B4AB7C /* SocialNetworkInfo.m in Sources */,
 				37E278B414EF21AD00F79425 /* SocialNetworkPFriend.m in Sources */,
+				378F1F5A14F7311D0008A991 /* TestCustomData.m in Sources */,
+				378F1F5F14F735DD0008A991 /* CustomData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

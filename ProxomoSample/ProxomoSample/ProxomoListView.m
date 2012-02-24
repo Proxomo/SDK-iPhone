@@ -130,7 +130,7 @@
     ProxomoObject *pObject = [[pList arrayValue] objectAtIndex:indexPath.row];
     cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:12.0];
     cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
-    cell.textLabel.numberOfLines = 3; // 0 means no max.
+    cell.textLabel.numberOfLines = 0; // 0 means no max.
     cell.textLabel.text = [pObject description];
     
     return cell;

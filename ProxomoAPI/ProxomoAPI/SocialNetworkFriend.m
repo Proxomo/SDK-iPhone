@@ -19,8 +19,8 @@
     return SOCIALNETFRIEND_TYPE;
 }
 
--(NSString*) objectPath {
-    return @"socialnetwork";
+-(NSString*) objectPath:(enumRequestType)requestType {
+    return @"friends/personid";
 }
 
 -(NSString *) description {

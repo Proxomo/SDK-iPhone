@@ -13,5 +13,8 @@
 @synthesize CategoryType;
 @synthesize SubCategory;
 
+-(NSString *) objectPath:(enumRequestType)requestType{
+    return  @"category";
+}
 
 @end

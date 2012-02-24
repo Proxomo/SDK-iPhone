@@ -30,13 +30,15 @@
             [objView setUserContext:_userContext];
             [objView setApiContext:apiContext];
             [objView setPObject:_userContext];
-            AppData *appData = nil;
-            
+
+            /*
+             AppData *appData = nil;
             for(int x=1; x <= 10; x++){
                 appData = [[AppData alloc] initWithValue:[[NSString alloc] initWithFormat:@"PersonData-%d",x] 
                                                   forKey:[[NSString alloc] initWithFormat:@"PersonKey-%d",x]];
                 [appData Add:_userContext];
             }
+             */
             [self.navigationController pushViewController:objView animated:NO];
         }
     }

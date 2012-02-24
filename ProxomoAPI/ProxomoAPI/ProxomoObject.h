@@ -38,7 +38,7 @@
 
 -(id)initWithID:(NSString*)objectdId;
 -(enumObjectType) objectType;
--(NSString *) objectPath;
+-(NSString *) objectPath:(enumRequestType)requestType;
 -(void)setApiContext:(id)apiContext;
 
 

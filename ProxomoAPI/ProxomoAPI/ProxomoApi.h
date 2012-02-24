@@ -28,7 +28,8 @@ typedef enum {
     SOCIALNETFRIEND_TYPE,
     APPFRIEND_TYPE,
     EVENTCOMMENT_TYPE,
-    SOCIALNETWORK_INFO_TYPE
+    SOCIALNETWORK_INFO_TYPE,
+    CUSTOMDATA_TYPE
 } enumObjectType;
 
 typedef enum {
@@ -74,6 +75,7 @@ typedef enum {
     id appDelegate;
     id userContext;
     NSInteger numAsyncPending;
+    BOOL isInAsyncMode;
 }
 
 @property(nonatomic, strong) NSString *apiStatus;
@@ -90,7 +92,7 @@ typedef enum {
  */
 -(id) initWithKey:(NSString*)appKey appID:(NSString*)appID;
 -(id) initWithKey:(NSString *)appKey appID:(NSString *)appID delegate:(id)delegate;
-
+-(void) setAsync:(BOOL)isAsync;
 
 /*
  * Login Handler
@@ -109,7 +111,7 @@ typedef enum {
  * Rest Functions
  */
 +(NSString *) htmlEncodeString:(NSString *)input;
--(NSString *)getUrlForRequest:(enumObjectType)objectType requestType:(enumRequestType)requestType;
+-(NSString *)getUrlForRequest:(id)obj forRequestType:(enumRequestType)requestType;
 - (void)makeAsyncRequest:(NSString*)path method:(enumRequestType)method delegate:(id <ProxomoApiDelegate>) requestDelegate;
 - (BOOL)makeSyncRequest:(NSString*)path method:(enumRequestType)method delegate:(id <ProxomoApiDelegate>) requestDelegate;
 
