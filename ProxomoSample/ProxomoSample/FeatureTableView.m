@@ -26,9 +26,11 @@
     NSLog(@"Response: %@", status);
     
 }
+
 -(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
     NSLog(@"Error: %@", status);
 }
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -58,7 +60,7 @@
                     @"Person", [NSNumber numberWithInt:kPersonRow],
                     nil];
     
-    _apiContext = [[ProxomoApi alloc] initWithKey:@"key" appID:@"appid" delegate:self];
+    _apiContext = [[ProxomoApi alloc] initWithKey:@"PUT YOUR API KEY HERE" appID:@"PUT YOUR APP KEY HERE"];
     self.title = @"Features";
     [super viewDidLoad];
 
@@ -142,15 +144,16 @@
     
     switch (indexPath.row) {
         case kAppDataRow:
-            pListView = [[ProxomoListView alloc] init];
-            [pListView setApiContext:_apiContext];
             pList = [[ProxomoList alloc] init];
             [pList setListType:APPDATA_TYPE];
+            
+            pListView = [[ProxomoListView alloc] init];
+            [pListView setApiContext:_apiContext];
             [pListView setPList:pList];
             [self.navigationController pushViewController:pListView animated:YES];
             break;
         case kPersonRow:
-            pPersonView = [[PersonLoginView alloc] init]; //WithNibName:@"LoginView" bundle:nil];
+            pPersonView = [[PersonLoginView alloc] init];
             [pPersonView setApiContext:_apiContext];
             [self.navigationController pushViewController:pPersonView animated:YES];
             break;
@@ -167,6 +170,7 @@
         case kEventsRow:
             pList = [[ProxomoList alloc] init];
             [pList setListType:EVENT_TYPE];
+            
             pListView = [[ProxomoListView alloc] init];
             [pListView setApiContext:_apiContext];
             [pListView setPList:pList];
