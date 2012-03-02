@@ -647,13 +647,33 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     return [self makeRequest:GET async:NO forObject:proxomoList inObject:path];
 }
 
+-(void) Search:(ProxomoList*)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType inObject:(id)path {
+    [self Search:proxomoList searchUrl:url searchUri:uri 
+            forListType:objType useAsync:isInAsyncMode  inObject:path];
+}
+
+-(void) Query:(id)proxomoList searchUrl:(NSString*)url queryParams:(NSDictionary*)query{
+    [proxomoList setApiContext:self];
+    url = [url stringByAppendingString:@"?"];
+    for (NSString *param in query) {
+        url = [url stringByAppendingFormat:@"%@=%@",
+               param, [ProxomoApi htmlEncodeString:[query objectForKey:param]]];
+    }
+    if(isInAsyncMode){
+        [self makeAsyncRequest:url method:GET delegate:proxomoList];
+    }else{
+        [self makeSyncRequest:url method:GET delegate:proxomoList];
+    }
+}
+
 -(void) Search:(ProxomoList*)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)async  inObject:(id)path {
     
     [proxomoList setListType:objType];
     [proxomoList setApiContext:self];    
-    url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:proxomoList 
-                    forRequestType:GET],  url, 
-                    [ProxomoApi htmlEncodeString:uri]];
+    url = [NSString stringWithFormat:@"%@%@/%@", 
+           [self getUrlForRequest:proxomoList forRequestType:GET],  
+           url, 
+           [ProxomoApi htmlEncodeString:uri]];
 
     if (appDelegate && ![proxomoList appDelegate]) [proxomoList setAppDelegate:appDelegate];
     if(async){

@@ -7,6 +7,7 @@
 //
 
 #import "ProxomoObject.h"
+#import "ProxomoList.h"
 
 @interface CustomData : ProxomoObject {
     NSString *TableName;
@@ -16,6 +17,6 @@
 @property (nonatomic, strong) NSString *TableName;
 @property (nonatomic, strong) NSDate *TimeStamp;
 
--(NSArray*)appData;
+-(ProxomoList*)Search:(NSString *)query apiContext:(ProxomoApi *)context;
 
 @end

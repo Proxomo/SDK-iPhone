@@ -97,6 +97,9 @@
         case SOCIALNETWORK_INFO_TYPE:
             item = [[SocialNetworkInfo alloc] init];
             break;
+        case PERSON_TYPE:
+            item = [[Person alloc] init];
+            break;
         default:
             break;
     }
@@ -110,7 +113,11 @@
 
 -(NSString *) objectPath:(enumRequestType)requestType{
     ProxomoObject *obj;
-    obj = [self createObjectOfType:listType fromJsonRepresentation:nil];
+    enumObjectType objType = listType;
+    if (objType == SOCIALNETWORK_INFO_TYPE) {
+        objType = PERSON_TYPE; 
+    }
+    obj = [self createObjectOfType:objType fromJsonRepresentation:nil];
     if(obj){
         return [obj objectPath:requestType];
     }else{

@@ -40,4 +40,14 @@
     return [NSString stringWithFormat:@"%@:%@", TableName, ID];
 }
 
+-(ProxomoList*)Search:(NSString *)query apiContext:(ProxomoApi *)context {
+    _apiContext = context;
+    ProxomoList *retVal = [[ProxomoList alloc] init];
+    
+    retVal.listType = CUSTOMDATA_TYPE;
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:query, @"q", nil];
+    [context Query:retVal searchUrl:[NSString stringWithFormat:@"customdata/search/table/%@", TableName] queryParams:params];
+    return retVal;
+}
+
 @end

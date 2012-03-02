@@ -53,7 +53,7 @@
     [super tearDown];
 }
 
--(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject{
+-(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject {
     NSLog(@"Async response received for %@", proxomoObject);
 }
 
@@ -95,9 +95,22 @@
         [loc Update:_apiContext];
         [data Add:loc];
         [data Update:loc];
+        [self waitForAsync];
     }
-    [self waitForAsync];
     
+    ProxomoList *locData;
+    for(Location *loc in save){
+        locData = [[ProxomoList alloc] init];
+        locData.listType = APPDATA_TYPE;
+        [locData GetAll:loc getType:APPDATA_TYPE];
+        [self waitForAsync];
+    
+        for(AppData *ad in [locData arrayValue]){
+            [ad Delete:loc];
+            [self waitForAsync];
+        }
+    }
+
     /*
      * Now make sure we can get all the values
      */
@@ -384,8 +397,7 @@
 
 }
 
--(void)unitPerson_Synchronous{
-    [_apiContext setAsync:NO];
+-(void)unitPerson{
     _userContext.FirstName = @"Joe";
     _userContext.LastName = @"Blow";
     [_userContext UpdateSynchronous:_apiContext];
@@ -442,6 +454,17 @@
     [self waitForAsync];
     
     STAssertTrue([myCustomData.likes isEqual:@"easy"], @"no custom data");
+    myCustomData.likes = @"faster";
+    [myCustomData Update:_apiContext];
+    [self waitForAsync];
+    myCustomData.likes = @"overwritten";
+    [myCustomData Get:_apiContext];
+    STAssertTrue([myCustomData.likes isEqual:@"faster"], @"no custom data");
+    
+    ProxomoList *searchData;
+    searchData = [myCustomData Search:@"faster" apiContext:_apiContext];
+    [self waitForAsync];
+    
     [myCustomData Delete:_apiContext];
     [self waitForAsync];
     
@@ -451,30 +474,33 @@
 
 #pragma mark - Tests
 
--(void) testLocation {
+-(void) ntestLocation {
     NSLog(@"--- Location Tests ---");
     [_apiContext setAsync:NO];
     [self unitLocation];
     [_apiContext setAsync:YES];
     [self unitLocation];
+}
 
+-(void) ntestLocationSearch {
+    NSLog(@"--- Location Search Tests ---");
     [self unitLocationSearch];
 }
 
--(void) testGeoCode {
+-(void) ntestGeoCode {
     NSLog(@"--- GeoCode Tests ---");
     [_apiContext setAsync:NO];
     [self unitGeoSearch];
 }
 
--(void) testAppData {
+-(void) ntestAppData {
     [_apiContext setAsync:NO];
     [self unitAppData];
     [_apiContext setAsync:YES];
     [self unitAppData];
 }
 
--(void) testEvent {
+-(void) ntestEvent {
     NSLog(@"--- Event Tests ---");
     [_apiContext setAsync:NO];
     [self unitEvent_Synchronous];
@@ -483,10 +509,10 @@
 -(void) testPerson {
     NSLog(@"--- Person Tests ---");
     [_apiContext setAsync:NO];
-    [self unitPerson_Synchronous];
+    [self unitPerson];
 }
 
--(void) testCustomData {
+-(void) ntestCustomData {
     NSLog(@"--- Custom Data Tests --- ");
     [_apiContext setAsync:NO];
     [self unitCustomData];
