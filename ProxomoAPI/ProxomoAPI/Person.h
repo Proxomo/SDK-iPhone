@@ -59,11 +59,12 @@ typedef enum {
  */
 -(void)loginToSocialNetwork:(enumSocialNetwork)network forApplication:(id)apiContext;
 -(BOOL)isAuthorized;
--(NSString*)getAccessToken;
 -(NSArray*)appData;
 -(void)friendInvite:(NSString*)personID;
 -(void)friendRespond:(NSString*)personID withResponse:(enumFriendResponse)response;
 -(void)friendInvite:(NSString*)socialID inSocialNetwork:(enumSocialNetwork)network;
+
+
 
 @property (nonatomic, strong) NSString *EmailAddress;
 @property (nonatomic) BOOL EmailAlerts; 

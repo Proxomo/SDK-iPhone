@@ -33,14 +33,14 @@
     return @"geo";
 }
 
--(void) byAddress:(NSString*)address apiContext:(ProxomoApi*)context  useAsync:(BOOL)useAsync{
+-(void) byAddress:(NSString*)address apiContext:(ProxomoApi*)context {
     _apiContext = context;
-    [context GetByUrl:self searchUrl:@"/lookup/address" searchUri:address objectType:GEOCODE_TYPE useAsync:useAsync];
+    [context GetByUrl:self searchUrl:@"/lookup/address" searchUri:address objectType:GEOCODE_TYPE];
 }
 
--(void) byIPAddress:(NSString*)ipAddress apiContext:(ProxomoApi*)context  useAsync:(BOOL)useAsync{
+-(void) byIPAddress:(NSString*)ipAddress apiContext:(ProxomoApi*)context {
     _apiContext = context;
-    [context GetByUrl:self searchUrl:@"/lookup/ip" searchUri:ipAddress objectType:GEOCODE_TYPE useAsync:useAsync];
+    [context GetByUrl:self searchUrl:@"/lookup/ip" searchUri:ipAddress objectType:GEOCODE_TYPE];
 }
 
 
@@ -49,7 +49,7 @@
                            latitude];
     NSString *searchUri = [NSString stringWithFormat:@"%f", longitude];
     _apiContext = context;
-    [context GetByUrl:self searchUrl:searchUrl searchUri:searchUri objectType:GEOCODE_TYPE useAsync:YES];
+    [context GetByUrl:self searchUrl:searchUrl searchUri:searchUri objectType:GEOCODE_TYPE];
 }
 
 -(NSString*) description{

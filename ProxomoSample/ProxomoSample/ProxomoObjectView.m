@@ -58,7 +58,9 @@
         Person *friend = [[Person alloc] init];
         SocialNetworkPFriend *pFriend = (SocialNetworkPFriend*)pObject;
         friend.ID = pFriend.PersonID;
-        [friend GetSynchronous:apiContext];
+        [apiContext setAsync:NO];
+        [friend Get:apiContext];
+        [apiContext setAsync:YES];
         [pListView setObjectContext:friend];
         [pListView setUserContext:friend];
     }else{
@@ -112,12 +114,14 @@
     Notification *notif = [[Notification alloc] init];
     
     friend.ID = pFriend.PersonID;
-    [friend GetSynchronous:apiContext];
+    [apiContext setAsync:NO];
+    [friend Get:apiContext];
     friend.EmailVerificationStatus = [NSNumber numberWithInt:1];
     friend.EmailVerified = true;
     friend.MobileVerificationStatus = [NSNumber numberWithInt:1];
     friend.MobileVerified = true;
-    [friend UpdateSynchronous:apiContext];
+    [friend Update:apiContext];
+    [apiContext setAsync:YES];
     
 
     notif.MobileMessage = @"I want to be your friend!";

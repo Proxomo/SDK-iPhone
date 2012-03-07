@@ -29,7 +29,8 @@ typedef enum {
     APPFRIEND_TYPE,
     EVENTCOMMENT_TYPE,
     SOCIALNETWORK_INFO_TYPE,
-    CUSTOMDATA_TYPE
+    CUSTOMDATA_TYPE,
+    PERSON_LOGIN_TYPE
 } enumObjectType;
 
 typedef enum {
@@ -41,10 +42,9 @@ typedef enum {
 } enumRequestType;
 
 @protocol ProxomoApiDelegate
--(NSMutableDictionary*) proxyForJson;
+//-(NSMutableDictionary*) proxyForJson;
 -(void) handleResponse:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status;
 -(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status;
--(NSString*)getAccessToken;
 @end
 
 /** 
@@ -102,18 +102,17 @@ typedef enum {
  @returns false when login fails
  */
 -(BOOL) checkLogin:(id) delegate;
-- (BOOL)loginApi:(id) requestDelegate;
+-(BOOL) loginApi:(id) requestDelegate;
 
 -(BOOL) isAsyncPending;
-+ (NSString*)serializeURL:(NSString *)baseUrl withParams:(NSDictionary *)params;
++(NSString*) serializeURL:(NSString *)baseUrl withParams:(NSDictionary *)params;
 
 /*
  * Rest Functions
  */
 +(NSString *) htmlEncodeString:(NSString *)input;
--(NSString *)getUrlForRequest:(id)obj forRequestType:(enumRequestType)requestType;
-- (void)makeAsyncRequest:(NSString*)path method:(enumRequestType)method delegate:(id <ProxomoApiDelegate>) requestDelegate;
-- (BOOL)makeSyncRequest:(NSString*)path method:(enumRequestType)method delegate:(id <ProxomoApiDelegate>) requestDelegate;
+-(NSString *) getUrlForRequest:(id)obj forRequestType:(enumRequestType)requestType;
+-(void) makeRestRequest:(NSString*)path method:(enumRequestType)method params:(NSDictionary*)params delegate:(id <ProxomoApiDelegate>) requestDelegate;
 
 /*
  * General CRUD Functions
@@ -123,32 +122,19 @@ typedef enum {
  Adds the ProxomoObject, sets the ID in object
  */
 -(void) Add:(id)object inObject:(id)path;
-/**
- Adds the ProxomoObject, sets the ID in object
- @returns true == success, false == failure
- */
--(BOOL) AddSynchronous:(id)object inObject:(id)path;
 
 /**
  Updates or creates a single instance of ProxomoObject.  
- Asynchronously updates or creates a single instance.  
+ Updates or creates a single instance.  
  ID must be set in object.  
  */
 -(void) Update:(id)object inObject:(id)path;
-/**
- * Updates or creates the ProxomoObject.
- * sets the ID in object
- @returns true == success, false == failure
- */
--(BOOL) UpdateSynchronous:(id)object inObject:(id)path;
 
 /**
- deletes a data instance by ID
+ Deletes a data instance by ID
  ID must be set in object
  */
 -(void) Delete:(id)object inObject:(id)path;
-/// @returns true == success, false == failure
--(BOOL) DeleteSynchronous:(id)object inObject:(id)path;
 
 
 /*
@@ -160,21 +146,16 @@ typedef enum {
  // ID must be set in object
  */
 -(void) Get:(id)object inObject:(id)path;
-/// @returns id of new AppData instance
--(BOOL) GetSynchronous:(id)object inObject:(id)path;
 
 /**
  // gets all of the AppData instances 
  // uses the ProxomoList as the delegate
  */
 -(void) GetAll:(id)proxomoList getType:(enumObjectType)type inObject:(id)path;
-/// @returns an array of AppData instances
--(BOOL) GetAll_Synchronous:(id)proxomoList getType:(enumObjectType)type inObject:(id)path;
 
 /// General Search
--(void) Search:(id)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)useAsync inObject:(id)path;
--(void) GetByUrl:(id)obj searchUrl:(NSString*)url searchUri:(NSString*)uri objectType:(enumObjectType)objType useAsync:(BOOL)async;
--(void) Search:(id)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType inObject:(id)path;
--(void) Query:(id)proxomoList searchUrl:(NSString*)url queryParams:(NSDictionary*)query;
+-(void) Search:(id)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri withParams:(NSDictionary*)params forListType:(enumObjectType)objType inObject:(id)path;
+-(void) GetByUrl:(id)obj searchUrl:(NSString*)url searchUri:(NSString*)uri objectType:(enumObjectType)objType;
+
 
 @end

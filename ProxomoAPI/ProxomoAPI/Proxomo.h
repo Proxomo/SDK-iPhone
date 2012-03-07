@@ -23,5 +23,6 @@
 #import "SocialNetworkInfo.h"
 #import "SocialNetworkPFriend.h"
 #import "CustomData.h"
+#import "PersonLogin.h"
 
 #endif

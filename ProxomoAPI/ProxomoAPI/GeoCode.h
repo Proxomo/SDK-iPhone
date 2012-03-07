@@ -46,8 +46,8 @@
 @property (nonatomic, strong) NSString *Zip;
 @property (nonatomic, strong) NSString *IP;
 
--(void) byAddress:(NSString*)address apiContext:(ProxomoApi*)context useAsync:(BOOL)useAsync;
--(void) byIPAddress:(NSString*)ipAddress apiContext:(ProxomoApi*)context useAsync:(BOOL)useAsync;
+-(void) byAddress:(NSString*)address apiContext:(ProxomoApi*)context;
+-(void) byIPAddress:(NSString*)ipAddress apiContext:(ProxomoApi*)context;
 -(void) byLatitude:(double)latitude byLogitude:(double)longitude locationDelegate:(Location*)location apiContext:(ProxomoApi*)context;
 
 @end

@@ -38,7 +38,7 @@
 -(void)authComplete:(BOOL)success withStatus:(NSString*)status forPerson:(id)person{
     NSLog(@"Proxomo Authentication %@ for %@", status, person);
     if(success){
-        _accessToken = [loginDialogView access_token];
+        //_accessToken = [loginDialogView access_token];
         _socialnetwork = [loginDialogView socialnetwork];
         _socialnetwork_id = [loginDialogView socialnetwork_id];
         ID = [loginDialogView personID];
@@ -50,7 +50,7 @@
 }
 
 -(BOOL)isAuthorized {
-    return (_accessToken != nil && _accessToken != nil);
+    return (_socialnetwork != nil && _socialnetwork_id != nil);
 }
 
 -(void)loginToSocialNetwork:(enumSocialNetwork)network forApplication:(id)apiContext{
@@ -88,10 +88,6 @@
     return @"person";
 }
 
--(NSString *)getAccessToken{
-    return _accessToken;
-}
-
 -(NSString*)description{
     return FullName;
 }
@@ -108,7 +104,7 @@
                      self.ID,
                      personID];
     
-    [_apiContext makeSyncRequest:url method:PUT delegate:self];
+    [_apiContext makeRestRequest:url method:PUT params:nil delegate:self];
 }
 
 -(void)friendInvite:(NSString*)socialID inSocialNetwork:(enumSocialNetwork)network {
@@ -118,7 +114,7 @@
                      socialID,
                      (NSInteger)network];
     
-    [_apiContext makeSyncRequest:url method:PUT delegate:self];
+    [_apiContext makeRestRequest:url method:PUT params:nil delegate:self];
 }
 
 -(void)friendRespond:(NSString*)personID withResponse:(enumFriendResponse)response {
@@ -128,7 +124,8 @@
                      personID,
                      (NSInteger)response];
     
-    [_apiContext makeSyncRequest:url method:PUT delegate:self];
+    [_apiContext makeRestRequest:url method:PUT params:nil delegate:self];
 }
+
 
 @end

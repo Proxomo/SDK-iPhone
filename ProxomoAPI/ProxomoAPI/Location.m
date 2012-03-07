@@ -45,40 +45,40 @@
     return [_locations arrayValue];
 }
 
--(NSArray*)byAddress:(NSString *)address apiContext:(ProxomoApi *)context useAsync:(BOOL)useAsync{
+-(ProxomoList*)byAddress:(NSString *)address apiContext:(ProxomoApi *)context {
     _locations = [[ProxomoList alloc] init];
-    [_locations setAppDelegate:appDelegate];
+    _locations.appDelegate = appDelegate;
     _apiContext = context;
-    [context Search:_locations searchUrl:@"s/search?address=" searchUri:address forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
-    return [_locations arrayValue];
+    [context Search:_locations searchUrl:@"s/search?address=" searchUri:address withParams:nil forListType:LOCATION_TYPE inObject:nil];
+    return _locations;
 }
 
--(NSArray*)byAddress:(NSString *)address byRadius:(NSNumber*)radius withQueryString:(NSString*)query maxResults:(NSNumber*)maxResults forPerson:(NSString*)personID apiContext:(ProxomoApi *)context useAsync:(BOOL)useAsync{
+-(ProxomoList*)byAddress:(NSString *)address byRadius:(NSNumber*)radius withQueryString:(NSString*)query maxResults:(NSNumber*)maxResults forPerson:(NSString*)personID apiContext:(ProxomoApi *)context {
     _locations = [[ProxomoList alloc] init];
-    [_locations setAppDelegate:appDelegate];
+    _locations.appDelegate = appDelegate;
     _apiContext = context;
-    [context Search:_locations searchUrl:@"s/search?address=" searchUri:address forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
-    return [_locations arrayValue];
+    [context Search:_locations searchUrl:@"s/search?address=" searchUri:address withParams:nil forListType:LOCATION_TYPE inObject:nil];
+    return _locations;
 }
 
--(NSArray*)byIP:(NSString*)ip apiContext:(ProxomoApi *)context useAsync:(BOOL)useAsync{
+-(ProxomoList*)byIP:(NSString*)ip apiContext:(ProxomoApi *)context{
     _locations = [[ProxomoList alloc] init];
-    [_locations setAppDelegate:appDelegate];
+    _locations.appDelegate = appDelegate;
     _apiContext = context;
-    [context Search:_locations searchUrl:@"s/search/ip" searchUri:ip forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
-    return [_locations arrayValue];
+    [context Search:_locations searchUrl:@"s/search/ip" searchUri:ip withParams:nil forListType:LOCATION_TYPE inObject:nil];
+    return _locations;
 }
 
--(NSArray *) byLatitude:(double)latitude byLogitude:(double)longitude apiContext:(ProxomoApi*)context useAsync:(BOOL)useAsync{
+-(ProxomoList *) byLatitude:(double)latitude byLogitude:(double)longitude apiContext:(ProxomoApi*)context {
     NSString *searchUrl = [NSString stringWithFormat:@"s/search/latitude/%f/longitude",
                            latitude];
     NSString *searchUri = [NSString stringWithFormat:@"%f",
                            longitude];
     _locations = [[ProxomoList alloc] init];
-    [_locations setAppDelegate:appDelegate];
+    _locations.appDelegate = appDelegate;
     _apiContext = context;
-    [context Search:_locations searchUrl:searchUrl searchUri:searchUri forListType:LOCATION_TYPE useAsync:useAsync inObject:nil];
-    return [_locations arrayValue];
+    [context Search:_locations searchUrl:searchUrl searchUri:searchUri withParams:nil forListType:LOCATION_TYPE inObject:nil];
+    return _locations;
 }
 
 -(NSString *) description {

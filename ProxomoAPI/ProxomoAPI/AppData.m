@@ -72,7 +72,7 @@
         context = [context _apiContext];
         inObject = context;
     }
-    [context Search:proxomoList searchUrl:@"/search/objecttype" searchUri:objectType forListType:APPDATA_TYPE useAsync:useAsync inObject:inObject];
+    [context Search:proxomoList searchUrl:@"/search/objecttype" searchUri:objectType withParams:nil forListType:APPDATA_TYPE inObject:inObject];
 }
 
 -(NSString *) description {

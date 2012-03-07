@@ -24,7 +24,6 @@
 
 -(void) handleResponse:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
     NSLog(@"Response: %@", status);
-    
 }
 
 -(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
@@ -60,7 +59,7 @@
                     @"Person", [NSNumber numberWithInt:kPersonRow],
                     nil];
     
-    _apiContext = [[ProxomoApi alloc] initWithKey:@"PUT YOUR API KEY HERE" appID:@"PUT YOUR APP KEY HERE"];
+    _apiContext = [[ProxomoApi alloc] initWithKey:@"PUT YOUR API KEY HERE" appID:@"PUT YOUR APP KEY HERE" delegate:self];
     self.title = @"Features";
     [super viewDidLoad];
 

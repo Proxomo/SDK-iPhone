@@ -49,9 +49,9 @@ typedef enum {
 @property (nonatomic, strong) NSString *PersonID;
 @property (nonatomic, strong) NSString *LocationType;
 
--(NSArray*)byAddress:(NSString*)address apiContext:(id)context  useAsync:(BOOL)useAsync; 
--(NSArray*)byIP:(NSString*)ip apiContext:(id)context useAsync:(BOOL)useAsync; 
--(NSArray *)byLatitude:(double)latitude byLogitude:(double)longitude apiContext:(ProxomoApi*)context useAsync:(BOOL)useAsync;
+-(ProxomoList*)byAddress:(NSString*)address apiContext:(id)context; 
+-(ProxomoList*)byIP:(NSString*)ip apiContext:(id)context; 
+-(ProxomoList *)byLatitude:(double)latitude byLogitude:(double)longitude apiContext:(ProxomoApi*)context;
 -(NSArray*)locations;
 -(NSArray*)appData;
 

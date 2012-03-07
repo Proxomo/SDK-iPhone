@@ -35,7 +35,7 @@
 #pragma mark App Delegate
 
 -(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject {
-    NSLog(@"Async response received for List %@", proxomoObject);
+    NSLog(@"Response received for List %@", proxomoObject);
     if(!success){
         NSLog(@"Operation Failed for %@", proxomoObject);
         return;

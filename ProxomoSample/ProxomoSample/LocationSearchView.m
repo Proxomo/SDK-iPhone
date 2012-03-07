@@ -41,21 +41,21 @@
 -(IBAction)searchAddress:(id)sender{
     Location *location = [[Location alloc] init];
     [location setAppDelegate:self];
-    [location byAddress:address.text apiContext:apiContext useAsync:YES]; 
+    [location byAddress:address.text apiContext:apiContext]; 
     [address resignFirstResponder];
 }
 
 -(IBAction)searchIP:(id)sender{
     Location *location = [[Location alloc] init];
     [location setAppDelegate:self];
-    [location byIP:ip.text apiContext:apiContext useAsync:YES];    
+    [location byIP:ip.text apiContext:apiContext];    
     [ip resignFirstResponder];
 }
 
 -(IBAction)searchGeo:(id)sender{
     Location *location = [[Location alloc] init];
     [location setAppDelegate:self];
-    [location byLatitude:[latitude.text floatValue] byLogitude:[longitude.text floatValue] apiContext:apiContext useAsync:YES];    
+    [location byLatitude:[latitude.text floatValue] byLogitude:[longitude.text floatValue] apiContext:apiContext];    
     [latitude resignFirstResponder];
     [longitude resignFirstResponder];
 }

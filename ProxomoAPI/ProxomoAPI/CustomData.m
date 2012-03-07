@@ -11,10 +11,12 @@
 @implementation CustomData
 @synthesize TableName;
 @synthesize TimeStamp;
+@synthesize _searching;
 
 -(id)init {
     self = [super init];
     if(self){
+        _searching = NO;
         self.TableName = @"CUSTOMDATA";
     }
     return self;
@@ -24,9 +26,14 @@
     return CUSTOMDATA_TYPE;
 }
 
--(NSString *) objectPath:(enumRequestType)requestType{
+-(NSString *) objectPath:(enumRequestType)requestType {
     if(requestType==GET||requestType==DELETE){
-        return [NSString stringWithFormat:@"customdata/table/%@",TableName];
+        if(_searching){
+            return @"customdata/search";
+        }else{
+            return [NSString stringWithFormat:@"customdata/table/%@",
+                    [ProxomoApi htmlEncodeString:TableName]];
+        }
     }
     return @"customdata";
 }
@@ -43,10 +50,12 @@
 -(ProxomoList*)Search:(NSString *)query apiContext:(ProxomoApi *)context {
     _apiContext = context;
     ProxomoList *retVal = [[ProxomoList alloc] init];
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:query, @"q", nil];
     
     retVal.listType = CUSTOMDATA_TYPE;
-    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:query, @"q", nil];
-    [context Query:retVal searchUrl:[NSString stringWithFormat:@"customdata/search/table/%@", TableName] queryParams:params];
+    retVal.appDelegate = self.appDelegate;
+    retVal._clazz = [self class];
+    [context Search:retVal searchUrl:@"/table" searchUri:TableName withParams:params forListType:CUSTOMDATA_TYPE inObject:nil];
     return retVal;
 }
 

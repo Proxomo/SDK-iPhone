@@ -45,10 +45,6 @@
     return @"";
 }
 
--(NSString*)getAccessToken{
-    return _accessToken;
-}
-
 -(void)setApiContext:(id)apiContext{
     _apiContext = apiContext;
 }
@@ -65,21 +61,11 @@
     }
 }
 
-// @returns true == success, false == failure
--(BOOL) AddSynchronous:(id)context {
-    if([context isKindOfClass:[ProxomoApi class]]){
-        _apiContext = context;
-        return [_apiContext AddSynchronous:self inObject:nil];
-    }else{
-        _apiContext = [context _apiContext];
-       return [_apiContext AddSynchronous:self inObject:context];
-    }
-}
-
 // updates or creates a single instance from object
 // asynchronously updates or creates a single instance
 // ID must be set in object
--(void) Update:(id)context{
+-(void) Update:(id)context 
+{
     if([context isKindOfClass:[ProxomoApi class]]){
         _apiContext = context;
         [_apiContext Update:self inObject:nil];
@@ -89,47 +75,24 @@
     }     
 }
 
-// @return true == success, false == failure
--(BOOL) UpdateSynchronous:(id)context{
-    if([context isKindOfClass:[ProxomoApi class]]){
-        _apiContext = context;
-        return [_apiContext UpdateSynchronous:self inObject:nil];
-    }else{
-        _apiContext = [context _apiContext];
-        return [_apiContext UpdateSynchronous:self inObject:context];
-    }
-}
-
 // gets an instance by ID
 // ID must be set in object
 // updates and overwrites current properties
--(void) Get:(id)context{
+-(void) Get:(id)context 
+{
     if([context isKindOfClass:[ProxomoApi class]]){
         _apiContext = context;
         [_apiContext Get:self inObject:nil];
     }else{
         _apiContext = [context _apiContext];
         [_apiContext Get:self inObject:context];
-    }
-
-    
+    }    
 }
-
-// @returns id of new AppData instance
--(BOOL) GetSynchronous:(id)context{
-    if([context isKindOfClass:[ProxomoApi class]]){
-        _apiContext = context;
-        return [_apiContext GetSynchronous:self inObject:nil];
-    }else{
-        _apiContext = [context _apiContext];
-        return [_apiContext GetSynchronous:self inObject:context];
-    }
-}
-
 
 // deletes a data instance by ID
 // ID must be set in object
--(void) Delete:(id)context{
+-(void) Delete:(id)context 
+{
     if([context isKindOfClass:[ProxomoApi class]]){
         _apiContext = context;
         [_apiContext Delete:self inObject:nil];
@@ -139,20 +102,10 @@
     } 
 }
 
-// @returns true == success, false == failure
--(BOOL) DeleteSynchronous:(id)context{
-    if([context isKindOfClass:[ProxomoApi class]]){
-        _apiContext = context;
-        return [_apiContext DeleteSynchronous:self inObject:nil];
-    }else{
-        _apiContext = [context _apiContext];
-        return [_apiContext DeleteSynchronous:self inObject:context];
-    }
-}
-
 #pragma mark - JSON Utilities
 
-- (NSDate *) convertJsonToDate:(NSString *)dateString{
+- (NSDate *) convertJsonToDate:(NSString *)dateString
+{
     NSString* header = @"/Date(";
     uint headerLength = [header length];
     
@@ -193,7 +146,8 @@
     return [NSDate dateWithTimeIntervalSince1970:interval];
 }
 
-+ (NSString *)dateJsonRepresentation:(NSDate*)date {
++ (NSString *)dateJsonRepresentation:(NSDate*)date 
+{
     NSTimeInterval dateTime;
     NSString *jsonDate;
     dateTime = [date timeIntervalSince1970] * 1000;
@@ -201,7 +155,8 @@
     return jsonDate;
 }
 
--(NSMutableDictionary*)proxyForJson{
+-(NSMutableDictionary*)proxyForJson
+{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     Class clazz = [self class];
     u_int count;
@@ -275,7 +230,8 @@
     return dict;
 }
 
--(void) updateFromJsonRepresentation:(id)jsonRepresentation {
+-(void) updateFromJsonRepresentation:(id)jsonRepresentation 
+{
     if(!jsonRepresentation)
         return;
     
@@ -382,7 +338,8 @@
     free(ivars);
 }
 
--(void) updateFromJsonData:(NSData*)response {
+-(void) updateFromJsonData:(NSData*)response 
+{
     NSError *error = nil;
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
     
@@ -393,7 +350,8 @@
     }
 }
 
--(id)initFromJsonData:(NSData *)jsonData{
+-(id)initFromJsonData:(NSData *)jsonData
+{
     self = [super init];
     if(self){
         [self updateFromJsonData:jsonData];
@@ -401,7 +359,8 @@
     return self;
 }
 
--(id)initFromJsonRepresentation:(NSDictionary*)jsonRepresentation{
+-(id)initFromJsonRepresentation:(NSDictionary*)jsonRepresentation
+{
     self = [super init];
     if(self){
         [self updateFromJsonRepresentation:jsonRepresentation];
@@ -411,7 +370,8 @@
 
 #pragma mark - API Delegate
 
--(void) handleResponse:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
+-(void) handleResponse:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status
+{
     responseCode = code;
     restResponse = status;
     if(requestType == GET){
@@ -429,10 +389,10 @@
     if([appDelegate respondsToSelector:@selector(asyncObjectComplete:proxomoObject:)]){
         [appDelegate asyncObjectComplete:(responseCode==200) proxomoObject:self];
     }
-    requestType = NONE;
 }
 
--(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status{
+-(void) handleError:(NSData*)response requestType:(enumRequestType)requestType responseCode:(NSInteger)code responseStatus:(NSString*) status
+{
     requestType = NONE;
     responseCode = code;
     restResponse = status;

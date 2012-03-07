@@ -46,6 +46,8 @@
 		3737F40314AE2E20004C63AF /* AuthorizeDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 3737F40114AE2E20004C63AF /* AuthorizeDialog.m */; };
 		3737F40414AE305D004C63AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48A14956675000A88C2 /* UIKit.framework */; };
 		3737F40514AE3152004C63AF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3700E48C14956706000A88C2 /* CoreGraphics.framework */; };
+		3769A8991505B86F00C77E7D /* PersonLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 3769A8971505B86F00C77E7D /* PersonLogin.h */; };
+		3769A89A1505B86F00C77E7D /* PersonLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3769A8981505B86F00C77E7D /* PersonLogin.m */; };
 		3769CFBE148C417000E6B629 /* Proxomo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3769CFBD148C416F00E6B629 /* Proxomo.h */; };
 		37815DAE14B2C0B00011390C /* SocialNetworkFriend.h in Headers */ = {isa = PBXBuildFile; fileRef = 37815DAC14B2C0AF0011390C /* SocialNetworkFriend.h */; };
 		37815DAF14B2C0B00011390C /* SocialNetworkFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 37815DAD14B2C0AF0011390C /* SocialNetworkFriend.m */; };
@@ -129,6 +131,8 @@
 		3733244414AED0EF00C77193 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJson.h"; path = "JSON/NSObject+SBJson.h"; sourceTree = SOURCE_ROOT; };
 		3737F40014AE2E20004C63AF /* AuthorizeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AuthorizeDialog.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3737F40114AE2E20004C63AF /* AuthorizeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AuthorizeDialog.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3769A8971505B86F00C77E7D /* PersonLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonLogin.h; sourceTree = "<group>"; };
+		3769A8981505B86F00C77E7D /* PersonLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonLogin.m; sourceTree = "<group>"; };
 		3769CFBD148C416F00E6B629 /* Proxomo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Proxomo.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		37815DAC14B2C0AF0011390C /* SocialNetworkFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SocialNetworkFriend.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		37815DAD14B2C0AF0011390C /* SocialNetworkFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SocialNetworkFriend.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -348,6 +352,8 @@
 				37E278B214EF21AD00F79425 /* SocialNetworkPFriend.m */,
 				378F1F5C14F735DD0008A991 /* CustomData.h */,
 				378F1F5D14F735DD0008A991 /* CustomData.m */,
+				3769A8971505B86F00C77E7D /* PersonLogin.h */,
+				3769A8981505B86F00C77E7D /* PersonLogin.m */,
 			);
 			name = Definitions;
 			sourceTree = "<group>";
@@ -391,6 +397,7 @@
 				37E278B314EF21AD00F79425 /* SocialNetworkPFriend.h in Headers */,
 				378F1F5914F7311D0008A991 /* TestCustomData.h in Headers */,
 				378F1F5E14F735DD0008A991 /* CustomData.h in Headers */,
+				3769A8991505B86F00C77E7D /* PersonLogin.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +528,7 @@
 				37E278B414EF21AD00F79425 /* SocialNetworkPFriend.m in Sources */,
 				378F1F5A14F7311D0008A991 /* TestCustomData.m in Sources */,
 				378F1F5F14F735DD0008A991 /* CustomData.m in Sources */,
+				3769A89A1505B86F00C77E7D /* PersonLogin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

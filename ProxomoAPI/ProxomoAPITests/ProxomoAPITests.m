@@ -21,6 +21,7 @@
 
 @synthesize _apiContext;
 @synthesize _userContext;
+@synthesize desiredResult;
 
 - (BOOL) shouldRunOnMainThread
 {
@@ -36,12 +37,13 @@
 - (void)setUp
 {
     [super setUp];
+    desiredResult = YES;
     _apiContext = [[ProxomoApi alloc] initWithKey:@"PUT YOUR API KEY HERE" appID:@"PUT YOUR APP KEY HERE"];
     [_apiContext setAppDelegate:self];
     
     runLoop = [NSRunLoop currentRunLoop];
     _userContext = [[Person alloc] init];
-    [_userContext setID:@"8mECuOEvlLPj9nHb"];
+    [_userContext setID:@"PUT PROXOMO ID HERE"];
     [_userContext Get:_apiContext];
     [self waitForAsync];
     STAssertNotNil([_userContext FullName], @"Null Person Name");
@@ -54,10 +56,14 @@
 }
 
 -(void)asyncObjectComplete:(BOOL)success proxomoObject:(id)proxomoObject {
-    NSLog(@"Async response received for %@", proxomoObject);
+    NSLog(@"Response received for %@", proxomoObject);
+    STAssertTrue(success == desiredResult, @"Operation failed for object %@", proxomoObject);
+    if(success != desiredResult){
+        NSLog(@"%@ operation failed", proxomoObject);
+    }
 }
 
-#pragma mark Location
+#pragma mark - unit tests
 
 -(void) unitLocation
 {
@@ -93,7 +99,9 @@
         loc.City = [loc ID];
         NSLog(@"Updating %@, City %@",[loc ID], [loc City]);
         [loc Update:_apiContext];
+        [self waitForAsync];
         [data Add:loc];
+        [self waitForAsync];
         [data Update:loc];
         [self waitForAsync];
     }
@@ -104,11 +112,6 @@
         locData.listType = APPDATA_TYPE;
         [locData GetAll:loc getType:APPDATA_TYPE];
         [self waitForAsync];
-    
-        for(AppData *ad in [locData arrayValue]){
-            [ad Delete:loc];
-            [self waitForAsync];
-        }
     }
 
     /*
@@ -122,6 +125,11 @@
     
     for(Location *loc in save){
         STAssertTrue([[loc appData] count] > 0, @"Missing App Data in location");
+        
+        for(AppData *ad in [loc appData]){
+            [ad Delete:loc];
+            [self waitForAsync];
+        }
     }
     
     /*
@@ -142,8 +150,10 @@
     [self waitForAsync];
 
     for(Location *loc in save){
-        STAssertFalse([loc GetSynchronous:_apiContext], @"Was able to get deleted object");
+        desiredResult = NO;
+        [loc Get:_apiContext];
     }
+    desiredResult = YES;
 }
 
 - (void) logLocations:(NSArray*)pList{
@@ -153,40 +163,22 @@
 }
 
 - (void) unitLocationSearch {
-    NSArray *pList;
+    ProxomoList *pList;
     
     Location *location = [[Location alloc] init];
-    pList = [location byIP:kTestIP apiContext:_apiContext useAsync:NO];    
-    STAssertTrue([pList count] > 0, @"Empty Location IP Search");
-    [self logLocations:pList];
-    pList = [location byAddress:kTestAddress apiContext:_apiContext useAsync:NO];
-    STAssertTrue([pList count] > 0, @"Empty Location Search");
-    [self logLocations:pList];
-    pList = [location byLatitude:kTestLatitude byLogitude:kTestLongitude apiContext:_apiContext useAsync:NO];
-    STAssertTrue([pList count] > 0, @"Empty Location Geo Search");
-    [self logLocations:pList];
-    
-    
-    // test async
-    [location byIP:kTestIP apiContext:_apiContext useAsync:YES];    
+    pList = [location byIP:kTestIP apiContext:_apiContext];    
     [self waitForAsync];
-    pList = [location locations];
-    [self logLocations:pList];
-    STAssertTrue([pList count] > 0, @"Empty Location IP Search");
-    pList = [location byAddress:kTestAddress apiContext:_apiContext useAsync:YES];
+    STAssertTrue([[pList arrayValue] count] > 0, @"Empty Location IP Search");
+    [self logLocations:[pList arrayValue]];
+    pList = [location byAddress:kTestAddress apiContext:_apiContext];
     [self waitForAsync];
-    pList = [location locations];
-    [self logLocations:pList];
-    // Getting 404 - STAssertTrue([pList count] > 0, @"Empty Location Search");
-    pList = [location byLatitude:kTestLatitude byLogitude:kTestLongitude apiContext:_apiContext useAsync:YES];
+    STAssertTrue([[pList arrayValue] count] > 0, @"Empty Location Search");
+    [self logLocations:[pList arrayValue]];
+    pList = [location byLatitude:kTestLatitude byLogitude:kTestLongitude apiContext:_apiContext];
     [self waitForAsync];
-    pList = [location locations];
-    [self logLocations:pList];
-    STAssertTrue([pList count] > 0, @"Empty Location Geo Search");
-
+    STAssertTrue([[pList arrayValue] count] > 0, @"Empty Location Geo Search");
+    [self logLocations:[pList arrayValue]];
 }
-
-#pragma mark AppData
 
 -(void) unitAppData
 {
@@ -200,12 +192,10 @@
       */
     for(int x=1; x <= TESTLOOPS; x++){
         appData = [[AppData alloc] initWithValue:[[NSString alloc] initWithFormat:@"Value-%d",x] forKey:@"AsyncKey"];
-        if(appData){
-            // store local instance for testing
-            [save addObject:appData];
-            // send to API for adding to cloud
-            [appData Add:_apiContext];
-        }
+        // store local instance for testing
+        [save addObject:appData];
+        // send to API for adding to cloud
+        [appData Add:_apiContext];
     }
     [self waitForAsync];
    
@@ -268,9 +258,7 @@
     STAssertTrue([array count] == 0, @"App Data Should be empty");
 }
 
-#pragma mark Event
-
--(void) unitEvent_Synchronous {
+-(void) unitEvent {
     Event *event = [[Event alloc] init];
     Location *location = [[Location alloc] init];
     
@@ -280,7 +268,8 @@
     location.Longitude = [NSNumber numberWithDouble:kTestLongitude];
     location.Address1 = @"100 main";
     location.LocationSecurity = OPEN_LOCATION;
-    STAssertTrue([location AddSynchronous:_apiContext], @"Location add returned false");
+    [location Add:_apiContext];
+    [self waitForAsync];
     
     event.Description = @"Test Event Descr";
     event.StartTime = kEventStartTime;
@@ -295,24 +284,34 @@
     event.Status = UPCOMING;
     event.PersonID = _userContext.ID;
     event.LocationID = location.ID;
-        
-    STAssertTrue([event AddSynchronous:_apiContext],@"Couldn't add event");
-    STAssertTrue([event GetSynchronous:_apiContext], @"Couldn't get event");
-    // STAssertTrue([event DeleteSynchronous:_apiContext], @"Could not delete event");
+    [event Add:_apiContext];
+    [self waitForAsync];
+    [event Get:_apiContext];
+    [self waitForAsync];
+    STAssertNotNil(event.ID, @"Couldn't get event");
     AppData *eventdata = [[AppData alloc] initWithValue:@"event-value" forKey:@"event-key"];
-    STAssertTrue([eventdata AddSynchronous:event], @"Couldn't add event data");
+    [eventdata Add:event];
+    [self waitForAsync];
+    STAssertNotNil(eventdata.ID, @"Couldn't add event data");
     eventdata.ID = nil;
     eventdata.Value = @"Value2";
-    STAssertTrue([eventdata AddSynchronous:event], @"Couldn't add event data");
+    [eventdata Add:event];
+    [self waitForAsync];
+    STAssertNotNil(eventdata.ID, @"Couldn't add event data");
     eventdata.Value = @"New Value";
-    STAssertTrue([eventdata UpdateSynchronous:event], @"Couldn't update event data");
+    [eventdata Update:event];
+    [self waitForAsync];
+    STAssertNotNil(event.ID, @"Couldn't update event data");
     
     ProxomoList *plist = [[ProxomoList alloc] init];
-    [plist GetAll_Synchronous:event getType:APPDATA_TYPE];
+    [plist GetAll:event getType:APPDATA_TYPE];
+    [self waitForAsync];
     STAssertTrue([[plist arrayValue] count] > 0, @"Empty event app data");
     for (AppData *data in [plist arrayValue]) {
         NSLog(@"Event Data Value %@", data.Value);
-        STAssertTrue([data DeleteSynchronous:event], @"Couldn't delete event data");
+        [data Delete:event];
+        [self waitForAsync];
+        STAssertNotNil(data.ID, @"Couldn't delete event data");
     }
     
     /*
@@ -337,13 +336,18 @@
     comment.PersonID = _userContext.ID;
     comment.PersonName = @"Test Comment Person";
     comment.Comment = @"Event Comment";
-    STAssertTrue([comment AddSynchronous:event], @"Could not add event comment");
+    [comment Add:event];
+    [self waitForAsync];
+    STAssertNotNil(comment.ID, @"Could not add event comment");
     // It is not possible to get the single event comment
-    // STAssertTrue([comment GetSynchronous:event], @"Could not get event comment");
+    // STAssertTrue([comment Get:event], @"Could not get event comment");
     comment.Comment = @"New Event Comment";
-    STAssertTrue([comment UpdateSynchronous:event], @"Could not add update comment");
+    [comment Update:event];
+    [self waitForAsync];
+    STAssertNotNil(comment.ID, @"Could not add update comment");
     comment.Comment = @"Empty";
-    [plist GetAll_Synchronous:event getType:EVENTCOMMENT_TYPE];
+    [plist GetAll:event getType:EVENTCOMMENT_TYPE];
+    [self waitForAsync];
     STAssertTrue([[plist arrayValue] count] > 0, @"Empty event comment data");
     if([[plist arrayValue] count] > 0){
         save = comment;
@@ -353,20 +357,20 @@
     /*
      // Delete failed because event.ID was not set from getting all comments
     for (EventComment *c in [plist arrayValue]) {
-        STAssertTrue([comment DeleteSynchronous:event], @"Could not delete event comment");
+        STAssertTrue([comment Delete:event], @"Could not delete event comment");
     }
      */
-    [save DeleteSynchronous:event];
-    [location DeleteSynchronous:_apiContext];
+    [save Delete:event];
+    [self waitForAsync];
+    [location Delete:_apiContext];
+    [self waitForAsync];
 }
-
-#pragma mark GeoCode
 
 -(void) unitGeoSearch {
     [_apiContext setAsync:NO];
     GeoCode *gcode = [[GeoCode alloc] init];
     
-    [gcode byAddress:kTestAddress apiContext:_apiContext useAsync:NO];
+    [gcode byAddress:kTestAddress apiContext:_apiContext];
     STAssertNotNil([gcode Address], @"Nil Address");
     STAssertNotNil([gcode Latitude], @"Nil Latitude");
     STAssertNotNil([gcode Longitude], @"Nil Longitude");
@@ -374,14 +378,15 @@
     [gcode setAddress:nil];
     [gcode setLongitude:nil];
     [gcode setLatitude:nil];    
-    [gcode byIPAddress:kTestIP apiContext:_apiContext useAsync:NO]; 
+    [gcode byIPAddress:kTestIP apiContext:_apiContext];
+    [self waitForAsync];
     STAssertNotNil([gcode Latitude], @"Nil Latitude");
     STAssertNotNil([gcode Longitude], @"Nil Longitude");
     
     [gcode setAddress:nil];
     [gcode setLongitude:nil];
     [gcode setLatitude:nil];
-    [gcode byAddress:kTestAddress apiContext:_apiContext useAsync:YES];
+    [gcode byAddress:kTestAddress apiContext:_apiContext];
     [self waitForAsync];
     STAssertNotNil([gcode Address], @"Nil Address");
     STAssertNotNil([gcode Latitude], @"Nil Latitude");
@@ -390,7 +395,7 @@
     [gcode setAddress:nil];
     [gcode setLongitude:nil];
     [gcode setLatitude:nil];
-    [gcode byIPAddress:kTestIP apiContext:_apiContext useAsync:YES]; 
+    [gcode byIPAddress:kTestIP apiContext:_apiContext];
     [self waitForAsync];
     STAssertNotNil([gcode Latitude], @"Nil Latitude");
     STAssertNotNil([gcode Longitude], @"Nil Longitude");
@@ -400,26 +405,32 @@
 -(void)unitPerson{
     _userContext.FirstName = @"Joe";
     _userContext.LastName = @"Blow";
-    [_userContext UpdateSynchronous:_apiContext];
+    [_userContext Update:_apiContext];
+    [self waitForAsync];
     ProxomoList *data = [[ProxomoList alloc] init];
-    [data GetAll_Synchronous:_userContext getType:APPDATA_TYPE];
+    [data GetAll:_userContext getType:APPDATA_TYPE];
+    [self waitForAsync];
     for (AppData *a in [data arrayValue]) {
-        //STAssertTrue([a GetSynchronous:_userContext], @"Could not get user data");
-        //a.Value = @"Update Value";
-        //STAssertTrue([a UpdateSynchronous:_userContext], @"Could not update user data");
-        STAssertTrue([a DeleteSynchronous:_userContext], @"Could not update user data");
+        [a Delete:_userContext];
+        [self waitForAsync];
     }
     
     ProxomoList *socialNetFriends = [[ProxomoList alloc] init];
-    [socialNetFriends GetAll_Synchronous:_userContext getType:SOCIALNETFRIEND_TYPE];
+    [socialNetFriends GetAll:_userContext getType:SOCIALNETFRIEND_TYPE];
+    [self waitForAsync];
+    /*
     for (SocialNetworkFriend *friend in [socialNetFriends arrayValue]) {
         [_userContext friendInvite:friend.ID inSocialNetwork:FACEBOOK];
+        [self waitForAsync];
     }
+     */
 
     ProxomoList *socialNetworkInfo = [[ProxomoList alloc] init];
-    [socialNetworkInfo GetAll_Synchronous:_userContext getType:SOCIALNETWORK_INFO_TYPE];
+    [socialNetworkInfo GetAll:_userContext getType:SOCIALNETWORK_INFO_TYPE];
+    [self waitForAsync];
     ProxomoList *appFriends = [[ProxomoList alloc] init];
-    [appFriends GetAll_Synchronous:_userContext getType:FRIEND_TYPE];
+    [appFriends GetAll:_userContext getType:FRIEND_TYPE];
+    [self waitForAsync];
     
     
     Location *location = [[Location alloc] init];
@@ -430,15 +441,16 @@
     location.Longitude = [NSNumber numberWithDouble:kTestLongitude];
     location.Address1 = @"100 main";
     location.LocationSecurity = OPEN_LOCATION;
-    STAssertTrue([location AddSynchronous:_apiContext], @"Location add returned false");
-    [location DeleteSynchronous:_apiContext];
+    [location Add:_apiContext];
+    [self waitForAsync];
+    [location Delete:_apiContext];
+    [self waitForAsync];
     
     ProxomoList *locations = [[ProxomoList alloc] init];
-    [locations GetAll_Synchronous:_userContext getType:LOCATION_TYPE];
+    [locations GetAll:_userContext getType:LOCATION_TYPE];
+    [self waitForAsync];
 
 }
-
-#pragma mark Custom Data
 
 -(void) unitCustomData{
     TestCustomData *myCustomData = [[TestCustomData alloc] init];
@@ -459,22 +471,56 @@
     [self waitForAsync];
     myCustomData.likes = @"overwritten";
     [myCustomData Get:_apiContext];
+    [self waitForAsync];
     STAssertTrue([myCustomData.likes isEqual:@"faster"], @"no custom data");
     
     ProxomoList *searchData;
-    searchData = [myCustomData Search:@"faster" apiContext:_apiContext];
+    searchData = [myCustomData Search:@"likes eq 'faster'" apiContext:_apiContext];
     [self waitForAsync];
+    STAssertTrue([[searchData arrayValue] count] > 0, @"Empty Search");
+    for (TestCustomData *tcd in [searchData arrayValue]) {
+        [tcd Delete:_apiContext];
+        [self waitForAsync];
+    }
     
-    [myCustomData Delete:_apiContext];
+    // clean up 
+    searchData = [myCustomData Search:@"likes eq 'easy'" apiContext:_apiContext];
     [self waitForAsync];
+    for (TestCustomData *tcd in [searchData arrayValue]) {
+        [tcd Delete:_apiContext];
+        [self waitForAsync];
+    }
+
     
+    desiredResult = NO;
     [myCustomData Get:_apiContext]; // should fail now
     [self waitForAsync];
+    desiredResult = YES;
+}
+
+-(void) unitCustomAuth {
+    PersonLogin *login = [[PersonLogin alloc] init];
+    
+    [login createPerson:_apiContext userName:@"tester" password:@"testpwd" role:PERSON_ROLE_USER];
+    [self waitForAsync];
+    STAssertNotNil(login.PersonID, @"Login ID NIL");
+    [login updateRole:_apiContext toRole:PERSON_ROLE_ADMIN];
+    [self waitForAsync];
+    [login passwordChange:_apiContext newPassword:@"mynewsecret"];
+    [self waitForAsync];
+    
+    ProxomoList *plist = [[ProxomoList alloc] init];
+    [plist GetAll:_apiContext getType:PERSON_LOGIN_TYPE];
+    [self waitForAsync];
+    for (PersonLogin *account in [plist arrayValue]) {
+        [account Delete:_apiContext];
+        [self waitForAsync];
+    }
 }
 
 #pragma mark - Tests
 
--(void) ntestLocation {
+-(void) testLocation {
     NSLog(@"--- Location Tests ---");
     [_apiContext setAsync:NO];
     [self unitLocation];
@@ -482,42 +528,59 @@
     [self unitLocation];
 }
 
--(void) ntestLocationSearch {
+-(void) testLocationSearch {
     NSLog(@"--- Location Search Tests ---");
+    [_apiContext setAsync:NO];
+    [self unitLocationSearch];
+    [_apiContext setAsync:YES];
     [self unitLocationSearch];
 }
 
--(void) ntestGeoCode {
+-(void) testGeoCode {
     NSLog(@"--- GeoCode Tests ---");
     [_apiContext setAsync:NO];
     [self unitGeoSearch];
+    [_apiContext setAsync:YES];
+    [self unitGeoSearch];
 }
 
--(void) ntestAppData {
+-(void) testAppData {
     [_apiContext setAsync:NO];
     [self unitAppData];
     [_apiContext setAsync:YES];
     [self unitAppData];
 }
 
--(void) ntestEvent {
+-(void) testEvent {
     NSLog(@"--- Event Tests ---");
     [_apiContext setAsync:NO];
-    [self unitEvent_Synchronous];
+    [self unitEvent];
+    [_apiContext setAsync:YES];
+    [self unitEvent];
 }
 
 -(void) testPerson {
     NSLog(@"--- Person Tests ---");
     [_apiContext setAsync:NO];
     [self unitPerson];
+    [_apiContext setAsync:YES];
+    [self unitPerson];
 }
 
--(void) ntestCustomData {
+-(void) testCustomData {
     NSLog(@"--- Custom Data Tests --- ");
     [_apiContext setAsync:NO];
     [self unitCustomData];
     [_apiContext setAsync:YES];
     [self unitCustomData];
+}
+
+-(void) testCustomAuth {
+    NSLog(@"--- Custom Auth Tests --- ");
+    [_apiContext setAsync:NO];
+    [self unitCustomAuth];
+    [_apiContext setAsync:YES];
+    [self unitCustomAuth];
 }
 
 #define kTestSetSize 10

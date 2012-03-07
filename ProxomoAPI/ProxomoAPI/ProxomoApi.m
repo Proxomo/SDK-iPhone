@@ -15,8 +15,8 @@
 #define __TRACE_DATA
 
 #define HTTP405_NOTALLOWED 405
-#define kBaseURL @"https://service.proxomo.com/v09/"
-#define kBaseJSON @"json/"
+#define kBaseURL @"https://service.proxomo.com/v09"
+#define kBaseJSON @"json"
 
 @implementation ProxomoApi
 
@@ -108,7 +108,7 @@ NSDictionary *encode_url_table = nil;
 
 - (BOOL)loginApi:(id <ProxomoApiDelegate>) requestDelegate {
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] init];
-    NSString *urlstring= [NSString stringWithFormat:@"%@%@/security/accesstoken/get",
+    NSString *urlstring= [NSString stringWithFormat:@"%@/%@/security/accesstoken/get",
                           kBaseURL, kBaseJSON];
      
     if(apiKey == nil || applicationId == nil){
@@ -288,6 +288,18 @@ NSDictionary *encode_url_table = nil;
     return input;
 }
 
+-(NSString *)getPathForObject:(ProxomoObject*)obj forRequestType:(enumRequestType)requestType {
+    if(obj){
+        return [obj objectPath:requestType];
+    }else{
+        return @"";
+    }
+}
+
+-(NSString *)getUrlForRequest:(ProxomoObject*)obj forRequestType:(enumRequestType)requestType{
+    return [NSString stringWithFormat:@"%@", [self getPathForObject:obj forRequestType:requestType]];
+}
+
 - (NSString *)stringForRequestType:(enumRequestType)method{
     NSString *methodString = @"GET";
     
@@ -310,9 +322,25 @@ NSDictionary *encode_url_table = nil;
     return methodString;
 }
 
-- (NSMutableURLRequest*)createRequestUrl:(NSString *)path method:(enumRequestType)method delegate:(id)requestDelegate
+- (NSMutableURLRequest*)createRequestUrl:(NSString *)path 
+                                  method:(enumRequestType)method 
+                                  params:(NSDictionary*)params 
+                                  delegate:(id)requestDelegate
 {
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",kBaseURL, path];
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@",kBaseURL, kBaseJSON, path];
+    BOOL first = YES;
+    if(params){
+        for (NSString *param in params) {
+            if(first){
+                urlString = [urlString stringByAppendingString:@"?"];
+                first = NO;
+            }else{
+                urlString = [urlString stringByAppendingString:@"&"];
+            }
+            urlString = [urlString stringByAppendingFormat:@"%@=%@",
+                   param, [ProxomoApi htmlEncodeString:[params objectForKey:param]]];
+        }
+    }
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *urlRequest = nil;
     
@@ -320,6 +348,7 @@ NSDictionary *encode_url_table = nil;
     NSString *methodName = [self stringForRequestType:method];
     NSLog(@"%@:%@",methodName, url);
 #endif
+    
     urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
     if (method == POST || method == PUT) {
         if(requestDelegate){
@@ -335,67 +364,51 @@ NSDictionary *encode_url_table = nil;
         [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     }
     [urlRequest setHTTPMethod:[self stringForRequestType:method]];
-    /*
-    NSString *objectAccessToken = nil;
-    if ([requestDelegate isKindOfClass:[Person class]] == false) {
-        objectAccessToken = [requestDelegate getAccessToken];
-    }
-    if(objectAccessToken){
-        [urlRequest setValue:objectAccessToken forHTTPHeaderField:@"Authorization"];
-    }else{
-        [urlRequest setValue:accessToken forHTTPHeaderField:@"Authorization"];
-    }
-     */
     [urlRequest setValue:accessToken forHTTPHeaderField:@"Authorization"];
     return urlRequest;
 }
 
-- (void)makeAsyncRequest:(NSString*)path method:(enumRequestType)method delegate:(id) requestDelegate 
+-(void) makeRestRequest:(NSString*)path method:(enumRequestType)method params:(NSDictionary*)params delegate:(id <ProxomoApiDelegate>)requestDelegate
 {
     if(![self checkLogin:requestDelegate]) return;
     
-    NSMutableURLRequest *urlRequest = [self createRequestUrl:path method:method delegate:requestDelegate];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
-    if(connection != nil){
-        numAsyncPending++;
-        NSNumber *connectionHash = [NSNumber numberWithInteger:[connection hash]];
-        [requests setObject:[NSNumber numberWithInt:method] forKey:connectionHash];
-        [responseDelegate setObject:requestDelegate forKey:connectionHash];
-        [self _receiveDidStart:connection delegate:requestDelegate];
-    } else if(requestDelegate) {
-        [requestDelegate handleError:nil requestType:method responseCode:0 responseStatus:@"Failed to initialize connection"];
-    }
-}
-
-- (BOOL)makeSyncRequest:(NSString*)path method:(enumRequestType)method delegate:(id <ProxomoApiDelegate>) requestDelegate 
-{
-    if(![self checkLogin:requestDelegate]) return false;
+    NSMutableURLRequest *urlRequest = [self createRequestUrl:path method:method params:params delegate:requestDelegate];
     
-    NSMutableURLRequest *urlRequest = [self createRequestUrl:path method:method delegate:requestDelegate];
-    NSURLResponse *response; 
-    NSError *error;
-    NSData * urlData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    NSInteger responseCode = [httpResponse statusCode];
-#ifdef __TRACE_REST
-    NSLog(@"%@ %d %@",[response URL],[httpResponse statusCode],
-          [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
-#endif
-    
-    if(urlData == nil || responseCode != 200){
-        if(requestDelegate){
-            [requestDelegate handleError:urlData requestType:method responseCode:[httpResponse statusCode] responseStatus:[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]];
+    if(isInAsyncMode){
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+        if(connection != nil){
+            numAsyncPending++;
+            NSNumber *connectionHash = [NSNumber numberWithInteger:[connection hash]];
+            [requests setObject:[NSNumber numberWithInt:method] forKey:connectionHash];
+            [responseDelegate setObject:requestDelegate forKey:connectionHash];
+            [self _receiveDidStart:connection delegate:requestDelegate];
+        } else if(requestDelegate) {
+            [requestDelegate handleError:nil requestType:method responseCode:0 responseStatus:@"Failed to initialize connection"];
         }
-        return false;
-    }
-#ifdef __TRACE_DATA
-    NSString* newStr = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
-    NSLog(@"JSON %@ Result:\n%@",[self stringForRequestType:method], newStr);
+    }else{
+        NSURLResponse *response; 
+        NSError *error;
+        NSData * urlData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        NSInteger responseCode = [httpResponse statusCode];
+#ifdef __TRACE_REST
+        NSLog(@"%@ %d %@",[response URL],[httpResponse statusCode],
+              [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
 #endif
-    if(requestDelegate){
-        [requestDelegate handleResponse:urlData requestType:method responseCode:responseCode responseStatus:[NSHTTPURLResponse localizedStringForStatusCode:responseCode]];
+        if(urlData == nil || responseCode != 200){
+            if(requestDelegate){
+                [requestDelegate handleError:urlData requestType:method responseCode:[httpResponse statusCode] responseStatus:[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]];
+            }
+        }else{
+#ifdef __TRACE_DATA
+            NSString* newStr = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
+            NSLog(@"JSON %@ Result:\n%@",[self stringForRequestType:method], newStr);
+#endif
+            if(requestDelegate){
+                [requestDelegate handleResponse:urlData requestType:method responseCode:responseCode responseStatus:[NSHTTPURLResponse localizedStringForStatusCode:responseCode]];
+            }
+        }
     }
-    return true;
 }
 
 #pragma NSURLRequest delegate
@@ -498,25 +511,9 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     [self _receiveDidStopWithStatus:connection code:400 status:[error localizedDescription]];
 }
 
--(NSString *)getPathForObject:(ProxomoObject*)obj forRequestType:(enumRequestType)requestType {
-    if(obj){
-        return [obj objectPath:requestType];
-    }else{
-        return @"";
-    }
-}
-
--(NSString *)getUrlForRequest:(ProxomoObject*)obj forRequestType:(enumRequestType)requestType{
-    return [NSString stringWithFormat:@"%@%@",kBaseJSON, [self getPathForObject:obj forRequestType:requestType]];
-}
-
 #pragma mark - CRUD
 
--(NSString *) objectPath{
-    return kBaseJSON;
-}
-
--(BOOL) makeRequest:(enumRequestType)method async:(BOOL)async forObject:(id)object inObject:(id)path {
+-(BOOL) makeObjRequest:(enumRequestType)method forObject:(id)object inObject:(id)path {
     NSString *url, *ID;
     
     if(path){
@@ -556,6 +553,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
         switch ([object objectType]) {
             case LOCATION_TYPE:
             case EVENTCOMMENT_TYPE:
+            case PERSON_LOGIN_TYPE:
                 url = [url stringByAppendingString:@"s"];
                 break;
             default:
@@ -568,66 +566,29 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     }
     
     [object setApiContext:self];
-    if(async){
-        if ([object appDelegate] == nil) {
-            [object setAppDelegate:appDelegate];
-        }
-        [self makeAsyncRequest:url method:method delegate:object];
-        return true;
-    }else{
-        [object setAppDelegate:nil];
-        return [self makeSyncRequest:url method:method delegate:object];
+    if ([object appDelegate] == nil) {
+        [object setAppDelegate:appDelegate];
     }
+    [self makeRestRequest:url method:method params:nil delegate:object];
+    return true;
 }
+
+#pragma mark - CRUD
+
 
 -(void) Add:(ProxomoObject*)object inObject:(id)path {
-    if(isInAsyncMode){
-        [self makeRequest:POST async:YES forObject:object inObject:path];
-    }else{
-        [self AddSynchronous:object inObject:path];
-    }
-}
-
--(BOOL) AddSynchronous:(ProxomoObject*)object inObject:(id)path {
-    return [self makeRequest:POST async:NO forObject:object inObject:path];
+    [self makeObjRequest:POST forObject:object inObject:path];
 }
 
 -(void) Update:(ProxomoObject*)object inObject:(id)path {
-    if(isInAsyncMode){
-     [self makeRequest:PUT async:YES forObject:object inObject:path];
-    }else{
-        [self UpdateSynchronous:object inObject:path];
-    }
-}
-
--(BOOL) UpdateSynchronous:(ProxomoObject*)object inObject:(id)path {
-    return [self makeRequest:PUT async:NO forObject:object inObject:path];
+    [self makeObjRequest:PUT forObject:object inObject:path];
 }
 
 -(void) Delete:(ProxomoObject*)object inObject:(id)path {
-    if(isInAsyncMode){
-        [self makeRequest:DELETE async:YES forObject:object inObject:path];
-    }else{
-        [self DeleteSynchronous:object inObject:path];
-    }
+    [self makeObjRequest:DELETE forObject:object inObject:path];
 }
-
--(BOOL) DeleteSynchronous:(ProxomoObject*)object inObject:(id)path {
-    return [self makeRequest:DELETE async:NO forObject:object inObject:path];
-}
-
-#pragma mark - Getters
-
 -(void) Get:(ProxomoObject*)object inObject:(id)path {
-    if(isInAsyncMode){
-        [self makeRequest:GET async:YES forObject:object inObject:path];
-    }else{
-        [self GetSynchronous:object inObject:path];
-    }
-}
-
--(BOOL) GetSynchronous:(ProxomoObject*)object inObject:(id)path {
-    return [self makeRequest:GET async:NO forObject:object inObject:path];
+    [self makeObjRequest:GET forObject:object inObject:path];
 }
 
 #pragma mark - Lists
@@ -635,64 +596,43 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 
 -(void)GetAll:(ProxomoList*)proxomoList getType:(enumObjectType)type inObject:(id)path {
     [proxomoList setListType:type];
-    if(isInAsyncMode){
-        [self makeRequest:GET async:YES forObject:proxomoList inObject:path];
-    }else{
-        [self makeRequest:GET async:NO forObject:proxomoList inObject:path];
-    }
+    [self makeObjRequest:GET forObject:proxomoList inObject:path];
 }
 
--(BOOL)GetAll_Synchronous:(ProxomoList*)proxomoList getType:(enumObjectType)type inObject:(id)path {
-    [proxomoList setListType:type];
-    return [self makeRequest:GET async:NO forObject:proxomoList inObject:path];
-}
 
--(void) Search:(ProxomoList*)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType inObject:(id)path {
-    [self Search:proxomoList searchUrl:url searchUri:uri 
-            forListType:objType useAsync:isInAsyncMode  inObject:path];
-}
-
--(void) Query:(id)proxomoList searchUrl:(NSString*)url queryParams:(NSDictionary*)query{
+/*
+-(void) Query:(id)proxomoList searchUrl:(NSString*)url queryParams:(NSDictionary*)query {
     [proxomoList setApiContext:self];
-    url = [url stringByAppendingString:@"?"];
-    for (NSString *param in query) {
-        url = [url stringByAppendingFormat:@"%@=%@",
-               param, [ProxomoApi htmlEncodeString:[query objectForKey:param]]];
-    }
-    if(isInAsyncMode){
-        [self makeAsyncRequest:url method:GET delegate:proxomoList];
-    }else{
-        [self makeSyncRequest:url method:GET delegate:proxomoList];
-    }
+    [self makeRequest:url method:GET params:query delegate:proxomoList];
 }
+ */
 
--(void) Search:(ProxomoList*)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri forListType:(enumObjectType)objType useAsync:(BOOL)async  inObject:(id)path {
+-(void) Search:(ProxomoList*)proxomoList searchUrl:(NSString*)url searchUri:(NSString*)uri withParams:(NSDictionary*)params forListType:(enumObjectType)objType inObject:(id)path {
     
     [proxomoList setListType:objType];
     [proxomoList setApiContext:self];    
-    url = [NSString stringWithFormat:@"%@%@/%@", 
-           [self getUrlForRequest:proxomoList forRequestType:GET],  
-           url, 
-           [ProxomoApi htmlEncodeString:uri]];
-
-    if (appDelegate && ![proxomoList appDelegate]) [proxomoList setAppDelegate:appDelegate];
-    if(async){
-        [self makeAsyncRequest:url method:GET delegate:proxomoList];
+    if(uri){
+        url = [NSString stringWithFormat:@"%@%@/%@", 
+               [self getUrlForRequest:proxomoList forRequestType:GET],  
+               url, 
+               [ProxomoApi htmlEncodeString:uri]];
     }else{
-        [self makeSyncRequest:url method:GET delegate:proxomoList];
+        url = [NSString stringWithFormat:@"%@%@", 
+               [self getUrlForRequest:proxomoList forRequestType:GET],  
+               url];
     }
+
+    if (appDelegate && ![proxomoList appDelegate]) 
+        proxomoList.appDelegate = appDelegate;
+    [self makeRestRequest:url method:GET params:params delegate:proxomoList];
 }
 
--(void) GetByUrl:(ProxomoObject*)obj searchUrl:(NSString*)url searchUri:(NSString*)uri objectType:(enumObjectType)objType useAsync:(BOOL)async {
+-(void) GetByUrl:(ProxomoObject*)obj searchUrl:(NSString*)url searchUri:(NSString*)uri objectType:(enumObjectType)objType {
     url = [NSString stringWithFormat:@"%@%@/%@", [self getUrlForRequest:obj forRequestType:GET],  url, [ProxomoApi htmlEncodeString:uri]];
     
     if (appDelegate && ![obj appDelegate]) [obj setAppDelegate:appDelegate];
     [obj setApiContext:self];
-    if(async){
-        [self makeAsyncRequest:url method:GET delegate:obj];
-    }else{
-        [self makeSyncRequest:url method:GET delegate:obj];
-    }
+    [self makeRestRequest:url method:GET params:nil delegate:obj];
 }
 
 

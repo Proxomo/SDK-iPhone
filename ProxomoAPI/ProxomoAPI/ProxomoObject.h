@@ -20,7 +20,7 @@
 @interface ProxomoObject : NSObject <ProxomoApiDelegate> {
     id appDelegate;
     ProxomoApi *_apiContext;
-    NSString *_accessToken;      /// User or Application Login Token
+    //NSString *_accessToken;      /// User or Application Login Token
     NSString *restResponse;
     NSInteger responseCode;
     
@@ -36,37 +36,33 @@
 
 
 
--(id)initWithID:(NSString*)objectdId;
+-(id) initWithID:(NSString*)objectdId;
 -(enumObjectType) objectType;
 -(NSString *) objectPath:(enumRequestType)requestType;
--(void)setApiContext:(id)apiContext;
+-(void) setApiContext:(id)apiContext;
 
 
 // JSON Serialization
-+ (NSString *)dateJsonRepresentation:(NSDate*)date;
++ (NSString *) dateJsonRepresentation:(NSDate*)date;
 -(void) updateFromJsonData:(NSData*)response;
 -(void) updateFromJsonRepresentation:(id)jsonRepresentation;
--(NSMutableDictionary*)proxyForJson;
+-(NSMutableDictionary*) proxyForJson;
 
 // init from JSON
 -(id) initFromJsonData:(NSData*)jsonData;
 -(id) initFromJsonRepresentation:(NSDictionary*)jsonRepresentation;
 
 /**
- asynchronously adds the object using the API context
+  adds the object using the API context
  */
 -(void) Add:(id)context;
-/// @returns true == success, false == failure
--(BOOL) AddSynchronous:(id)context;
 
 /**
  updates or creates a single instance from object
- asynchronously updates or creates a single instance
+ updates or creates a single instance
  ID must be set in object
  */
 -(void) Update:(id)context;
-/// @return true == success, false == failure
--(BOOL) UpdateSynchronous:(id)context;
 
 /**
   gets an instance by ID
@@ -74,15 +70,11 @@
   @param ID must be set in object before calling
  */
 -(void) Get:(id)context;
-/// @returns id of new AppData instance
--(BOOL) GetSynchronous:(id)context;
 
 /**
  deletes an instance by ID
  @param ID must be set in object before calling
  */
 -(void) Delete:(id)context;
-/// @returns true == success, false == failure
--(BOOL) DeleteSynchronous:(id)context;
 
 @end

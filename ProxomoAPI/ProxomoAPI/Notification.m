@@ -26,7 +26,7 @@
 -(void) Send:(id)apiContext sendMethod:(enumNotificationSendMethod)method requestType:(enumNotificationType)request {
     SendMethod = [NSNumber numberWithInt:method];
     NotificationType = [NSNumber numberWithInt:request];
-    [self AddSynchronous:apiContext];
+    [self Add:apiContext];
 }
 
 @end

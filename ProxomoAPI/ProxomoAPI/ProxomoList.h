@@ -12,10 +12,13 @@
 @interface ProxomoList : ProxomoObject {
     NSMutableArray *proxomoList;
     enumObjectType listType;
+    Class _clazz; // for custom data
 }
 
 @property (nonatomic, strong) NSMutableArray *proxomoList;
 @property (nonatomic) enumObjectType listType;
+@property (nonatomic, assign) Class _clazz;
+
 +(BOOL)isSupported:(enumObjectType)listType;
 -(NSArray*)arrayValue;
 
@@ -24,10 +27,8 @@
  uses the ProxomoList as the delegate call object
  */
 -(void) GetAll:(id)apiContext getType:(enumObjectType)type;
-/// @returns true on success, false if failure
--(BOOL) GetAll_Synchronous:(id)apiContext getType:(enumObjectType)getType;
 
-
+// Delegate method override
 -(void) updateFromJsonRepresentation:(id)jsonRepresentation;
 
 

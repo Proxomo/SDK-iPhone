@@ -48,20 +48,21 @@
 -(IBAction)searchAddress:(id)sender{
     GeoCode *geo = [[GeoCode alloc] init];
     geo.appDelegate = self;
-    [geo byAddress:address.text apiContext:apiContext useAsync:YES];
+    [geo byAddress:address.text apiContext:apiContext];
     [address resignFirstResponder];
 }
 
 -(IBAction)searchIP:(id)sender{
     GeoCode *geo = [[GeoCode alloc] init];
     geo.appDelegate = self;
-    [geo byIPAddress:ip.text apiContext:apiContext useAsync:YES];    
+    [geo byIPAddress:ip.text apiContext:apiContext];    
     [ip resignFirstResponder];
 }
 
 -(IBAction)searchGeo:(id)sender{
     GeoCode *geo = [[GeoCode alloc] init];
     Location *loc = [[Location alloc] init];
+    geo.appDelegate = self;
     loc.appDelegate = self;
     [geo byLatitude:[latitude.text doubleValue] byLogitude:[longitude.text doubleValue] locationDelegate:loc apiContext:apiContext];
     [latitude resignFirstResponder];

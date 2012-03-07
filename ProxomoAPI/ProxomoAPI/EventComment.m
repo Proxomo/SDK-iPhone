@@ -23,58 +23,6 @@
     return @"comment";
 }
 
-// adds the object, sets the ID in object
--(void) Add:(id)context  
-{   
-    if([context isKindOfClass:[Event class]]){
-        EventID = [context ID];
-    }
-    [super Add:context];
-
-}
-
-// @returns true == success, false == failure
--(BOOL) AddSynchronous:(id)context {
-    if([context isKindOfClass:[Event class]]){
-        EventID = [context ID];
-    }
-    return [super AddSynchronous:context];
-}
-
-// updates or creates a single instance from object
-// asynchronously updates or creates a single instance
-// ID must be set in object
--(void) Update:(id)context{
-    if([context isKindOfClass:[Event class]]){
-        EventID = [context ID];
-    }
-    [super Update:context];
-
-}
-
-// @return true == success, false == failure
--(BOOL) UpdateSynchronous:(id)context{
-    if([context isKindOfClass:[Event class]]){
-        EventID = [context ID];
-    }
-    return [super UpdateSynchronous:context];
-}
-
--(void) Delete:(id)context{
-    if([context isKindOfClass:[Event class]]){
-        EventID = [context ID];
-    }
-    [super Delete:context];
-}
-
-// @returns true == success, false == failure
--(BOOL) DeleteSynchronous:(id)context{
-    if([context isKindOfClass:[Event class]]){
-        EventID = [context ID];
-    }
-    return [super DeleteSynchronous:context];
-}
-
 -(NSString*)description {
     return Comment;
 }

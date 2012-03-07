@@ -7,10 +7,12 @@
 //
 
 #import "Proxomo.h"
+#import <objc/runtime.h>
 
 @implementation ProxomoList
 @synthesize proxomoList;
 @synthesize listType;
+@synthesize _clazz;
 
 -(NSArray*)arrayValue{
     return proxomoList;
@@ -26,6 +28,7 @@
         case EVENTCOMMENT_TYPE:
         case SOCIALNETWORK_INFO_TYPE:
         case APPFRIEND_TYPE:
+        case PERSON_LOGIN_TYPE:
             return YES;
         default:
             return NO;
@@ -47,26 +50,10 @@
 
     if(context && ![context isKindOfClass:[ProxomoApi class]]){
         inObject = context;
-        _accessToken = [inObject getAccessToken];
         context = [context _apiContext];
     }
 
     [context GetAll:self getType:type inObject:inObject];
-}
-
--(BOOL)GetAll_Synchronous:(id)context getType:(enumObjectType)type{    
-    id inObject = nil;
-    if(![ProxomoList isSupported:type]){
-        return false;
-    }
-    
-    if(![context isKindOfClass:[ProxomoApi class]]){
-        inObject = context;
-        _accessToken = [inObject getAccessToken];
-        context = [context _apiContext];
-    }
-    
-    return [context GetAll_Synchronous:self getType:type inObject:inObject];
 }
 
 -(ProxomoObject *) createObjectOfType:(enumObjectType)type fromJsonRepresentation:(NSDictionary*)jsonRepresentation {
@@ -100,6 +87,12 @@
         case PERSON_TYPE:
             item = [[Person alloc] init];
             break;
+        case PERSON_LOGIN_TYPE:
+            item = [[PersonLogin alloc] init];
+            break;
+        case CUSTOMDATA_TYPE:
+            item = (ProxomoObject*)[[_clazz alloc] init];
+            break;
         default:
             break;
     }
@@ -115,9 +108,13 @@
     ProxomoObject *obj;
     enumObjectType objType = listType;
     if (objType == SOCIALNETWORK_INFO_TYPE) {
-        objType = PERSON_TYPE; 
+        objType = PERSON_TYPE;
     }
     obj = [self createObjectOfType:objType fromJsonRepresentation:nil];
+    if(obj && objType == CUSTOMDATA_TYPE){
+        CustomData *cd = (CustomData*)obj;
+        cd._searching = YES;
+    }
     if(obj){
         return [obj objectPath:requestType];
     }else{

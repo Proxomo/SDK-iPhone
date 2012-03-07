@@ -67,7 +67,7 @@
     NSString *searchUri = [ProxomoApi htmlEncodeString:[ProxomoObject dateJsonRepresentation:end]];
 
     [context Search:proxomoList searchUrl:searchUrl searchUri:searchUri
-        forListType:EVENT_TYPE useAsync:useAsync inObject:nil];
+        withParams:nil forListType:EVENT_TYPE inObject:nil];
     return [proxomoList arrayValue];
 }
 
@@ -81,7 +81,7 @@
     NSString *searchUri = [ProxomoApi htmlEncodeString:[ProxomoObject dateJsonRepresentation:end]];
     
     [context Search:proxomoList searchUrl:searchUrl searchUri:searchUri
-        forListType:EVENT_TYPE useAsync:useAsync inObject:nil];
+        withParams:nil forListType:EVENT_TYPE inObject:nil];
     return [proxomoList arrayValue];
 }
 
