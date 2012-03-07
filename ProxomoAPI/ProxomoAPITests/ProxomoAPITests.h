@@ -9,7 +9,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "Proxomo.h"
 
-@interface ProxomoAPITests : SenTestCase <ProxomoAppDelegate> {
+@interface ProxomoAPITests : SenTestCase <ProxomoAppDelegate, ProxomoAuthDelegate> {
     ProxomoApi *_apiContext;
     Person    *_userContext;
     NSRunLoop *runLoop;
