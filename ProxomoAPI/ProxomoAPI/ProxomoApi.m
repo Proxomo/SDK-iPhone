@@ -31,8 +31,8 @@
 NSDictionary *encode_url_table = nil;
 
 -(void)initData {
-    accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
-    expires = [[NSUserDefaults standardUserDefaults] objectForKey:@"expires"];
+    accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"proxomo_accessToken"];
+    expires = [[NSUserDefaults standardUserDefaults] objectForKey:@"proxomo_expires"];
     
     responseData = [[NSMutableDictionary alloc] init];
     responseDelegate = [[NSMutableDictionary alloc] init];
@@ -153,8 +153,8 @@ NSDictionary *encode_url_table = nil;
 #endif
     
     // save our access token and expiry time
-    [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"accessToken"];
-    [[NSUserDefaults standardUserDefaults] setObject:expires forKey:@"expires"];
+    [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"proxomo_accessToken"];
+    [[NSUserDefaults standardUserDefaults] setObject:expires forKey:@"proxomo_expires"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     return YES;
 }
